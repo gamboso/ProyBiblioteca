@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+/*ACUERDATE DE GUARDAR EN GITHUB ANTES DE SALIR*/
+
+
 namespace ProyBiblioteca
 {
     public partial class FrmPrincip : Form
