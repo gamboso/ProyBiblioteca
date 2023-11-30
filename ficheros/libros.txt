@@ -1,0 +1,9 @@
+sala Programar en .Net, 1234
+sala Ejercicios de .Net, 4321
+almacen Bases de datos avanzadas, 1111
+almacen Bases de datos especializadas, 2222
+almacen Bases de datos OO, 6666
+almacen Bases de datos multimedia, 7777
+almacen Memorias de un Naufrago, 1212
+sala Ejercicios interactivos de .Net, 4444
+almacen Bases de datos de sonido, 8888

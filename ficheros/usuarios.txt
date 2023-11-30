@@ -1,0 +1,9 @@
+profesor Miguel Angel Fernandez, Informatica, #1/12/2021#
+profesor Felisa Perez, Administrativo
+profesor Albert Einstein, Electricidad
+pas Juan Sanz, Secretaria
+pas Pedro Almodovar, Limpieza
+alumno Juan Dorado, Informatica
+alumno Sol Fernandez, Informatica
+alumno Jose Saramago, Administrativo, #1/12/2021#
+alumno Miguel Hernandez, Administrativo
