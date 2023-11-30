@@ -26,8 +26,28 @@ namespace ProyBiblioteca
             cargarUsuarios();
         }
 
-        private void cargarUsuarios() {
+        private void cargarUsuarios()
+        {
+            try
+            {
+                // Cambiar el directorio actual a ficheros
+                Directory.SetCurrentDirectory("..\\..\\ficheros");
+
+                //Leer el fichero usuarios.txt
+               string[] usuarios =  File.ReadAllLines(Directory.GetCurrentDirectory()+"\\usuarios.txt");
+
+                foreach (string s in usuarios)
+                {
+                    Console.WriteLine(s);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
 
         }
+
     }
+
 }
