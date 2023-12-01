@@ -40,7 +40,6 @@ namespace ProyBiblioteca
 
         }
 
-
         private void cargarUsuarios()
         {
             try
@@ -51,47 +50,67 @@ namespace ProyBiblioteca
                 string[] usuarios = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\usuarios.txt");
 
                 string tipoUsuario = "";
-
-                string nombre = ""; 
+                string nombre = "";
                 string departamento = "";
-                DateTime fechaSancion = DateTime.Parse("1/01/1999");
 
                 foreach (string s in usuarios)
                 {
+                    DateTime fechaSancion = DateTime.Parse("1/01/1000"); // Move the declaration here
+
                     // Split en base a comas.
-                    string[] userInfo = s.Split(',');
+                    string[] infoUsuario = s.Split(',');
 
-                    tipoUsuario = userInfo[0].Substring(0, userInfo[0].IndexOf(" ")).Trim();
-                    Console.WriteLine($"Tipo de usuario: {tipoUsuario}");
+                    tipoUsuario = infoUsuario[0].Substring(0, infoUsuario[0].IndexOf(" ")).Trim();
+                    nombre = infoUsuario[0].Substring(infoUsuario[0].IndexOf(" ") + 1).Trim();
 
-                    nombre = userInfo[0].Substring(userInfo[0].IndexOf(" ") + 1).Trim();
-                    Console.WriteLine($"Nombre: {nombre}");
-
-                    if (userInfo.Length > 1)
+                    if (infoUsuario.Length > 1)
                     {
-                        departamento = userInfo[1].Trim();
-                        Console.WriteLine($"Departamento: {departamento}");
+                        departamento = infoUsuario[1].Trim();
                     }
 
-                    if (userInfo.Length > 2 && userInfo[2].Contains("#"))
+                    if (infoUsuario.Length > 2 && infoUsuario[2].Contains("#"))
                     {
                         // Sacar solo la parte de la fecha
-                        string fechaPart = userInfo[2].Substring(userInfo[2].IndexOf("#") + 1, userInfo[2].LastIndexOf("#") - userInfo[2].IndexOf("#") - 1);
+                        string fechaPart = infoUsuario[2].Substring(infoUsuario[2].IndexOf("#") + 1, infoUsuario[2].LastIndexOf("#") - infoUsuario[2].IndexOf("#") - 1);
 
                         // Convertir la fecha sin la hora
                         if (DateTime.TryParseExact(fechaPart, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaSancion))
                         {
-                            Console.WriteLine($"Fecha de sanción: {fechaSancion.ToShortDateString()}");
-
                             fechaSancion = DateTime.Parse(fechaSancion.ToShortDateString());
                         }
                     }
 
-                    Console.WriteLine(); // Añadir linea entre todo
+                    Usuario usuario;
+                    if (fechaSancion.Equals(DateTime.Parse("1/01/1000")))
+                    {
+                        // se usa el constructor sin sancion si no tiene fecha (la fecha inicializada es 1/01/1000)
+                        usuario = new Usuario(tipoUsuario, nombre, departamento);
+                    }
+                    else
+                    {
+                        // Se usa el constructor con sanción si la fecha tiene valor
+                        usuario = new Usuario(tipoUsuario, nombre, departamento, fechaSancion);
+                    }
 
-                    //TODO hacer que añada los que no tienen sancion con el otro constructor.
-                    Usuario us = new Usuario(tipoUsuario,nombre,departamento,fechaSancion);
+                    // Se añade el usuario a la lista
+                    misUsuarios.Add(usuario);
+                }
 
+                // Recorrer la lista e imprimir todos los usuarios para confirmar que se realizó correctamente
+                foreach (Usuario us in misUsuarios)
+                {
+                    /*Al parecer en C# la fecha por defecto la fecha es "1/1/0001 12:00:00 am" cuando no esta definida, por lo que sí haces un usuario.FechaSancion
+                     sale con eso, y al parecer DateTime siempre tiene hora, y no encontré otra clase de SOLO fecha, pero se puede ignorar.
+                     */
+
+                    if (!us.FechaSancion.Equals(DateTime.Parse("1/1/0001")))
+                    {
+                        Console.WriteLine("Tipo : " + us.TipoUsuario + "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento + "| Fecha sancion : " + us.FechaSancion.ToString("d/M/yyyy"));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tipo : " + us.TipoUsuario + "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento);
+                    }
                 }
             }
             catch (Exception ex)
@@ -99,7 +118,6 @@ namespace ProyBiblioteca
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
-
 
 
 
@@ -130,23 +148,56 @@ namespace ProyBiblioteca
             try
             {
                 Console.WriteLine("====== Libros ======");
-            
 
-                //Leer el fichero usuarios.txt
-                string[] usuarios = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\libros.txt");
+                // Leer el fichero libros.txt
+                string[] libros = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\libros.txt");
 
-                foreach (string s in usuarios)
+                foreach (string s in libros)
                 {
-                    Console.WriteLine(s);
+                    string ubicacion = "";
+                    string titulo = "";
+                    int idLibro = 0;
+
+                    // Encontrar la posición del primer espacio
+                    int indicePrimerEspacio = s.IndexOf(' ');
+
+                    // Verificar si se encontró un espacio
+                    if (indicePrimerEspacio != -1)
+                    {
+                        ubicacion = s.Substring(0, indicePrimerEspacio);
+
+                        // Encontrar la posición de la coma después del primer espacio
+                        int indiceComa = s.IndexOf(',', indicePrimerEspacio);
+
+                        // Verificar si se encontró una coma
+                        if (indiceComa != -1)
+                        {
+                            // Obtener el título desde el espacio hasta la coma
+                            titulo = s.Substring(indicePrimerEspacio + 1, indiceComa - indicePrimerEspacio - 1);
+
+                            // Obtener el idLibro después de la coma
+                            idLibro = int.Parse(s.Substring(indiceComa + 1));
+                        }
+                    }
+
+                    // Crear instancia de Libro
+                    Libro libro = new Libro(ubicacion, titulo, idLibro);
+
+                    // Añadir el libro a la lista
+                    misLibros.Add(libro);
+                }
+
+                // Imprimir la información de los libros para confirmar que se cargaron correctamente
+                foreach (Libro libro in misLibros)
+                {
+                    Console.WriteLine($"Ubicacion: {libro.Ubicacion} | Titulo: {libro.Titulo} | ID: {libro.IdLibro}");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
-
         }
-
 
 
 

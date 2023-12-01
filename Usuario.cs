@@ -30,8 +30,6 @@ namespace ProyBiblioteca
             this.fechaSancion = fechaSancion;
         }
 
-
-
         //Getters y Setters
         public string TipoUsuario { get => tipoUsuario; set => tipoUsuario = value; }
         public string Nombre { get => nombre; set => nombre = value; }

@@ -12,6 +12,15 @@ namespace ProyBiblioteca
         String titulo, ubicacion;
         int idLibro;
 
+        //Constructor
+        public Libro(string ubicacion, string titulo, int idLibro)
+        {
+            this.ubicacion = ubicacion;
+            this.titulo = titulo;
+            this.idLibro = idLibro;
+        }
+
+
         //Getters y Setters
         public string Titulo { get => titulo; set => titulo = value; }
         public string Ubicacion { get => ubicacion; set => ubicacion = value; }
