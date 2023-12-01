@@ -24,7 +24,7 @@ namespace ProyBiblioteca
 
         List<Usuario> misUsuarios = new List<Usuario>();
         List<Libro> misLibros = new List<Libro>();
-        List<Prestamos> misPrestamos = new List<Prestamos>();
+        List<Transaccion> misPrestamos = new List<Transaccion>();
         private void FrmPrincip_Load(object sender, EventArgs e)
         {
             cargarUsuarios();
