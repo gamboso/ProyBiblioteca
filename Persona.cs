@@ -6,23 +6,26 @@ using System.Threading.Tasks;
 
 namespace ProyBiblioteca
 {
-    public class Usuario
+
+
+
+    public class Persona
     {
-        //Atributos de la clase Usuario
+        //Atributos de la clase Persona
         String tipoUsuario, nombre, departamento;
         DateTime fechaSancion;
 
         //Constructor
 
-        // Usuario sin sanción
-        public Usuario(String tipoUsuario, String nombre, String departamento)
+        // Persona sin sanción
+        public Persona(String tipoUsuario, String nombre, String departamento)
         {
             this.tipoUsuario = tipoUsuario;
             this.nombre = nombre;
             this.departamento = departamento;
         }
-        // Usuario con sanción
-       public Usuario(String tipoUsuario, String nombre, String departamento, DateTime fechaSancion)
+        // Persona con sanción
+       public Persona(String tipoUsuario, String nombre, String departamento, DateTime fechaSancion)
         {
             this.tipoUsuario = tipoUsuario;
             this.nombre = nombre;

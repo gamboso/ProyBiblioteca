@@ -16,14 +16,14 @@ using System.Windows.Forms;
 
 namespace ProyBiblioteca
 {
-    public partial class FrmPrincip : Form
+    public partial class tbxAtrib1 : Form
     {
-        public FrmPrincip()
+        public tbxAtrib1()
         {
             InitializeComponent();
         }
 
-        List<Usuario> misUsuarios = new List<Usuario>();
+        List<Persona> misUsuarios = new List<Persona>();
         List<Libro> misLibros = new List<Libro>();
         List<Transaccion> misPrestamos = new List<Transaccion>();
         private void FrmPrincip_Load(object sender, EventArgs e)
@@ -80,16 +80,38 @@ namespace ProyBiblioteca
                         }
                     }
 
-                    Usuario usuario;
-                    if (fechaSancion.Equals(DateTime.Parse("1/01/1000")))
+                    Persona usuario = null;
+                    ; if (fechaSancion.Equals(DateTime.Parse("1/01/1000")))
                     {
+                        if (tipoUsuario.Equals("alumno"))
+                        {
+                            usuario = new Alumno(tipoUsuario, nombre, departamento);
+                        }
+                        else if (tipoUsuario.Equals("pas"))
+                        {
+                            usuario = new PAS(tipoUsuario, nombre, departamento);
+                        }
+                        else if (tipoUsuario.Equals("profesor"))
+                        {
+                            usuario = new Profesor(tipoUsuario, nombre, departamento);
+                        }
                         // se usa el constructor sin sancion si no tiene fecha (la fecha inicializada es 1/01/1000)
-                        usuario = new Usuario(tipoUsuario, nombre, departamento);
+                        usuario = new Persona(tipoUsuario, nombre, departamento);
                     }
                     else
                     {
-                        // Se usa el constructor con sanción si la fecha tiene valor
-                        usuario = new Usuario(tipoUsuario, nombre, departamento, fechaSancion);
+                        if (tipoUsuario.Equals("alumno"))
+                        {
+                            usuario = new Alumno(tipoUsuario, nombre, departamento, fechaSancion);
+                        }
+                        else if (tipoUsuario.Equals("pas"))
+                        {
+                            usuario = new PAS(tipoUsuario, nombre, departamento, fechaSancion);
+                        }
+                        else if (tipoUsuario.Equals("profesor"))
+                        {
+                            usuario = new Profesor(tipoUsuario, nombre, departamento, fechaSancion);
+                        }
                     }
 
                     // Se añade el usuario a la lista
@@ -97,7 +119,7 @@ namespace ProyBiblioteca
                 }
 
                 // Recorrer la lista e imprimir todos los usuarios para confirmar que se realizó correctamente
-                foreach (Usuario us in misUsuarios)
+                foreach (Persona us in misUsuarios)
                 {
                     /*Al parecer en C# la fecha por defecto la fecha es "1/1/0001 12:00:00 am" cuando no esta definida, por lo que sí haces un usuario.FechaSancion
                      sale con eso, y al parecer DateTime siempre tiene hora, y no encontré otra clase de SOLO fecha, pero se puede ignorar.
@@ -117,9 +139,7 @@ namespace ProyBiblioteca
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
-        }
-
-
+        } 
 
         private void cargarTransacciones()
         {
@@ -199,8 +219,25 @@ namespace ProyBiblioteca
             }
         }
 
+        private void tsbLibros_Click(object sender, EventArgs e)
+        {
 
+        }
 
+        private void tsbUsuarios_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsbPrestamos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cargarInterfazLibros()
+        {
+
+        }
     }
 
 }

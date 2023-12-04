@@ -16,7 +16,7 @@ namespace ProyBiblioteca
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmPrincip());
+            Application.Run(new tbxAtrib1());
         }
     }
 }
