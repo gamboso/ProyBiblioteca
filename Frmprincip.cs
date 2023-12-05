@@ -147,7 +147,7 @@ namespace ProyBiblioteca
             DateTime fecha = DateTime.Parse("1/01/1000");
 
             string nombreUsuario = "";
-            int idLibroPrestado = 0;
+            string idLibroPrestado = "";
             string tipoTransaccion = "";
             DateTime fechaDevolucion = DateTime.Parse("1/01/1000");
 
@@ -173,18 +173,23 @@ namespace ProyBiblioteca
                         nombreUsuario = s.Substring(indicePrimerEspacio + 1, s.IndexOf(',') - indicePrimerEspacio - 1);
 
                         // Desde la primera coma hasta la ultima.
-                        idLibroPrestado = int.Parse(s.Substring(s.IndexOf(',') + 1, ultimaComa - s.IndexOf(',') - 1));
+                        idLibroPrestado = s.Substring(s.IndexOf(',') + 1, ultimaComa - s.IndexOf(',') - 1);
 
                         // Fecha 
                         fechaDevolucion = DateTime.Parse(s.Substring(s.IndexOf('#') + 1, ultimoHashtag - s.IndexOf('#') - 1));
 
-
+                        Console.WriteLine("-------------------------------------");
                         Console.WriteLine($"Tipo de transacción: {tipoTransaccion}");
                         Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
                         Console.WriteLine($"ID de libro prestado: {idLibroPrestado}");
                         Console.WriteLine($"Fecha de devolución: {fechaDevolucion.ToString("d/M/yyyy")}");
 
+                        Transaccion ts = new Transaccion(tipoTransaccion,idLibroPrestado,tipoTransaccion,fechaDevolucion);
+
+                        misTransacciones.Add(ts);
                     }
+
+
 
                 }
 
