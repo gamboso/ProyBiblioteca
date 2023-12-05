@@ -25,7 +25,7 @@ namespace ProyBiblioteca
 
         List<Persona> misUsuarios = new List<Persona>();
         List<Libro> misLibros = new List<Libro>();
-        List<Transaccion> misPrestamos = new List<Transaccion>();
+        List<Transaccion> misTransacciones = new List<Transaccion>();
         private void FrmPrincip_Load(object sender, EventArgs e)
         {
             // Cambiar el directorio actual al del fichero
@@ -81,7 +81,7 @@ namespace ProyBiblioteca
                     }
 
                     Persona usuario = null;
-                    ; if (fechaSancion.Equals(DateTime.Parse("1/01/1000")))
+                    if (fechaSancion.Equals(DateTime.Parse("1/01/1000")))
                     {
                         if (tipoUsuario.Equals("alumno"))
                         {
@@ -89,7 +89,7 @@ namespace ProyBiblioteca
                         }
                         else if (tipoUsuario.Equals("pas"))
                         {
-                            usuario = new PAS( nombre, departamento);
+                            usuario = new PAS(nombre, departamento);
                         }
                         else if (tipoUsuario.Equals("profesor"))
                         {
@@ -106,7 +106,7 @@ namespace ProyBiblioteca
                         }
                         else if (tipoUsuario.Equals("pas"))
                         {
-                            usuario = new PAS( nombre, departamento, fechaSancion);
+                            usuario = new PAS(nombre, departamento, fechaSancion);
                         }
                         else if (tipoUsuario.Equals("profesor"))
                         {
@@ -127,11 +127,11 @@ namespace ProyBiblioteca
 
                     if (!us.FechaSancion.Equals(DateTime.Parse("1/1/0001")))
                     {
-                        Console.WriteLine( "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento + "| Fecha sancion : " + us.FechaSancion.ToString("d/M/yyyy"));
+                        Console.WriteLine("| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento + "| Fecha sancion : " + us.FechaSancion.ToString("d/M/yyyy"));
                     }
                     else
                     {
-                        Console.WriteLine(  "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento);
+                        Console.WriteLine("| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento);
                     }
                 }
             }
@@ -139,22 +139,58 @@ namespace ProyBiblioteca
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
-        } 
+        }
 
         private void cargarTransacciones()
         {
+
+            DateTime fecha = DateTime.Parse("1/01/1000");
+
+            string nombreUsuario = "";
+            int idLibroPrestado = 0;
+            string tipoTransaccion = "";
+            DateTime fechaDevolucion = DateTime.Parse("1/01/1000");
+
             try
             {
                 Console.WriteLine("====== Transacciones ======");
 
 
-                //Leer el fichero usuarios.txt
-                string[] usuarios = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\transacciones.txt");
-
-                foreach (string s in usuarios)
+                //Leer el fichero transacciones.txt
+                string[] transacciones = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\transacciones.txt");
+                foreach (string s in transacciones)
                 {
-                    Console.WriteLine(s);
+                    int indicePrimerEspacio = s.IndexOf(' ');
+                    int ultimaComa = s.LastIndexOf(',');
+                    int ultimoHashtag = s.LastIndexOf('#');
+
+                    if (!s.Contains("devolucion ") && !s.Contains("fecha") && (indicePrimerEspacio != -1))
+                    {
+                        // Desde la posición inicial hasta el primer espacio.
+                        tipoTransaccion = s.Substring(0, indicePrimerEspacio);
+
+                        // Desde el primer espacio hasta la primera coma.
+                        nombreUsuario = s.Substring(indicePrimerEspacio + 1, s.IndexOf(',') - indicePrimerEspacio - 1);
+
+                        // Desde la primera coma hasta la ultima.
+                        idLibroPrestado = int.Parse(s.Substring(s.IndexOf(',') + 1, ultimaComa - s.IndexOf(',') - 1));
+
+                        // Fecha 
+                        fechaDevolucion = DateTime.Parse(s.Substring(s.IndexOf('#') + 1, ultimoHashtag - s.IndexOf('#') - 1));
+
+
+                        Console.WriteLine($"Tipo de transacción: {tipoTransaccion}");
+                        Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
+                        Console.WriteLine($"ID de libro prestado: {idLibroPrestado}");
+                        Console.WriteLine($"Fecha de devolución: {fechaDevolucion.ToString("d/M/yyyy")}");
+
+                    }
+
                 }
+
+
+                // misTransacciones.Add(usuario);
+
             }
             catch (Exception ex)
             {
