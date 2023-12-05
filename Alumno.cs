@@ -8,16 +8,15 @@ namespace ProyBiblioteca
 {
     internal class Alumno : Persona
     {
-        public Alumno(string tipoUsuario, string nombre, string departamento) : base(tipoUsuario, nombre, departamento)
+        public Alumno( string nombre, string departamento) : base( nombre, departamento)
         {
-            TipoUsuario = tipoUsuario;
+       
             Nombre = nombre;
             Departamento = departamento;
         }
 
-        public Alumno(string tipoUsuario, string nombre, string departamento, DateTime fechaSancion) : base(tipoUsuario, nombre, departamento, fechaSancion)
+        public Alumno( string nombre, string departamento, DateTime fechaSancion) : base( nombre, departamento, fechaSancion)
         {
-            TipoUsuario = tipoUsuario;
             Nombre = nombre;    
             Departamento = departamento;
             FechaSancion = fechaSancion;

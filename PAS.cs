@@ -8,15 +8,13 @@ namespace ProyBiblioteca
 {
     internal class PAS : Persona
     {
-        public PAS(string tipoUsuario, string nombre, string departamento) : base(tipoUsuario, nombre, departamento)
+        public PAS( string nombre, string departamento) : base(nombre, departamento)
         {
-            TipoUsuario = tipoUsuario;
             Nombre = nombre;
             Departamento = departamento;
         }
-        public PAS(string tipoUsuario, string nombre, string departamento, DateTime fechaSancion) : base(tipoUsuario, nombre, departamento, fechaSancion)
+        public PAS( string nombre, string departamento, DateTime fechaSancion) : base( nombre, departamento, fechaSancion)
         {
-            TipoUsuario = tipoUsuario;
             Nombre = nombre;
             Departamento = departamento;
             FechaSancion = fechaSancion;

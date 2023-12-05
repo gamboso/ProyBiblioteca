@@ -85,32 +85,32 @@ namespace ProyBiblioteca
                     {
                         if (tipoUsuario.Equals("alumno"))
                         {
-                            usuario = new Alumno(tipoUsuario, nombre, departamento);
+                            usuario = new Alumno(nombre, departamento);
                         }
                         else if (tipoUsuario.Equals("pas"))
                         {
-                            usuario = new PAS(tipoUsuario, nombre, departamento);
+                            usuario = new PAS( nombre, departamento);
                         }
                         else if (tipoUsuario.Equals("profesor"))
                         {
-                            usuario = new Profesor(tipoUsuario, nombre, departamento);
+                            usuario = new Profesor(nombre, departamento);
                         }
                         // se usa el constructor sin sancion si no tiene fecha (la fecha inicializada es 1/01/1000)
-                        usuario = new Persona(tipoUsuario, nombre, departamento);
+                        usuario = new Persona(nombre, departamento);
                     }
                     else
                     {
                         if (tipoUsuario.Equals("alumno"))
                         {
-                            usuario = new Alumno(tipoUsuario, nombre, departamento, fechaSancion);
+                            usuario = new Alumno(nombre, departamento, fechaSancion);
                         }
                         else if (tipoUsuario.Equals("pas"))
                         {
-                            usuario = new PAS(tipoUsuario, nombre, departamento, fechaSancion);
+                            usuario = new PAS( nombre, departamento, fechaSancion);
                         }
                         else if (tipoUsuario.Equals("profesor"))
                         {
-                            usuario = new Profesor(tipoUsuario, nombre, departamento, fechaSancion);
+                            usuario = new Profesor(nombre, departamento, fechaSancion);
                         }
                     }
 
@@ -127,11 +127,11 @@ namespace ProyBiblioteca
 
                     if (!us.FechaSancion.Equals(DateTime.Parse("1/1/0001")))
                     {
-                        Console.WriteLine("Tipo : " + us.TipoUsuario + "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento + "| Fecha sancion : " + us.FechaSancion.ToString("d/M/yyyy"));
+                        Console.WriteLine( "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento + "| Fecha sancion : " + us.FechaSancion.ToString("d/M/yyyy"));
                     }
                     else
                     {
-                        Console.WriteLine("Tipo : " + us.TipoUsuario + "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento);
+                        Console.WriteLine(  "| Nombre : " + us.Nombre + "| Departamento : " + us.Departamento);
                     }
                 }
             }
