@@ -1,6 +1,6 @@
 ﻿namespace ProyBiblioteca
 {
-    partial class tbxAtrib1
+    partial class FrmBiblio
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,29 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tbxAtrib1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBiblio));
             this.toolStripIconosIniciales = new System.Windows.Forms.ToolStrip();
             this.tsbLibros = new System.Windows.Forms.ToolStripButton();
             this.tsbUsuarios = new System.Windows.Forms.ToolStripButton();
             this.tsbPrestamos = new System.Windows.Forms.ToolStripButton();
             this.tcOpciones = new System.Windows.Forms.TabControl();
             this.tpAñadir = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pcbModo = new System.Windows.Forms.PictureBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.tbxAtrib4 = new System.Windows.Forms.TextBox();
             this.tbxAtrib3 = new System.Windows.Forms.TextBox();
             this.tbxAtrib2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxAtrib1 = new System.Windows.Forms.TextBox();
             this.lblAtrib4 = new System.Windows.Forms.Label();
             this.lblAtrib3 = new System.Windows.Forms.Label();
             this.lblAtrib2 = new System.Windows.Forms.Label();
             this.lblAtrib1 = new System.Windows.Forms.Label();
             this.tpBorrado = new System.Windows.Forms.TabPage();
+            this.pcb2Modo = new System.Windows.Forms.PictureBox();
             this.tpModificado = new System.Windows.Forms.TabPage();
+            this.pcb3Modo = new System.Windows.Forms.PictureBox();
             this.tpBuscar = new System.Windows.Forms.TabPage();
+            this.pcb4Modo = new System.Windows.Forms.PictureBox();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbModo)).BeginInit();
+            this.tpBorrado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb2Modo)).BeginInit();
+            this.tpModificado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb3Modo)).BeginInit();
+            this.tpBuscar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripIconosIniciales
@@ -110,12 +121,13 @@
             // 
             // tpAñadir
             // 
-            this.tpAñadir.Controls.Add(this.button1);
+            this.tpAñadir.Controls.Add(this.pcbModo);
+            this.tpAñadir.Controls.Add(this.btnLimpiar);
             this.tpAñadir.Controls.Add(this.btnGuardar);
             this.tpAñadir.Controls.Add(this.tbxAtrib4);
             this.tpAñadir.Controls.Add(this.tbxAtrib3);
             this.tpAñadir.Controls.Add(this.tbxAtrib2);
-            this.tpAñadir.Controls.Add(this.textBox1);
+            this.tpAñadir.Controls.Add(this.tbxAtrib1);
             this.tpAñadir.Controls.Add(this.lblAtrib4);
             this.tpAñadir.Controls.Add(this.lblAtrib3);
             this.tpAñadir.Controls.Add(this.lblAtrib2);
@@ -128,19 +140,28 @@
             this.tpAñadir.Text = "Añadir";
             this.tpAñadir.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // pcbModo
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(528, 189);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 53);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "LIMPIAR CAMPOS";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.UseWaitCursor = true;
+            this.pcbModo.Location = new System.Drawing.Point(30, 24);
+            this.pcbModo.Name = "pcbModo";
+            this.pcbModo.Size = new System.Drawing.Size(50, 50);
+            this.pcbModo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbModo.TabIndex = 14;
+            this.pcbModo.TabStop = false;
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnLimpiar.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLimpiar.Location = new System.Drawing.Point(547, 207);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(148, 53);
+            this.btnLimpiar.TabIndex = 13;
+            this.btnLimpiar.Text = "LIMPIAR CAMPOS";
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.UseWaitCursor = true;
             // 
             // btnGuardar
             // 
@@ -148,7 +169,7 @@
             this.btnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnGuardar.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnGuardar.Location = new System.Drawing.Point(528, 92);
+            this.btnGuardar.Location = new System.Drawing.Point(547, 110);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(148, 53);
             this.btnGuardar.TabIndex = 12;
@@ -158,37 +179,37 @@
             // 
             // tbxAtrib4
             // 
-            this.tbxAtrib4.Location = new System.Drawing.Point(224, 224);
+            this.tbxAtrib4.Location = new System.Drawing.Point(243, 242);
             this.tbxAtrib4.Name = "tbxAtrib4";
             this.tbxAtrib4.Size = new System.Drawing.Size(161, 22);
             this.tbxAtrib4.TabIndex = 11;
             // 
             // tbxAtrib3
             // 
-            this.tbxAtrib3.Location = new System.Drawing.Point(224, 172);
+            this.tbxAtrib3.Location = new System.Drawing.Point(243, 190);
             this.tbxAtrib3.Name = "tbxAtrib3";
             this.tbxAtrib3.Size = new System.Drawing.Size(161, 22);
             this.tbxAtrib3.TabIndex = 10;
             // 
             // tbxAtrib2
             // 
-            this.tbxAtrib2.Location = new System.Drawing.Point(224, 123);
+            this.tbxAtrib2.Location = new System.Drawing.Point(243, 141);
             this.tbxAtrib2.Name = "tbxAtrib2";
             this.tbxAtrib2.Size = new System.Drawing.Size(161, 22);
             this.tbxAtrib2.TabIndex = 9;
             // 
-            // textBox1
+            // tbxAtrib1
             // 
-            this.textBox1.Location = new System.Drawing.Point(224, 75);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(161, 22);
-            this.textBox1.TabIndex = 8;
+            this.tbxAtrib1.Location = new System.Drawing.Point(243, 93);
+            this.tbxAtrib1.Name = "tbxAtrib1";
+            this.tbxAtrib1.Size = new System.Drawing.Size(161, 22);
+            this.tbxAtrib1.TabIndex = 8;
             // 
             // lblAtrib4
             // 
             this.lblAtrib4.AutoSize = true;
             this.lblAtrib4.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib4.Location = new System.Drawing.Point(107, 225);
+            this.lblAtrib4.Location = new System.Drawing.Point(126, 243);
             this.lblAtrib4.Name = "lblAtrib4";
             this.lblAtrib4.Size = new System.Drawing.Size(66, 17);
             this.lblAtrib4.TabIndex = 7;
@@ -198,7 +219,7 @@
             // 
             this.lblAtrib3.AutoSize = true;
             this.lblAtrib3.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib3.Location = new System.Drawing.Point(107, 173);
+            this.lblAtrib3.Location = new System.Drawing.Point(126, 191);
             this.lblAtrib3.Name = "lblAtrib3";
             this.lblAtrib3.Size = new System.Drawing.Size(66, 17);
             this.lblAtrib3.TabIndex = 6;
@@ -208,7 +229,7 @@
             // 
             this.lblAtrib2.AutoSize = true;
             this.lblAtrib2.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib2.Location = new System.Drawing.Point(107, 124);
+            this.lblAtrib2.Location = new System.Drawing.Point(126, 142);
             this.lblAtrib2.Name = "lblAtrib2";
             this.lblAtrib2.Size = new System.Drawing.Size(66, 17);
             this.lblAtrib2.TabIndex = 5;
@@ -218,7 +239,7 @@
             // 
             this.lblAtrib1.AutoSize = true;
             this.lblAtrib1.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib1.Location = new System.Drawing.Point(107, 75);
+            this.lblAtrib1.Location = new System.Drawing.Point(126, 93);
             this.lblAtrib1.Name = "lblAtrib1";
             this.lblAtrib1.Size = new System.Drawing.Size(66, 17);
             this.lblAtrib1.TabIndex = 4;
@@ -226,6 +247,7 @@
             // 
             // tpBorrado
             // 
+            this.tpBorrado.Controls.Add(this.pcb2Modo);
             this.tpBorrado.Location = new System.Drawing.Point(4, 24);
             this.tpBorrado.Name = "tpBorrado";
             this.tpBorrado.Padding = new System.Windows.Forms.Padding(3);
@@ -234,8 +256,18 @@
             this.tpBorrado.Text = "Borrar";
             this.tpBorrado.UseVisualStyleBackColor = true;
             // 
+            // pcb2Modo
+            // 
+            this.pcb2Modo.Location = new System.Drawing.Point(30, 24);
+            this.pcb2Modo.Name = "pcb2Modo";
+            this.pcb2Modo.Size = new System.Drawing.Size(50, 50);
+            this.pcb2Modo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb2Modo.TabIndex = 15;
+            this.pcb2Modo.TabStop = false;
+            // 
             // tpModificado
             // 
+            this.tpModificado.Controls.Add(this.pcb3Modo);
             this.tpModificado.Location = new System.Drawing.Point(4, 24);
             this.tpModificado.Name = "tpModificado";
             this.tpModificado.Padding = new System.Windows.Forms.Padding(3);
@@ -244,8 +276,18 @@
             this.tpModificado.Text = "Modificar";
             this.tpModificado.UseVisualStyleBackColor = true;
             // 
+            // pcb3Modo
+            // 
+            this.pcb3Modo.Location = new System.Drawing.Point(30, 24);
+            this.pcb3Modo.Name = "pcb3Modo";
+            this.pcb3Modo.Size = new System.Drawing.Size(50, 50);
+            this.pcb3Modo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb3Modo.TabIndex = 15;
+            this.pcb3Modo.TabStop = false;
+            // 
             // tpBuscar
             // 
+            this.tpBuscar.Controls.Add(this.pcb4Modo);
             this.tpBuscar.Location = new System.Drawing.Point(4, 24);
             this.tpBuscar.Name = "tpBuscar";
             this.tpBuscar.Padding = new System.Windows.Forms.Padding(3);
@@ -254,7 +296,16 @@
             this.tpBuscar.Text = "Búsqueda";
             this.tpBuscar.UseVisualStyleBackColor = true;
             // 
-            // tbxAtrib1
+            // pcb4Modo
+            // 
+            this.pcb4Modo.Location = new System.Drawing.Point(30, 24);
+            this.pcb4Modo.Name = "pcb4Modo";
+            this.pcb4Modo.Size = new System.Drawing.Size(50, 50);
+            this.pcb4Modo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcb4Modo.TabIndex = 15;
+            this.pcb4Modo.TabStop = false;
+            // 
+            // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -263,14 +314,21 @@
             this.Controls.Add(this.toolStripIconosIniciales);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.Name = "tbxAtrib1";
-            this.Text = "Biblioteca Gamboso";
+            this.Name = "FrmBiblio";
+            this.Text = " Biblioteca ";
             this.Load += new System.EventHandler(this.FrmPrincip_Load);
             this.toolStripIconosIniciales.ResumeLayout(false);
             this.toolStripIconosIniciales.PerformLayout();
             this.tcOpciones.ResumeLayout(false);
             this.tpAñadir.ResumeLayout(false);
             this.tpAñadir.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbModo)).EndInit();
+            this.tpBorrado.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcb2Modo)).EndInit();
+            this.tpModificado.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcb3Modo)).EndInit();
+            this.tpBuscar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -293,9 +351,13 @@
         private System.Windows.Forms.TextBox tbxAtrib4;
         private System.Windows.Forms.TextBox tbxAtrib3;
         private System.Windows.Forms.TextBox tbxAtrib2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox tbxAtrib1;
+        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.PictureBox pcbModo;
+        private System.Windows.Forms.PictureBox pcb2Modo;
+        private System.Windows.Forms.PictureBox pcb3Modo;
+        private System.Windows.Forms.PictureBox pcb4Modo;
     }
 }
 

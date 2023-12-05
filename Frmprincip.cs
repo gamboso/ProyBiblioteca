@@ -16,9 +16,9 @@ using System.Windows.Forms;
 
 namespace ProyBiblioteca
 {
-    public partial class tbxAtrib1 : Form
+    public partial class FrmBiblio : Form
     {
-        public tbxAtrib1()
+        public FrmBiblio()
         {
             InitializeComponent();
         }
@@ -31,8 +31,6 @@ namespace ProyBiblioteca
             // Cambiar el directorio actual al del fichero
             Directory.SetCurrentDirectory("..\\..\\ficheros");
             // Debe ir antes de todo para que los métodos tengan el directorio correcto
-
-
 
             cargarUsuarios();
             cargarTransacciones();
@@ -257,22 +255,42 @@ namespace ProyBiblioteca
 
         private void tsbLibros_Click(object sender, EventArgs e)
         {
-
+            cargarInterfazLibros();
         }
 
         private void tsbUsuarios_Click(object sender, EventArgs e)
         {
-
+            cargarInterfazPersonas();
         }
 
         private void tsbPrestamos_Click(object sender, EventArgs e)
         {
-
+            cargarInterfazPrestamos();
         }
 
         private void cargarInterfazLibros()
         {
+            cargarImagen("libro");
 
+        }
+        private void cargarInterfazPersonas()
+        {
+            cargarImagen("perfil");
+
+        }
+
+        private void cargarInterfazPrestamos()
+        {
+            cargarImagen("Prestamo");
+
+        }
+
+        //Método que carga las imagenes en los picture box
+        private void cargarImagen(String tipoImagen) {
+            pcbModo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
+            pcb2Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
+            pcb3Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
+            pcb4Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
         }
     }
 
