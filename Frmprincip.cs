@@ -18,19 +18,18 @@ namespace ProyBiblioteca
 {
     public partial class tbxAtrib1 : Form
     {
+
         public tbxAtrib1()
         {
             InitializeComponent();
         }
-
+        
         List<Persona> misUsuarios = new List<Persona>();
         List<Libro> misLibros = new List<Libro>();
         List<Transaccion> misPrestamos = new List<Transaccion>();
         private void FrmPrincip_Load(object sender, EventArgs e)
         {
-            // Cambiar el directorio actual al del fichero
-            Directory.SetCurrentDirectory("..\\..\\ficheros");
-            // Debe ir antes de todo para que los métodos tengan el directorio correcto
+            
 
 
 
@@ -39,6 +38,18 @@ namespace ProyBiblioteca
             cargarLibros();
 
         }
+        private void FrmPrincip_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Mostrar un cuadro de diálogo de confirmación
+            DialogResult result = MessageBox.Show("¿Estás seguro de que quieres cerrar la biblioteca?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // Si el usuario selecciona "No", cancela el cierre del formulario
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true; // Esto evita que se cierre el formulario
+            }
+        }
+
 
         private void cargarUsuarios()
         {
@@ -237,6 +248,21 @@ namespace ProyBiblioteca
         private void cargarInterfazLibros()
         {
 
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void minimizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 

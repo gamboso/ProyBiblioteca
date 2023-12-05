@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(tbxAtrib1));
             this.toolStripIconosIniciales = new System.Windows.Forms.ToolStrip();
             this.tsbLibros = new System.Windows.Forms.ToolStripButton();
@@ -48,9 +49,15 @@
             this.tpBorrado = new System.Windows.Forms.TabPage();
             this.tpModificado = new System.Windows.Forms.TabPage();
             this.tpBuscar = new System.Windows.Forms.TabPage();
+            this.notifyIconapp = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ContexMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
+            this.ContexMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripIconosIniciales
@@ -254,6 +261,44 @@
             this.tpBuscar.Text = "Búsqueda";
             this.tpBuscar.UseVisualStyleBackColor = true;
             // 
+            // notifyIconapp
+            // 
+            this.notifyIconapp.ContextMenuStrip = this.ContexMenu;
+            this.notifyIconapp.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconapp.Icon")));
+            this.notifyIconapp.Text = "Biblioteca Gamboso";
+            this.notifyIconapp.Visible = true;
+            // 
+            // ContexMenu
+            // 
+            this.ContexMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.maximizarToolStripMenuItem,
+            this.minimizarToolStripMenuItem,
+            this.salirToolStripMenuItem});
+            this.ContexMenu.Name = "ContexMenu";
+            this.ContexMenu.Size = new System.Drawing.Size(130, 70);
+            this.ContexMenu.Text = "App";
+            // 
+            // maximizarToolStripMenuItem
+            // 
+            this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
+            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.maximizarToolStripMenuItem.Text = "Maximizar";
+            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStripMenuItem_Click);
+            // 
+            // minimizarToolStripMenuItem
+            // 
+            this.minimizarToolStripMenuItem.Name = "minimizarToolStripMenuItem";
+            this.minimizarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.minimizarToolStripMenuItem.Text = "Minimizar";
+            this.minimizarToolStripMenuItem.Click += new System.EventHandler(this.minimizarToolStripMenuItem_Click);
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
             // tbxAtrib1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -265,12 +310,14 @@
             this.IsMdiContainer = true;
             this.Name = "tbxAtrib1";
             this.Text = "Biblioteca Gamboso";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPrincip_FormClosing);
             this.Load += new System.EventHandler(this.FrmPrincip_Load);
             this.toolStripIconosIniciales.ResumeLayout(false);
             this.toolStripIconosIniciales.PerformLayout();
             this.tcOpciones.ResumeLayout(false);
             this.tpAñadir.ResumeLayout(false);
             this.tpAñadir.PerformLayout();
+            this.ContexMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -296,6 +343,11 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.NotifyIcon notifyIconapp;
+        private System.Windows.Forms.ContextMenuStrip ContexMenu;
+        private System.Windows.Forms.ToolStripMenuItem maximizarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minimizarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
     }
 }
 
