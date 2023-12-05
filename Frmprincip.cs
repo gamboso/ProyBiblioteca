@@ -39,6 +39,17 @@ namespace ProyBiblioteca
             cargarInterfazLibros();
 
         }
+        private void FrmPrincip_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Mostrar un cuadro de diálogo de confirmación
+            DialogResult result = MessageBox.Show("¿Estás seguro de que quieres cerrar la biblioteca?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // Si el usuario selecciona "No", cancela el cierre del formulario
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true; // Esto evita que se cierre el formulario
+            }
+        }
 
         private void cargarUsuarios()
         {
@@ -293,6 +304,21 @@ namespace ProyBiblioteca
             pcb2Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
             pcb3Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
             pcb4Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void minimizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBiblio));
             this.toolStripIconosIniciales = new System.Windows.Forms.ToolStrip();
             this.tsbLibros = new System.Windows.Forms.ToolStripButton();
@@ -52,6 +53,11 @@
             this.pcb3Modo = new System.Windows.Forms.PictureBox();
             this.tpBuscar = new System.Windows.Forms.TabPage();
             this.pcb4Modo = new System.Windows.Forms.PictureBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -62,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcb3Modo)).BeginInit();
             this.tpBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripIconosIniciales
@@ -305,6 +312,43 @@
             this.pcb4Modo.TabIndex = 15;
             this.pcb4Modo.TabStop = false;
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.maximizarToolStripMenuItem,
+            this.minimizarToolStripMenuItem,
+            this.salirToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(130, 70);
+            // 
+            // maximizarToolStripMenuItem
+            // 
+            this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
+            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maximizarToolStripMenuItem.Text = "Maximizar";
+            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStripMenuItem_Click);
+            // 
+            // minimizarToolStripMenuItem
+            // 
+            this.minimizarToolStripMenuItem.Name = "minimizarToolStripMenuItem";
+            this.minimizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.minimizarToolStripMenuItem.Text = "Minimizar";
+            this.minimizarToolStripMenuItem.Click += new System.EventHandler(this.minimizarToolStripMenuItem_Click);
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
             // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -316,6 +360,7 @@
             this.IsMdiContainer = true;
             this.Name = "FrmBiblio";
             this.Text = " Biblioteca ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPrincip_FormClosing);
             this.Load += new System.EventHandler(this.FrmPrincip_Load);
             this.toolStripIconosIniciales.ResumeLayout(false);
             this.toolStripIconosIniciales.PerformLayout();
@@ -329,6 +374,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcb3Modo)).EndInit();
             this.tpBuscar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -358,6 +404,11 @@
         private System.Windows.Forms.PictureBox pcb2Modo;
         private System.Windows.Forms.PictureBox pcb3Modo;
         private System.Windows.Forms.PictureBox pcb4Modo;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem maximizarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minimizarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
     }
 }
 
