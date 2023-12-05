@@ -34,7 +34,9 @@ namespace ProyBiblioteca
 
             cargarUsuarios();
             cargarTransacciones();
-            cargarLibros();l
+            cargarLibros();
+            Directory.SetCurrentDirectory("..\\Icons");
+            cargarInterfazLibros();
 
         }
 
