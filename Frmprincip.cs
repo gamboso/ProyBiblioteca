@@ -35,7 +35,7 @@ namespace ProyBiblioteca
             cargarUsuarios();
             cargarTransacciones();
             cargarLibros();
-            Directory.SetCurrentDirectory("..\\Icons");
+            Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
 
         }
@@ -195,7 +195,7 @@ namespace ProyBiblioteca
                         Console.WriteLine($"ID de libro prestado: {idLibroPrestado}");
                         Console.WriteLine($"Fecha de devolución: {fechaDevolucion.ToString("d/M/yyyy")}");
 
-                        Transaccion ts = new Transaccion(tipoTransaccion,idLibroPrestado,tipoTransaccion,fechaDevolucion);
+                        Transaccion ts = new Transaccion(nombreUsuario, idLibroPrestado, tipoTransaccion, fechaDevolucion);
 
                         misTransacciones.Add(ts);
                     }
@@ -289,26 +289,104 @@ namespace ProyBiblioteca
         private void cargarInterfazLibros()
         {
             cargarImagen("libro");
+            cargarInterfazBusqueda("Libros");
 
         }
+
         private void cargarInterfazPersonas()
         {
             cargarImagen("perfil");
+            cargarInterfazBusqueda("Personas");
 
         }
 
         private void cargarInterfazPrestamos()
         {
             cargarImagen("Prestamo");
-
+            cargarInterfazBusqueda("Transaccion");
         }
 
         //Método que carga las imagenes en los picture box
-        private void cargarImagen(String tipoImagen) {
-            pcbModo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
-            pcb2Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
-            pcb3Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
-            pcb4Modo.Image = System.Drawing.Image.FromFile(tipoImagen + ".png");
+        private void cargarImagen(String imagen)
+        {
+            pcbModo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
+            pcb2Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
+            pcb3Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
+            pcb4Modo.Image = System.Drawing.Image.FromFile( ".\\Icons\\" + imagen + ".png");
+        }
+
+        //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
+        private void cargarInterfazBusqueda(String tipoLV)
+        {
+            lvBusqueda.Columns.Clear();
+            lvBusqueda.Items.Clear();
+
+            if (tipoLV.Equals("Libros"))
+            {
+                ColumnHeader chID = new ColumnHeader();
+                chID.Width = 200;
+                chID.Text = "ID";
+
+                ColumnHeader chTitulo = new ColumnHeader();
+                chTitulo.Width = 200;
+                chTitulo.Text = "Título";
+
+                ColumnHeader chUbi = new ColumnHeader();
+                chUbi.Width = 200;
+                chUbi.Text = "Ubicación";
+
+                lvBusqueda.Columns.Add(chID);
+                lvBusqueda.Columns.Add(chTitulo);
+                lvBusqueda.Columns.Add(chUbi);
+
+            }
+            else if (tipoLV.Equals("Transaccion"))
+            {
+                ColumnHeader chIDLibro = new ColumnHeader();
+                chIDLibro.Width = 150;
+                chIDLibro.Text = "ID Libro";
+
+                ColumnHeader chNombreUsuario = new ColumnHeader();
+                chNombreUsuario.Width = 150;
+                chNombreUsuario.Text = "Nombre Usuario";
+
+                ColumnHeader chTipoTransaccion = new ColumnHeader();
+                chTipoTransaccion.Width = 150;
+                chTipoTransaccion.Text = "Transacción";
+
+                ColumnHeader chFechaDev = new ColumnHeader();
+                chFechaDev.Width = 150;
+                chFechaDev.Text = "Fecha devolución";
+
+                lvBusqueda.Columns.Add(chIDLibro);
+                lvBusqueda.Columns.Add(chNombreUsuario);
+                lvBusqueda.Columns.Add(chTipoTransaccion);
+                lvBusqueda.Columns.Add(chFechaDev);
+                 
+            }
+            else if (tipoLV.Equals("Personas"))
+            {
+                ColumnHeader chNombre = new ColumnHeader();
+                chNombre.Width = 150;
+                chNombre.Text = "Nombre";
+
+                ColumnHeader chDept = new ColumnHeader();
+                chDept.Width = 150;
+                chDept.Text = "Departamento";
+
+                ColumnHeader chTipoUsuario = new ColumnHeader();
+                chTipoUsuario.Width = 150;
+                chTipoUsuario.Text = "Tipo usuario";
+
+                ColumnHeader chFechaSancion = new ColumnHeader();
+                chFechaSancion.Width = 150;
+                chFechaSancion.Text = "Fecha sanción";
+
+                lvBusqueda.Columns.Add(chNombre);
+                lvBusqueda.Columns.Add(chDept);
+                lvBusqueda.Columns.Add(chTipoUsuario);
+                lvBusqueda.Columns.Add(chFechaSancion); 
+            }
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
