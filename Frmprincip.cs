@@ -291,6 +291,10 @@ namespace ProyBiblioteca
             cargarImagen("libro");
             cargarInterfazBusqueda("Libro");
             cargarInterfazAnadir("Libro");
+            tpAñadir.BackColor = Color.LightPink;
+            tpBorrado.BackColor = Color.LightPink;
+            tpBuscar.BackColor = Color.LightPink;
+            tpModificado.BackColor = Color.LightPink;
 
         }
 
@@ -299,6 +303,10 @@ namespace ProyBiblioteca
             cargarImagen("perfil");
             cargarInterfazBusqueda("Persona");
             cargarInterfazAnadir("Persona");
+            tpAñadir.BackColor = Color.LightSkyBlue;
+            tpBorrado.BackColor = Color.LightSkyBlue;
+            tpBuscar.BackColor = Color.LightSkyBlue;
+            tpModificado.BackColor = Color.LightSkyBlue;
 
         }
 
@@ -307,6 +315,10 @@ namespace ProyBiblioteca
             cargarImagen("Prestamo");
             cargarInterfazBusqueda("Transaccion");
             cargarInterfazAnadir("Transaccion");
+            tpAñadir.BackColor = Color.LightYellow;
+            tpBorrado.BackColor = Color.LightYellow;
+            tpBuscar.BackColor = Color.LightYellow;
+            tpModificado.BackColor = Color.LightYellow;
         }
 
         //Método que carga las imagenes en los picture box
@@ -433,6 +445,7 @@ namespace ProyBiblioteca
                     rbOpcion2.Text = "Préstamo";
                     rbOpcion3.Hide();
 
+
                     lblAtrib1.Text = "Nombre usuario";
                     lblAtrib2.Text = "ID Libro";
                     lblAtrib3.Show();
@@ -462,6 +475,34 @@ namespace ProyBiblioteca
             this.WindowState = FormWindowState.Minimized;
         }
 
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            // Recorre todas las pestañas del TabControl
+            foreach (TabPage tabPage in tcOpciones.TabPages)
+            {
+                
+                LimpiarTextBoxEnControles(tabPage.Controls);
+            }
+        }
+
+        private void LimpiarTextBoxEnControles(Control.ControlCollection controls)
+        {
+            // Recorre todos los controles en busca de TextBox
+            foreach (Control control in controls)
+            {
+                
+                if (control is TextBox)
+                {
+                    
+                    ((TextBox)control).Clear();
+                }
+                else if (control.HasChildren)
+                {
+                    //recursivo
+                    LimpiarTextBoxEnControles(control.Controls);
+                }
+            }
+        }
     }
 
 }

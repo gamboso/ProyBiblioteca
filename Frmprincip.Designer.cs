@@ -36,6 +36,13 @@
             this.tsbPrestamos = new System.Windows.Forms.ToolStripButton();
             this.tcOpciones = new System.Windows.Forms.TabControl();
             this.tpAñadir = new System.Windows.Forms.TabPage();
+            this.gbAux = new System.Windows.Forms.GroupBox();
+            this.tbxAtrib3 = new System.Windows.Forms.TextBox();
+            this.tbxAtrib2 = new System.Windows.Forms.TextBox();
+            this.tbxAtrib1 = new System.Windows.Forms.TextBox();
+            this.lblAtrib3 = new System.Windows.Forms.Label();
+            this.lblAtrib2 = new System.Windows.Forms.Label();
+            this.lblAtrib1 = new System.Windows.Forms.Label();
             this.gbAtribs = new System.Windows.Forms.GroupBox();
             this.rbOpcion3 = new System.Windows.Forms.RadioButton();
             this.rbOpcion2 = new System.Windows.Forms.RadioButton();
@@ -55,16 +62,10 @@
             this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gbAux = new System.Windows.Forms.GroupBox();
-            this.tbxAtrib3 = new System.Windows.Forms.TextBox();
-            this.tbxAtrib2 = new System.Windows.Forms.TextBox();
-            this.tbxAtrib1 = new System.Windows.Forms.TextBox();
-            this.lblAtrib3 = new System.Windows.Forms.Label();
-            this.lblAtrib2 = new System.Windows.Forms.Label();
-            this.lblAtrib1 = new System.Windows.Forms.Label();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
+            this.gbAux.SuspendLayout();
             this.gbAtribs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbModo)).BeginInit();
             this.tpBorrado.SuspendLayout();
@@ -74,7 +75,6 @@
             this.tpBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
-            this.gbAux.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripIconosIniciales
@@ -146,6 +146,71 @@
             this.tpAñadir.TabIndex = 0;
             this.tpAñadir.Text = "Añadir";
             this.tpAñadir.UseVisualStyleBackColor = true;
+            // 
+            // gbAux
+            // 
+            this.gbAux.Controls.Add(this.tbxAtrib3);
+            this.gbAux.Controls.Add(this.tbxAtrib2);
+            this.gbAux.Controls.Add(this.tbxAtrib1);
+            this.gbAux.Controls.Add(this.lblAtrib3);
+            this.gbAux.Controls.Add(this.lblAtrib2);
+            this.gbAux.Controls.Add(this.lblAtrib1);
+            this.gbAux.Location = new System.Drawing.Point(628, 99);
+            this.gbAux.Name = "gbAux";
+            this.gbAux.Size = new System.Drawing.Size(553, 243);
+            this.gbAux.TabIndex = 16;
+            this.gbAux.TabStop = false;
+            // 
+            // tbxAtrib3
+            // 
+            this.tbxAtrib3.Location = new System.Drawing.Point(239, 170);
+            this.tbxAtrib3.Name = "tbxAtrib3";
+            this.tbxAtrib3.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib3.TabIndex = 18;
+            // 
+            // tbxAtrib2
+            // 
+            this.tbxAtrib2.Location = new System.Drawing.Point(239, 111);
+            this.tbxAtrib2.Name = "tbxAtrib2";
+            this.tbxAtrib2.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib2.TabIndex = 17;
+            // 
+            // tbxAtrib1
+            // 
+            this.tbxAtrib1.Location = new System.Drawing.Point(239, 52);
+            this.tbxAtrib1.Name = "tbxAtrib1";
+            this.tbxAtrib1.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib1.TabIndex = 16;
+            // 
+            // lblAtrib3
+            // 
+            this.lblAtrib3.AutoSize = true;
+            this.lblAtrib3.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtrib3.Location = new System.Drawing.Point(19, 166);
+            this.lblAtrib3.Name = "lblAtrib3";
+            this.lblAtrib3.Size = new System.Drawing.Size(106, 26);
+            this.lblAtrib3.TabIndex = 14;
+            this.lblAtrib3.Text = "Atributo 3";
+            // 
+            // lblAtrib2
+            // 
+            this.lblAtrib2.AutoSize = true;
+            this.lblAtrib2.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtrib2.Location = new System.Drawing.Point(19, 107);
+            this.lblAtrib2.Name = "lblAtrib2";
+            this.lblAtrib2.Size = new System.Drawing.Size(106, 26);
+            this.lblAtrib2.TabIndex = 13;
+            this.lblAtrib2.Text = "Atributo 2";
+            // 
+            // lblAtrib1
+            // 
+            this.lblAtrib1.AutoSize = true;
+            this.lblAtrib1.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtrib1.Location = new System.Drawing.Point(19, 48);
+            this.lblAtrib1.Name = "lblAtrib1";
+            this.lblAtrib1.Size = new System.Drawing.Size(106, 26);
+            this.lblAtrib1.TabIndex = 12;
+            this.lblAtrib1.Text = "Atributo 1";
             // 
             // gbAtribs
             // 
@@ -222,6 +287,7 @@
             this.btnLimpiar.Text = "LIMPIAR CAMPOS";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.UseWaitCursor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
@@ -347,71 +413,6 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
-            // gbAux
-            // 
-            this.gbAux.Controls.Add(this.tbxAtrib3);
-            this.gbAux.Controls.Add(this.tbxAtrib2);
-            this.gbAux.Controls.Add(this.tbxAtrib1);
-            this.gbAux.Controls.Add(this.lblAtrib3);
-            this.gbAux.Controls.Add(this.lblAtrib2);
-            this.gbAux.Controls.Add(this.lblAtrib1);
-            this.gbAux.Location = new System.Drawing.Point(628, 99);
-            this.gbAux.Name = "gbAux";
-            this.gbAux.Size = new System.Drawing.Size(553, 243);
-            this.gbAux.TabIndex = 16;
-            this.gbAux.TabStop = false;
-            // 
-            // tbxAtrib3
-            // 
-            this.tbxAtrib3.Location = new System.Drawing.Point(239, 170);
-            this.tbxAtrib3.Name = "tbxAtrib3";
-            this.tbxAtrib3.Size = new System.Drawing.Size(252, 22);
-            this.tbxAtrib3.TabIndex = 18;
-            // 
-            // tbxAtrib2
-            // 
-            this.tbxAtrib2.Location = new System.Drawing.Point(239, 111);
-            this.tbxAtrib2.Name = "tbxAtrib2";
-            this.tbxAtrib2.Size = new System.Drawing.Size(252, 22);
-            this.tbxAtrib2.TabIndex = 17;
-            // 
-            // tbxAtrib1
-            // 
-            this.tbxAtrib1.Location = new System.Drawing.Point(239, 52);
-            this.tbxAtrib1.Name = "tbxAtrib1";
-            this.tbxAtrib1.Size = new System.Drawing.Size(252, 22);
-            this.tbxAtrib1.TabIndex = 16;
-            // 
-            // lblAtrib3
-            // 
-            this.lblAtrib3.AutoSize = true;
-            this.lblAtrib3.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib3.Location = new System.Drawing.Point(19, 166);
-            this.lblAtrib3.Name = "lblAtrib3";
-            this.lblAtrib3.Size = new System.Drawing.Size(106, 26);
-            this.lblAtrib3.TabIndex = 14;
-            this.lblAtrib3.Text = "Atributo 3";
-            // 
-            // lblAtrib2
-            // 
-            this.lblAtrib2.AutoSize = true;
-            this.lblAtrib2.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib2.Location = new System.Drawing.Point(19, 107);
-            this.lblAtrib2.Name = "lblAtrib2";
-            this.lblAtrib2.Size = new System.Drawing.Size(106, 26);
-            this.lblAtrib2.TabIndex = 13;
-            this.lblAtrib2.Text = "Atributo 2";
-            // 
-            // lblAtrib1
-            // 
-            this.lblAtrib1.AutoSize = true;
-            this.lblAtrib1.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib1.Location = new System.Drawing.Point(19, 48);
-            this.lblAtrib1.Name = "lblAtrib1";
-            this.lblAtrib1.Size = new System.Drawing.Size(106, 26);
-            this.lblAtrib1.TabIndex = 12;
-            this.lblAtrib1.Text = "Atributo 1";
-            // 
             // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -429,6 +430,8 @@
             this.toolStripIconosIniciales.PerformLayout();
             this.tcOpciones.ResumeLayout(false);
             this.tpAñadir.ResumeLayout(false);
+            this.gbAux.ResumeLayout(false);
+            this.gbAux.PerformLayout();
             this.gbAtribs.ResumeLayout(false);
             this.gbAtribs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbModo)).EndInit();
@@ -439,8 +442,6 @@
             this.tpBuscar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.gbAux.ResumeLayout(false);
-            this.gbAux.PerformLayout();
             this.ResumeLayout(false);
 
         }
