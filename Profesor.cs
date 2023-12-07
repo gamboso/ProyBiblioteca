@@ -19,5 +19,9 @@ namespace ProyBiblioteca
             Departamento = departamento;
             FechaSancion = fechaSancion;
         }
+
+         
+        
+        
     }
 }

@@ -289,14 +289,16 @@ namespace ProyBiblioteca
         private void cargarInterfazLibros()
         {
             cargarImagen("libro");
-            cargarInterfazBusqueda("Libros");
+            cargarInterfazBusqueda("Libro");
+            cargarInterfazAnadir("Libro");
 
         }
 
         private void cargarInterfazPersonas()
         {
             cargarImagen("perfil");
-            cargarInterfazBusqueda("Personas");
+            cargarInterfazBusqueda("Persona");
+            cargarInterfazAnadir("Persona");
 
         }
 
@@ -304,6 +306,7 @@ namespace ProyBiblioteca
         {
             cargarImagen("Prestamo");
             cargarInterfazBusqueda("Transaccion");
+            cargarInterfazAnadir("Transaccion");
         }
 
         //Método que carga las imagenes en los picture box
@@ -312,7 +315,7 @@ namespace ProyBiblioteca
             pcbModo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
             pcb2Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
             pcb3Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
-            pcb4Modo.Image = System.Drawing.Image.FromFile( ".\\Icons\\" + imagen + ".png");
+            pcb4Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
         }
 
         //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
@@ -321,7 +324,7 @@ namespace ProyBiblioteca
             lvBusqueda.Columns.Clear();
             lvBusqueda.Items.Clear();
 
-            if (tipoLV.Equals("Libros"))
+            if (tipoLV.Equals("Libro"))
             {
                 ColumnHeader chID = new ColumnHeader();
                 chID.Width = 200;
@@ -362,9 +365,9 @@ namespace ProyBiblioteca
                 lvBusqueda.Columns.Add(chNombreUsuario);
                 lvBusqueda.Columns.Add(chTipoTransaccion);
                 lvBusqueda.Columns.Add(chFechaDev);
-                 
+
             }
-            else if (tipoLV.Equals("Personas"))
+            else if (tipoLV.Equals("Persona"))
             {
                 ColumnHeader chNombre = new ColumnHeader();
                 chNombre.Width = 150;
@@ -385,8 +388,63 @@ namespace ProyBiblioteca
                 lvBusqueda.Columns.Add(chNombre);
                 lvBusqueda.Columns.Add(chDept);
                 lvBusqueda.Columns.Add(chTipoUsuario);
-                lvBusqueda.Columns.Add(chFechaSancion); 
+                lvBusqueda.Columns.Add(chFechaSancion);
             }
+        }
+
+        //Método que cambia la Interfaz de Añadir en función del objeto a añadir (Libros, Personas o Transacciones)
+        private void cargarInterfazAnadir(String tipo)
+        {
+            gbAtribs.Show();
+            switch (tipo)
+            {
+                case "Libro":
+                    gbAtribs.Text = "Ubicación del libro ";
+                    rbOpcion1.Text = "Sala";
+                    rbOpcion2.Text = "Almacén";
+                    rbOpcion3.Hide();
+
+                    lblAtrib1.Text = "Título Libro";
+                    lblAtrib2.Text = "ID Libro";
+                    lblAtrib3.Hide();
+                    tbxAtrib3.Hide();
+                    break;
+
+                case "Persona":
+                    //GroupBox de RadioButtons
+                    gbAtribs.Text = "Tipo de usuario ";
+                    rbOpcion1.Text = "Alumno";
+                    rbOpcion2.Text = "Profesor";
+                    rbOpcion3.Show();
+                    rbOpcion3.Text = "PAS";
+
+                    //GroupBox de Labels y TextBox
+                    lblAtrib1.Text = "Nombre";
+                    lblAtrib2.Text = "Departamento";
+                    lblAtrib3.Show();
+                    lblAtrib3.Text = "Fecha sanción";
+                    tbxAtrib3.Show();
+
+                    break;
+
+                case "Transaccion":
+                    gbAtribs.Text = "Tipo ";
+                    rbOpcion1.Text = "Devolución";
+                    rbOpcion2.Text = "Préstamo";
+                    rbOpcion3.Hide();
+
+                    lblAtrib1.Text = "Nombre usuario";
+                    lblAtrib2.Text = "ID Libro";
+                    lblAtrib3.Show();
+                    lblAtrib3.Text = "Fecha devolución";
+                    tbxAtrib3.Show();
+                    break;
+
+                default:
+                    break;
+
+            }
+
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -403,6 +461,7 @@ namespace ProyBiblioteca
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
     }
 
 }

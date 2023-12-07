@@ -36,32 +36,36 @@
             this.tsbPrestamos = new System.Windows.Forms.ToolStripButton();
             this.tcOpciones = new System.Windows.Forms.TabControl();
             this.tpAñadir = new System.Windows.Forms.TabPage();
+            this.gbAtribs = new System.Windows.Forms.GroupBox();
+            this.rbOpcion3 = new System.Windows.Forms.RadioButton();
+            this.rbOpcion2 = new System.Windows.Forms.RadioButton();
+            this.rbOpcion1 = new System.Windows.Forms.RadioButton();
             this.pcbModo = new System.Windows.Forms.PictureBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.tbxAtrib4 = new System.Windows.Forms.TextBox();
-            this.tbxAtrib3 = new System.Windows.Forms.TextBox();
-            this.tbxAtrib2 = new System.Windows.Forms.TextBox();
-            this.tbxAtrib1 = new System.Windows.Forms.TextBox();
-            this.lblAtrib4 = new System.Windows.Forms.Label();
-            this.lblAtrib3 = new System.Windows.Forms.Label();
-            this.lblAtrib2 = new System.Windows.Forms.Label();
-            this.lblAtrib1 = new System.Windows.Forms.Label();
             this.tpBorrado = new System.Windows.Forms.TabPage();
             this.pcb2Modo = new System.Windows.Forms.PictureBox();
             this.tpModificado = new System.Windows.Forms.TabPage();
             this.pcb3Modo = new System.Windows.Forms.PictureBox();
             this.tpBuscar = new System.Windows.Forms.TabPage();
+            this.lvBusqueda = new System.Windows.Forms.ListView();
             this.pcb4Modo = new System.Windows.Forms.PictureBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lvBusqueda = new System.Windows.Forms.ListView();
+            this.gbAux = new System.Windows.Forms.GroupBox();
+            this.tbxAtrib3 = new System.Windows.Forms.TextBox();
+            this.tbxAtrib2 = new System.Windows.Forms.TextBox();
+            this.tbxAtrib1 = new System.Windows.Forms.TextBox();
+            this.lblAtrib3 = new System.Windows.Forms.Label();
+            this.lblAtrib2 = new System.Windows.Forms.Label();
+            this.lblAtrib1 = new System.Windows.Forms.Label();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
+            this.gbAtribs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbModo)).BeginInit();
             this.tpBorrado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb2Modo)).BeginInit();
@@ -70,6 +74,7 @@
             this.tpBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.gbAux.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripIconosIniciales
@@ -81,7 +86,7 @@
             this.tsbPrestamos});
             this.toolStripIconosIniciales.Location = new System.Drawing.Point(0, 0);
             this.toolStripIconosIniciales.Name = "toolStripIconosIniciales";
-            this.toolStripIconosIniciales.Size = new System.Drawing.Size(1010, 37);
+            this.toolStripIconosIniciales.Size = new System.Drawing.Size(1197, 37);
             this.toolStripIconosIniciales.TabIndex = 1;
             this.toolStripIconosIniciales.Text = "toolStrip1";
             // 
@@ -124,29 +129,76 @@
             this.tcOpciones.Location = new System.Drawing.Point(0, 37);
             this.tcOpciones.Name = "tcOpciones";
             this.tcOpciones.SelectedIndex = 0;
-            this.tcOpciones.Size = new System.Drawing.Size(1010, 492);
+            this.tcOpciones.Size = new System.Drawing.Size(1197, 540);
             this.tcOpciones.TabIndex = 3;
             // 
             // tpAñadir
             // 
+            this.tpAñadir.Controls.Add(this.gbAux);
+            this.tpAñadir.Controls.Add(this.gbAtribs);
             this.tpAñadir.Controls.Add(this.pcbModo);
             this.tpAñadir.Controls.Add(this.btnLimpiar);
             this.tpAñadir.Controls.Add(this.btnGuardar);
-            this.tpAñadir.Controls.Add(this.tbxAtrib4);
-            this.tpAñadir.Controls.Add(this.tbxAtrib3);
-            this.tpAñadir.Controls.Add(this.tbxAtrib2);
-            this.tpAñadir.Controls.Add(this.tbxAtrib1);
-            this.tpAñadir.Controls.Add(this.lblAtrib4);
-            this.tpAñadir.Controls.Add(this.lblAtrib3);
-            this.tpAñadir.Controls.Add(this.lblAtrib2);
-            this.tpAñadir.Controls.Add(this.lblAtrib1);
             this.tpAñadir.Location = new System.Drawing.Point(4, 24);
             this.tpAñadir.Name = "tpAñadir";
             this.tpAñadir.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAñadir.Size = new System.Drawing.Size(1002, 464);
+            this.tpAñadir.Size = new System.Drawing.Size(1189, 512);
             this.tpAñadir.TabIndex = 0;
             this.tpAñadir.Text = "Añadir";
             this.tpAñadir.UseVisualStyleBackColor = true;
+            // 
+            // gbAtribs
+            // 
+            this.gbAtribs.Controls.Add(this.rbOpcion3);
+            this.gbAtribs.Controls.Add(this.rbOpcion2);
+            this.gbAtribs.Controls.Add(this.rbOpcion1);
+            this.gbAtribs.Font = new System.Drawing.Font("Segoe UI Emoji", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbAtribs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.gbAtribs.Location = new System.Drawing.Point(150, 88);
+            this.gbAtribs.Name = "gbAtribs";
+            this.gbAtribs.Size = new System.Drawing.Size(435, 254);
+            this.gbAtribs.TabIndex = 15;
+            this.gbAtribs.TabStop = false;
+            this.gbAtribs.Text = "Atrib";
+            // 
+            // rbOpcion3
+            // 
+            this.rbOpcion3.AutoSize = true;
+            this.rbOpcion3.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbOpcion3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbOpcion3.Location = new System.Drawing.Point(250, 109);
+            this.rbOpcion3.Name = "rbOpcion3";
+            this.rbOpcion3.Size = new System.Drawing.Size(152, 30);
+            this.rbOpcion3.TabIndex = 18;
+            this.rbOpcion3.TabStop = true;
+            this.rbOpcion3.Text = "radioButton3";
+            this.rbOpcion3.UseVisualStyleBackColor = true;
+            // 
+            // rbOpcion2
+            // 
+            this.rbOpcion2.AutoSize = true;
+            this.rbOpcion2.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbOpcion2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbOpcion2.Location = new System.Drawing.Point(48, 152);
+            this.rbOpcion2.Name = "rbOpcion2";
+            this.rbOpcion2.Size = new System.Drawing.Size(152, 30);
+            this.rbOpcion2.TabIndex = 17;
+            this.rbOpcion2.TabStop = true;
+            this.rbOpcion2.Text = "radioButton2";
+            this.rbOpcion2.UseVisualStyleBackColor = true;
+            // 
+            // rbOpcion1
+            // 
+            this.rbOpcion1.AutoSize = true;
+            this.rbOpcion1.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbOpcion1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbOpcion1.Location = new System.Drawing.Point(48, 66);
+            this.rbOpcion1.Name = "rbOpcion1";
+            this.rbOpcion1.Size = new System.Drawing.Size(152, 30);
+            this.rbOpcion1.TabIndex = 16;
+            this.rbOpcion1.TabStop = true;
+            this.rbOpcion1.Text = "radioButton1";
+            this.rbOpcion1.UseVisualStyleBackColor = true;
             // 
             // pcbModo
             // 
@@ -163,7 +215,7 @@
             this.btnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnLimpiar.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLimpiar.Location = new System.Drawing.Point(703, 265);
+            this.btnLimpiar.Location = new System.Drawing.Point(628, 412);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(148, 53);
             this.btnLimpiar.TabIndex = 13;
@@ -177,7 +229,7 @@
             this.btnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnGuardar.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnGuardar.Location = new System.Drawing.Point(703, 168);
+            this.btnGuardar.Location = new System.Drawing.Point(400, 412);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(148, 53);
             this.btnGuardar.TabIndex = 12;
@@ -185,81 +237,13 @@
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.UseWaitCursor = true;
             // 
-            // tbxAtrib4
-            // 
-            this.tbxAtrib4.Location = new System.Drawing.Point(399, 300);
-            this.tbxAtrib4.Name = "tbxAtrib4";
-            this.tbxAtrib4.Size = new System.Drawing.Size(161, 22);
-            this.tbxAtrib4.TabIndex = 11;
-            // 
-            // tbxAtrib3
-            // 
-            this.tbxAtrib3.Location = new System.Drawing.Point(399, 248);
-            this.tbxAtrib3.Name = "tbxAtrib3";
-            this.tbxAtrib3.Size = new System.Drawing.Size(161, 22);
-            this.tbxAtrib3.TabIndex = 10;
-            // 
-            // tbxAtrib2
-            // 
-            this.tbxAtrib2.Location = new System.Drawing.Point(399, 199);
-            this.tbxAtrib2.Name = "tbxAtrib2";
-            this.tbxAtrib2.Size = new System.Drawing.Size(161, 22);
-            this.tbxAtrib2.TabIndex = 9;
-            // 
-            // tbxAtrib1
-            // 
-            this.tbxAtrib1.Location = new System.Drawing.Point(399, 151);
-            this.tbxAtrib1.Name = "tbxAtrib1";
-            this.tbxAtrib1.Size = new System.Drawing.Size(161, 22);
-            this.tbxAtrib1.TabIndex = 8;
-            // 
-            // lblAtrib4
-            // 
-            this.lblAtrib4.AutoSize = true;
-            this.lblAtrib4.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib4.Location = new System.Drawing.Point(282, 301);
-            this.lblAtrib4.Name = "lblAtrib4";
-            this.lblAtrib4.Size = new System.Drawing.Size(66, 17);
-            this.lblAtrib4.TabIndex = 7;
-            this.lblAtrib4.Text = "Atributo 4";
-            // 
-            // lblAtrib3
-            // 
-            this.lblAtrib3.AutoSize = true;
-            this.lblAtrib3.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib3.Location = new System.Drawing.Point(282, 249);
-            this.lblAtrib3.Name = "lblAtrib3";
-            this.lblAtrib3.Size = new System.Drawing.Size(66, 17);
-            this.lblAtrib3.TabIndex = 6;
-            this.lblAtrib3.Text = "Atributo 3";
-            // 
-            // lblAtrib2
-            // 
-            this.lblAtrib2.AutoSize = true;
-            this.lblAtrib2.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib2.Location = new System.Drawing.Point(282, 200);
-            this.lblAtrib2.Name = "lblAtrib2";
-            this.lblAtrib2.Size = new System.Drawing.Size(66, 17);
-            this.lblAtrib2.TabIndex = 5;
-            this.lblAtrib2.Text = "Atributo 2";
-            // 
-            // lblAtrib1
-            // 
-            this.lblAtrib1.AutoSize = true;
-            this.lblAtrib1.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtrib1.Location = new System.Drawing.Point(282, 151);
-            this.lblAtrib1.Name = "lblAtrib1";
-            this.lblAtrib1.Size = new System.Drawing.Size(66, 17);
-            this.lblAtrib1.TabIndex = 4;
-            this.lblAtrib1.Text = "Atributo 1";
-            // 
             // tpBorrado
             // 
             this.tpBorrado.Controls.Add(this.pcb2Modo);
             this.tpBorrado.Location = new System.Drawing.Point(4, 24);
             this.tpBorrado.Name = "tpBorrado";
             this.tpBorrado.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBorrado.Size = new System.Drawing.Size(792, 385);
+            this.tpBorrado.Size = new System.Drawing.Size(1189, 512);
             this.tpBorrado.TabIndex = 1;
             this.tpBorrado.Text = "Borrar";
             this.tpBorrado.UseVisualStyleBackColor = true;
@@ -279,7 +263,7 @@
             this.tpModificado.Location = new System.Drawing.Point(4, 24);
             this.tpModificado.Name = "tpModificado";
             this.tpModificado.Padding = new System.Windows.Forms.Padding(3);
-            this.tpModificado.Size = new System.Drawing.Size(792, 385);
+            this.tpModificado.Size = new System.Drawing.Size(1189, 512);
             this.tpModificado.TabIndex = 2;
             this.tpModificado.Text = "Modificar";
             this.tpModificado.UseVisualStyleBackColor = true;
@@ -300,10 +284,22 @@
             this.tpBuscar.Location = new System.Drawing.Point(4, 24);
             this.tpBuscar.Name = "tpBuscar";
             this.tpBuscar.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBuscar.Size = new System.Drawing.Size(1002, 464);
+            this.tpBuscar.Size = new System.Drawing.Size(1189, 512);
             this.tpBuscar.TabIndex = 3;
             this.tpBuscar.Text = "Búsqueda";
             this.tpBuscar.UseVisualStyleBackColor = true;
+            // 
+            // lvBusqueda
+            // 
+            this.lvBusqueda.FullRowSelect = true;
+            this.lvBusqueda.GridLines = true;
+            this.lvBusqueda.HideSelection = false;
+            this.lvBusqueda.Location = new System.Drawing.Point(232, 159);
+            this.lvBusqueda.Name = "lvBusqueda";
+            this.lvBusqueda.Size = new System.Drawing.Size(600, 250);
+            this.lvBusqueda.TabIndex = 16;
+            this.lvBusqueda.UseCompatibleStateImageBehavior = false;
+            this.lvBusqueda.View = System.Windows.Forms.View.Details;
             // 
             // pcb4Modo
             // 
@@ -351,23 +347,76 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
-            // lvBusqueda
+            // gbAux
             // 
-            this.lvBusqueda.FullRowSelect = true;
-            this.lvBusqueda.GridLines = true;
-            this.lvBusqueda.HideSelection = false;
-            this.lvBusqueda.Location = new System.Drawing.Point(232, 159);
-            this.lvBusqueda.Name = "lvBusqueda";
-            this.lvBusqueda.Size = new System.Drawing.Size(600, 250);
-            this.lvBusqueda.TabIndex = 16;
-            this.lvBusqueda.UseCompatibleStateImageBehavior = false;
-            this.lvBusqueda.View = System.Windows.Forms.View.Details;
+            this.gbAux.Controls.Add(this.tbxAtrib3);
+            this.gbAux.Controls.Add(this.tbxAtrib2);
+            this.gbAux.Controls.Add(this.tbxAtrib1);
+            this.gbAux.Controls.Add(this.lblAtrib3);
+            this.gbAux.Controls.Add(this.lblAtrib2);
+            this.gbAux.Controls.Add(this.lblAtrib1);
+            this.gbAux.Location = new System.Drawing.Point(628, 99);
+            this.gbAux.Name = "gbAux";
+            this.gbAux.Size = new System.Drawing.Size(553, 243);
+            this.gbAux.TabIndex = 16;
+            this.gbAux.TabStop = false;
+            // 
+            // tbxAtrib3
+            // 
+            this.tbxAtrib3.Location = new System.Drawing.Point(239, 170);
+            this.tbxAtrib3.Name = "tbxAtrib3";
+            this.tbxAtrib3.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib3.TabIndex = 18;
+            // 
+            // tbxAtrib2
+            // 
+            this.tbxAtrib2.Location = new System.Drawing.Point(239, 111);
+            this.tbxAtrib2.Name = "tbxAtrib2";
+            this.tbxAtrib2.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib2.TabIndex = 17;
+            // 
+            // tbxAtrib1
+            // 
+            this.tbxAtrib1.Location = new System.Drawing.Point(239, 52);
+            this.tbxAtrib1.Name = "tbxAtrib1";
+            this.tbxAtrib1.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib1.TabIndex = 16;
+            // 
+            // lblAtrib3
+            // 
+            this.lblAtrib3.AutoSize = true;
+            this.lblAtrib3.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtrib3.Location = new System.Drawing.Point(19, 166);
+            this.lblAtrib3.Name = "lblAtrib3";
+            this.lblAtrib3.Size = new System.Drawing.Size(106, 26);
+            this.lblAtrib3.TabIndex = 14;
+            this.lblAtrib3.Text = "Atributo 3";
+            // 
+            // lblAtrib2
+            // 
+            this.lblAtrib2.AutoSize = true;
+            this.lblAtrib2.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtrib2.Location = new System.Drawing.Point(19, 107);
+            this.lblAtrib2.Name = "lblAtrib2";
+            this.lblAtrib2.Size = new System.Drawing.Size(106, 26);
+            this.lblAtrib2.TabIndex = 13;
+            this.lblAtrib2.Text = "Atributo 2";
+            // 
+            // lblAtrib1
+            // 
+            this.lblAtrib1.AutoSize = true;
+            this.lblAtrib1.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtrib1.Location = new System.Drawing.Point(19, 48);
+            this.lblAtrib1.Name = "lblAtrib1";
+            this.lblAtrib1.Size = new System.Drawing.Size(106, 26);
+            this.lblAtrib1.TabIndex = 12;
+            this.lblAtrib1.Text = "Atributo 1";
             // 
             // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 529);
+            this.ClientSize = new System.Drawing.Size(1197, 577);
             this.Controls.Add(this.tcOpciones);
             this.Controls.Add(this.toolStripIconosIniciales);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -380,7 +429,8 @@
             this.toolStripIconosIniciales.PerformLayout();
             this.tcOpciones.ResumeLayout(false);
             this.tpAñadir.ResumeLayout(false);
-            this.tpAñadir.PerformLayout();
+            this.gbAtribs.ResumeLayout(false);
+            this.gbAtribs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbModo)).EndInit();
             this.tpBorrado.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcb2Modo)).EndInit();
@@ -389,6 +439,8 @@
             this.tpBuscar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcb4Modo)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.gbAux.ResumeLayout(false);
+            this.gbAux.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -404,14 +456,6 @@
         private System.Windows.Forms.TabPage tpBorrado;
         private System.Windows.Forms.TabPage tpModificado;
         private System.Windows.Forms.TabPage tpBuscar;
-        private System.Windows.Forms.Label lblAtrib4;
-        private System.Windows.Forms.Label lblAtrib3;
-        private System.Windows.Forms.Label lblAtrib2;
-        private System.Windows.Forms.Label lblAtrib1;
-        private System.Windows.Forms.TextBox tbxAtrib4;
-        private System.Windows.Forms.TextBox tbxAtrib3;
-        private System.Windows.Forms.TextBox tbxAtrib2;
-        private System.Windows.Forms.TextBox tbxAtrib1;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.PictureBox pcbModo;
@@ -424,6 +468,17 @@
         private System.Windows.Forms.ToolStripMenuItem minimizarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ListView lvBusqueda;
+        private System.Windows.Forms.GroupBox gbAtribs;
+        private System.Windows.Forms.RadioButton rbOpcion3;
+        private System.Windows.Forms.RadioButton rbOpcion2;
+        private System.Windows.Forms.RadioButton rbOpcion1;
+        private System.Windows.Forms.GroupBox gbAux;
+        private System.Windows.Forms.TextBox tbxAtrib3;
+        private System.Windows.Forms.TextBox tbxAtrib2;
+        private System.Windows.Forms.TextBox tbxAtrib1;
+        private System.Windows.Forms.Label lblAtrib3;
+        private System.Windows.Forms.Label lblAtrib2;
+        private System.Windows.Forms.Label lblAtrib1;
     }
 }
 

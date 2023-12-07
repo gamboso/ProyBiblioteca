@@ -53,6 +53,7 @@
     <Compile Include="FrmPrincip.Designer.cs">
       <DependentUpon>FrmPrincip.cs</DependentUpon>
     </Compile>
+    <Compile Include="IUsuario.cs" />
     <Compile Include="Libro.cs" />
     <Compile Include="PAS.cs" />
     <Compile Include="Profesor.cs" />
