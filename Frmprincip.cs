@@ -37,6 +37,7 @@ namespace ProyBiblioteca
             cargarLibros();
             Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
+            
 
         }
         private void FrmPrincip_FormClosing(object sender, FormClosingEventArgs e)
@@ -411,6 +412,11 @@ namespace ProyBiblioteca
             switch (tipo)
             {
                 case "Libro":
+                    tpAñadir.Text = "Añadir";
+                    tpBorrado.Text = "Borrar";
+                    tpModificado.Text = "Modificar";
+                    tpBuscar.Text = "Buscar";
+
                     gbAtribs.Text = "Ubicación del libro ";
                     rbOpcion1.Text = "Sala";
                     rbOpcion2.Text = "Almacén";
@@ -420,9 +426,27 @@ namespace ProyBiblioteca
                     lblAtrib2.Text = "ID Libro";
                     lblAtrib3.Hide();
                     tbxAtrib3.Hide();
+                    lvDevoluciones.Hide();
+                    lvPrestamos.Hide();
+                    lvBusqueda.Show();
+                    lblDevoluciones.Hide();
+                    lblFiltrarPor.Hide();
+                    lblPrestamo.Hide();
+                    cbFiltrarPor.Hide();
+                    mtbFechaBusquedaPrestamo.Hide();
+                    txbBuscar.Show();
+                    lblFechaModificarPrestamo.Hide();
+                    mtbFechaBorrarPrestamo.Hide();
+                    mtbFechaModificarPrestamo.Hide();
+                    lblFechaBorrarPrestamo.Hide();
                     break;
 
                 case "Persona":
+                    tpAñadir.Text = "Añadir";
+                    tpBorrado.Text = "Borrar";
+                    tpModificado.Text = "Modificar";
+                    tpBuscar.Text = "Buscar";
+
                     //GroupBox de RadioButtons
                     gbAtribs.Text = "Tipo de usuario ";
                     rbOpcion1.Text = "Alumno";
@@ -436,10 +460,28 @@ namespace ProyBiblioteca
                     lblAtrib3.Show();
                     lblAtrib3.Text = "Fecha sanción";
                     tbxAtrib3.Show();
-
+                    lvDevoluciones.Hide();
+                    lvPrestamos.Hide();
+                    lvBusqueda.Show();
+                    lblDevoluciones.Hide();
+                    lblFiltrarPor.Hide();
+                    lblPrestamo.Hide();
+                    cbFiltrarPor.Hide();
+                    mtbFechaBusquedaPrestamo.Hide();
+                    txbBuscar.Show();
+                    lblFechaModificarPrestamo.Hide();
+                    mtbFechaBorrarPrestamo.Hide();
+                    mtbFechaModificarPrestamo.Hide();
+                    lblFechaBorrarPrestamo.Hide();
                     break;
 
                 case "Transaccion":
+                    tpAñadir.Text = "Prestar";
+                    tpBorrado.Text = "Devolver";
+                    tpModificado.Text = "Modificar";
+                    tpBuscar.Text = "Buscar";
+
+
                     gbAtribs.Text = "Tipo ";
                     rbOpcion1.Text = "Devolución";
                     rbOpcion2.Text = "Préstamo";
@@ -451,6 +493,22 @@ namespace ProyBiblioteca
                     lblAtrib3.Show();
                     lblAtrib3.Text = "Fecha devolución";
                     tbxAtrib3.Show();
+                    txbBuscar.Hide();
+                    mtbFechaBusquedaPrestamo.Hide();
+                    lvDevoluciones.Show();
+                    lvPrestamos.Show();
+                    lvBusqueda.Hide();
+                    lblDevoluciones.Show();
+                    lblFiltrarPor.Show();
+                    lblPrestamo.Show();
+                    cbFiltrarPor.Show();
+                    lblFechaModificarPrestamo.Show();
+                    mtbFechaBusquedaPrestamo.Show();
+                    mtbFechaBorrarPrestamo.Show();
+                    mtbFechaModificarPrestamo.Show();
+                    lblFechaBorrarPrestamo.Show();
+
+
                     break;
 
                 default:
@@ -502,6 +560,26 @@ namespace ProyBiblioteca
                     LimpiarTextBoxEnControles(control.Controls);
                 }
             }
+        }
+
+        private void cbFiltrarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            if (cbFiltrarPor.Text.Equals("Fecha"))
+            {
+                txbBuscar.Hide();
+                mtbFechaBusquedaPrestamo.Show();
+
+            }
+            else {
+                txbBuscar.Show();
+                mtbFechaBusquedaPrestamo.Hide();
+            }
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
         }
     }
 
