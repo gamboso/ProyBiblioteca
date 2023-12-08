@@ -175,7 +175,7 @@ namespace ProyBiblioteca
                     int ultimaComa = s.LastIndexOf(',');
                     int ultimoHashtag = s.LastIndexOf('#');
 
-                    if (!s.Contains("devolucion ") && !s.Contains("fecha") && (indicePrimerEspacio != -1))
+                    if (!s.Contains("devolucion") && !s.Contains("fecha") && (indicePrimerEspacio != -1))
                     {
                         // Desde la posición inicial hasta el primer espacio.
                         tipoTransaccion = s.Substring(0, indicePrimerEspacio);
@@ -198,14 +198,24 @@ namespace ProyBiblioteca
                         Transaccion ts = new Transaccion(nombreUsuario, idLibroPrestado, tipoTransaccion, fechaDevolucion);
 
                         misTransacciones.Add(ts);
+                    } else if (s.Contains("devolucion")){
+
+                       string[] split = s.Split(' ');
+
+                        tipoTransaccion = split[0];
+                        idLibroPrestado = split[1];
+                        Console.WriteLine($"Tipo de transacción: {tipoTransaccion}");
+                        Console.WriteLine($"Id libro devuelto: {idLibroPrestado}");
+
+
+                    } else if (s.Contains("fecha")){
+
                     }
+                
 
 
 
                 }
-
-
-                // misTransacciones.Add(usuario);
 
             }
             catch (Exception ex)
