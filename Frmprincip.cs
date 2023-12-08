@@ -22,7 +22,8 @@ namespace ProyBiblioteca
         {
             InitializeComponent();
         }
-
+        List<Libro> LibrosEnStock = new List<Libro>();
+        List<Libro> LibrosPestados = new List<Libro>();
         List<Persona> misUsuarios = new List<Persona>();
         List<Libro> misLibros = new List<Libro>();
         List<Transaccion> misTransacciones = new List<Transaccion>();
@@ -37,9 +38,34 @@ namespace ProyBiblioteca
             cargarLibros();
             Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
-            
+            ActualizaListaDeLibrosEnStockYLibrosPrestados();
 
         }
+
+        private void ActualizaListaDeLibrosEnStockYLibrosPrestados()
+        {
+            
+            LibrosPestados.Clear();
+            LibrosEnStock.Clear();
+
+            foreach (Libro l in misLibros)
+            {
+                
+                bool estaPrestado = misTransacciones.Any(t => t.IdLibroPrestado.Equals(l.IdLibro) && t.TipoTransaccion.Equals("prestamo"));
+
+                if (estaPrestado)
+                {
+                    LibrosPestados.Add(l);
+                    Console.WriteLine("Libro Prestado: " + l);
+                }
+                else
+                {
+                    LibrosEnStock.Add(l);
+                    Console.WriteLine("Libro en Stock: " + l);
+                }
+            }
+        }
+
         private void FrmPrincip_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Mostrar un cuadro de diálogo de confirmación
@@ -421,6 +447,8 @@ namespace ProyBiblioteca
                     rbOpcion1.Text = "Sala";
                     rbOpcion2.Text = "Almacén";
                     rbOpcion3.Hide();
+                    tbxAtrib1.Show();
+                    tbxAtrib2.Show();
 
                     lblAtrib1.Text = "Título Libro";
                     lblAtrib2.Text = "ID Libro";
@@ -439,6 +467,10 @@ namespace ProyBiblioteca
                     mtbFechaBorrarPrestamo.Hide();
                     mtbFechaModificarPrestamo.Hide();
                     lblFechaBorrarPrestamo.Hide();
+                    cbLibrosaniadirPrestamoODevolucion.Hide();
+                    mtbFechaAniadirPrestamo.Hide();
+                    cbUsuariosaniadirPrestamos.Hide();
+
                     break;
 
                 case "Persona":
@@ -452,6 +484,8 @@ namespace ProyBiblioteca
                     rbOpcion1.Text = "Alumno";
                     rbOpcion2.Text = "Profesor";
                     rbOpcion3.Show();
+                    tbxAtrib2.Show();
+                    tbxAtrib1.Show();
                     rbOpcion3.Text = "PAS";
 
                     //GroupBox de Labels y TextBox
@@ -473,11 +507,14 @@ namespace ProyBiblioteca
                     mtbFechaBorrarPrestamo.Hide();
                     mtbFechaModificarPrestamo.Hide();
                     lblFechaBorrarPrestamo.Hide();
+                    cbLibrosaniadirPrestamoODevolucion.Hide();
+                    mtbFechaAniadirPrestamo.Hide();
+                    cbUsuariosaniadirPrestamos.Hide();
                     break;
 
                 case "Transaccion":
-                    tpAñadir.Text = "Prestar";
-                    tpBorrado.Text = "Devolver";
+                    tpAñadir.Text = "Prestar y Devolver";
+                    tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
 
@@ -488,11 +525,15 @@ namespace ProyBiblioteca
                     rbOpcion3.Hide();
 
 
+
                     lblAtrib1.Text = "Nombre usuario";
                     lblAtrib2.Text = "ID Libro";
                     lblAtrib3.Show();
                     lblAtrib3.Text = "Fecha devolución";
-                    tbxAtrib3.Show();
+                    tbxAtrib3.Hide();
+                    tbxAtrib2.Hide();
+                    tbxAtrib1.Hide();
+
                     txbBuscar.Hide();
                     mtbFechaBusquedaPrestamo.Hide();
                     lvDevoluciones.Show();
@@ -507,6 +548,12 @@ namespace ProyBiblioteca
                     mtbFechaBorrarPrestamo.Show();
                     mtbFechaModificarPrestamo.Show();
                     lblFechaBorrarPrestamo.Show();
+                    cbLibrosaniadirPrestamoODevolucion.Show();
+                    mtbFechaAniadirPrestamo.Show();
+                    cbUsuariosaniadirPrestamos.Show();
+
+                    
+
 
 
                     break;
@@ -577,10 +624,43 @@ namespace ProyBiblioteca
             }
         }
 
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        private void rbOpcion1_CheckedChanged(object sender, EventArgs e)
         {
+            if (rbOpcion1.Checked)
+            {
+                ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                cbLibrosaniadirPrestamoODevolucion.Items.Clear();
+                foreach (Libro l in LibrosPestados)
+                {
+                    cbLibrosaniadirPrestamoODevolucion.Items.Add(l.Titulo);
+                }
+                lblAtrib3.Text = "Fecha Devolucion:";
+                lblAtrib1.Hide();
+                tbxAtrib1.Hide();
+                cbUsuariosaniadirPrestamos.Hide();
+            }
+            else if (rbOpcion2.Checked)
+            {
+                ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                cbUsuariosaniadirPrestamos.Items.Clear();
+                cbLibrosaniadirPrestamoODevolucion.Items.Clear();
 
+                foreach (Persona p in misUsuarios)
+                {
+                    cbUsuariosaniadirPrestamos.Items.Add(p.Nombre);
+                }
+                foreach (Libro l in LibrosEnStock)
+                {
+                    cbLibrosaniadirPrestamoODevolucion.Items.Add(l.Titulo);
+                }
+                lblAtrib3.Text = "Fecha Prestamo:";
+                lblAtrib1.Show();
+                tbxAtrib1.Hide();
+                cbUsuariosaniadirPrestamos.Show();
+            }
         }
+
+        
     }
 
 }
