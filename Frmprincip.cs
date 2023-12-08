@@ -23,7 +23,8 @@ namespace ProyBiblioteca
         {
             InitializeComponent();
         }
-
+        List<Libro> LibrosEnStock = new List<Libro>();
+        List<Libro> LibrosPestados = new List<Libro>();
         List<Persona> misUsuarios = new List<Persona>();
         List<Libro> misLibros = new List<Libro>();
         List<Transaccion> misTransacciones = new List<Transaccion>();
@@ -38,8 +39,34 @@ namespace ProyBiblioteca
             cargarLibros();
             Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
+            ActualizaListaDeLibrosEnStockYLibrosPrestados();
 
         }
+
+        private void ActualizaListaDeLibrosEnStockYLibrosPrestados()
+        {
+            
+            LibrosPestados.Clear();
+            LibrosEnStock.Clear();
+
+            foreach (Libro l in misLibros)
+            {
+                
+                bool estaPrestado = misTransacciones.Any(t => t.IdLibroPrestado.Equals(l.IdLibro) && t.TipoTransaccion.Equals("prestamo"));
+
+                if (estaPrestado)
+                {
+                    LibrosPestados.Add(l);
+                    Console.WriteLine("Libro Prestado: " + l);
+                }
+                else
+                {
+                    LibrosEnStock.Add(l);
+                    Console.WriteLine("Libro en Stock: " + l);
+                }
+            }
+        }
+
         private void FrmPrincip_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Mostrar un cuadro de diálogo de confirmación
@@ -325,14 +352,24 @@ namespace ProyBiblioteca
         private void cargarInterfazLibros()
         {
             cargarImagen("libro");
-            cargarInterfazBusqueda("Libros");
+            cargarInterfazBusqueda("Libro");
+            cargarInterfazAnadir("Libro");
+            tpAñadir.BackColor = Color.LightPink;
+            tpBorrado.BackColor = Color.LightPink;
+            tpBuscar.BackColor = Color.LightPink;
+            tpModificado.BackColor = Color.LightPink;
 
         }
 
         private void cargarInterfazPersonas()
         {
             cargarImagen("perfil");
-            cargarInterfazBusqueda("Personas");
+            cargarInterfazBusqueda("Persona");
+            cargarInterfazAnadir("Persona");
+            tpAñadir.BackColor = Color.LightSkyBlue;
+            tpBorrado.BackColor = Color.LightSkyBlue;
+            tpBuscar.BackColor = Color.LightSkyBlue;
+            tpModificado.BackColor = Color.LightSkyBlue;
 
         }
 
@@ -340,6 +377,11 @@ namespace ProyBiblioteca
         {
             cargarImagen("Prestamo");
             cargarInterfazBusqueda("Transaccion");
+            cargarInterfazAnadir("Transaccion");
+            tpAñadir.BackColor = Color.LightYellow;
+            tpBorrado.BackColor = Color.LightYellow;
+            tpBuscar.BackColor = Color.LightYellow;
+            tpModificado.BackColor = Color.LightYellow;
         }
 
         //Método que carga las imagenes en los picture box
@@ -348,7 +390,7 @@ namespace ProyBiblioteca
             pcbModo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
             pcb2Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
             pcb3Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
-            pcb4Modo.Image = System.Drawing.Image.FromFile( ".\\Icons\\" + imagen + ".png");
+            pcb4Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
         }
 
         //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
@@ -357,7 +399,7 @@ namespace ProyBiblioteca
             lvBusqueda.Columns.Clear();
             lvBusqueda.Items.Clear();
 
-            if (tipoLV.Equals("Libros"))
+            if (tipoLV.Equals("Libro"))
             {
                 ColumnHeader chID = new ColumnHeader();
                 chID.Width = 200;
@@ -398,9 +440,9 @@ namespace ProyBiblioteca
                 lvBusqueda.Columns.Add(chNombreUsuario);
                 lvBusqueda.Columns.Add(chTipoTransaccion);
                 lvBusqueda.Columns.Add(chFechaDev);
-                 
+
             }
-            else if (tipoLV.Equals("Personas"))
+            else if (tipoLV.Equals("Persona"))
             {
                 ColumnHeader chNombre = new ColumnHeader();
                 chNombre.Width = 150;
@@ -421,8 +463,142 @@ namespace ProyBiblioteca
                 lvBusqueda.Columns.Add(chNombre);
                 lvBusqueda.Columns.Add(chDept);
                 lvBusqueda.Columns.Add(chTipoUsuario);
-                lvBusqueda.Columns.Add(chFechaSancion); 
+                lvBusqueda.Columns.Add(chFechaSancion);
             }
+        }
+
+        //Método que cambia la Interfaz de Añadir en función del objeto a añadir (Libros, Personas o Transacciones)
+        private void cargarInterfazAnadir(String tipo)
+        {
+            gbAtribs.Show();
+            switch (tipo)
+            {
+                case "Libro":
+                    tpAñadir.Text = "Añadir";
+                    tpBorrado.Text = "Borrar";
+                    tpModificado.Text = "Modificar";
+                    tpBuscar.Text = "Buscar";
+
+                    gbAtribs.Text = "Ubicación del libro ";
+                    rbOpcion1.Text = "Sala";
+                    rbOpcion2.Text = "Almacén";
+                    rbOpcion3.Hide();
+                    tbxAtrib1.Show();
+                    tbxAtrib2.Show();
+
+                    lblAtrib1.Text = "Título Libro";
+                    lblAtrib2.Text = "ID Libro";
+                    lblAtrib3.Hide();
+                    tbxAtrib3.Hide();
+                    lvDevoluciones.Hide();
+                    lvPrestamos.Hide();
+                    lvBusqueda.Show();
+                    lblDevoluciones.Hide();
+                    lblFiltrarPor.Hide();
+                    lblPrestamo.Hide();
+                    cbFiltrarPor.Hide();
+                    mtbFechaBusquedaPrestamo.Hide();
+                    txbBuscar.Show();
+                    lblFechaModificarPrestamo.Hide();
+                    mtbFechaBorrarPrestamo.Hide();
+                    mtbFechaModificarPrestamo.Hide();
+                    lblFechaBorrarPrestamo.Hide();
+                    cbLibrosaniadirPrestamoODevolucion.Hide();
+                    mtbFechaAniadirPrestamo.Hide();
+                    cbUsuariosaniadirPrestamos.Hide();
+
+                    break;
+
+                case "Persona":
+                    tpAñadir.Text = "Añadir";
+                    tpBorrado.Text = "Borrar";
+                    tpModificado.Text = "Modificar";
+                    tpBuscar.Text = "Buscar";
+
+                    //GroupBox de RadioButtons
+                    gbAtribs.Text = "Tipo de usuario ";
+                    rbOpcion1.Text = "Alumno";
+                    rbOpcion2.Text = "Profesor";
+                    rbOpcion3.Show();
+                    tbxAtrib2.Show();
+                    tbxAtrib1.Show();
+                    rbOpcion3.Text = "PAS";
+
+                    //GroupBox de Labels y TextBox
+                    lblAtrib1.Text = "Nombre";
+                    lblAtrib2.Text = "Departamento";
+                    lblAtrib3.Show();
+                    lblAtrib3.Text = "Fecha sanción";
+                    tbxAtrib3.Show();
+                    lvDevoluciones.Hide();
+                    lvPrestamos.Hide();
+                    lvBusqueda.Show();
+                    lblDevoluciones.Hide();
+                    lblFiltrarPor.Hide();
+                    lblPrestamo.Hide();
+                    cbFiltrarPor.Hide();
+                    mtbFechaBusquedaPrestamo.Hide();
+                    txbBuscar.Show();
+                    lblFechaModificarPrestamo.Hide();
+                    mtbFechaBorrarPrestamo.Hide();
+                    mtbFechaModificarPrestamo.Hide();
+                    lblFechaBorrarPrestamo.Hide();
+                    cbLibrosaniadirPrestamoODevolucion.Hide();
+                    mtbFechaAniadirPrestamo.Hide();
+                    cbUsuariosaniadirPrestamos.Hide();
+                    break;
+
+                case "Transaccion":
+                    tpAñadir.Text = "Prestar y Devolver";
+                    tpBorrado.Text = "Borrar";
+                    tpModificado.Text = "Modificar";
+                    tpBuscar.Text = "Buscar";
+
+
+                    gbAtribs.Text = "Tipo ";
+                    rbOpcion1.Text = "Devolución";
+                    rbOpcion2.Text = "Préstamo";
+                    rbOpcion3.Hide();
+
+
+
+                    lblAtrib1.Text = "Nombre usuario";
+                    lblAtrib2.Text = "ID Libro";
+                    lblAtrib3.Show();
+                    lblAtrib3.Text = "Fecha devolución";
+                    tbxAtrib3.Hide();
+                    tbxAtrib2.Hide();
+                    tbxAtrib1.Hide();
+
+                    txbBuscar.Hide();
+                    mtbFechaBusquedaPrestamo.Hide();
+                    lvDevoluciones.Show();
+                    lvPrestamos.Show();
+                    lvBusqueda.Hide();
+                    lblDevoluciones.Show();
+                    lblFiltrarPor.Show();
+                    lblPrestamo.Show();
+                    cbFiltrarPor.Show();
+                    lblFechaModificarPrestamo.Show();
+                    mtbFechaBusquedaPrestamo.Show();
+                    mtbFechaBorrarPrestamo.Show();
+                    mtbFechaModificarPrestamo.Show();
+                    lblFechaBorrarPrestamo.Show();
+                    cbLibrosaniadirPrestamoODevolucion.Show();
+                    mtbFechaAniadirPrestamo.Show();
+                    cbUsuariosaniadirPrestamos.Show();
+
+                    
+
+
+
+                    break;
+
+                default:
+                    break;
+
+            }
+
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -439,6 +615,88 @@ namespace ProyBiblioteca
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            // Recorre todas las pestañas del TabControl
+            foreach (TabPage tabPage in tcOpciones.TabPages)
+            {
+                
+                LimpiarTextBoxEnControles(tabPage.Controls);
+            }
+        }
+
+        private void LimpiarTextBoxEnControles(Control.ControlCollection controls)
+        {
+            // Recorre todos los controles en busca de TextBox
+            foreach (Control control in controls)
+            {
+                
+                if (control is TextBox)
+                {
+                    
+                    ((TextBox)control).Clear();
+                }
+                else if (control.HasChildren)
+                {
+                    //recursivo
+                    LimpiarTextBoxEnControles(control.Controls);
+                }
+            }
+        }
+
+        private void cbFiltrarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            if (cbFiltrarPor.Text.Equals("Fecha"))
+            {
+                txbBuscar.Hide();
+                mtbFechaBusquedaPrestamo.Show();
+
+            }
+            else {
+                txbBuscar.Show();
+                mtbFechaBusquedaPrestamo.Hide();
+            }
+        }
+
+        private void rbOpcion1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbOpcion1.Checked)
+            {
+                ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                cbLibrosaniadirPrestamoODevolucion.Items.Clear();
+                foreach (Libro l in LibrosPestados)
+                {
+                    cbLibrosaniadirPrestamoODevolucion.Items.Add(l.Titulo);
+                }
+                lblAtrib3.Text = "Fecha Devolucion:";
+                lblAtrib1.Hide();
+                tbxAtrib1.Hide();
+                cbUsuariosaniadirPrestamos.Hide();
+            }
+            else if (rbOpcion2.Checked)
+            {
+                ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                cbUsuariosaniadirPrestamos.Items.Clear();
+                cbLibrosaniadirPrestamoODevolucion.Items.Clear();
+
+                foreach (Persona p in misUsuarios)
+                {
+                    cbUsuariosaniadirPrestamos.Items.Add(p.Nombre);
+                }
+                foreach (Libro l in LibrosEnStock)
+                {
+                    cbLibrosaniadirPrestamoODevolucion.Items.Add(l.Titulo);
+                }
+                lblAtrib3.Text = "Fecha Prestamo:";
+                lblAtrib1.Show();
+                tbxAtrib1.Hide();
+                cbUsuariosaniadirPrestamos.Show();
+            }
+        }
+
+        
     }
 
 }

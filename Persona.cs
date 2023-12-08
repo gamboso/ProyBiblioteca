@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProyBiblioteca
 {
-
-
-
-    public class Persona
+    public class Persona : IUsuario
     {
         //Atributos de la clase Persona
-       string nombre, departamento;
+        string nombre, departamento;
         DateTime fechaSancion;
 
         //Constructor
@@ -24,7 +21,7 @@ namespace ProyBiblioteca
             this.departamento = departamento;
         }
         // Persona con sanción
-       public Persona( String nombre, String departamento, DateTime fechaSancion)
+        public Persona(String nombre, String departamento, DateTime fechaSancion)
         {
             this.nombre = nombre;
             this.departamento = departamento;
@@ -35,5 +32,15 @@ namespace ProyBiblioteca
         public string Nombre { get => nombre; set => nombre = value; }
         public string Departamento { get => departamento; set => departamento = value; }
         public DateTime FechaSancion { get => fechaSancion; set => fechaSancion = value; }
+
+        public void calcularFechaDevolucion()
+        {
+            
+        }
+
+        public void calcularFechaSancion()
+        {
+            
+        }
     }
 }
