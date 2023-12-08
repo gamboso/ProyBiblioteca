@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alumno.cs" />
+    <Compile Include="Devolucion.cs" />
     <Compile Include="FrmPrincip.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +56,7 @@
     </Compile>
     <Compile Include="Libro.cs" />
     <Compile Include="PAS.cs" />
+    <Compile Include="Prestamo.cs" />
     <Compile Include="Profesor.cs" />
     <Compile Include="Transaccion.cs" />
     <Compile Include="Program.cs" />

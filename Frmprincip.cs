@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -160,7 +161,8 @@ namespace ProyBiblioteca
             string nombreUsuario = "";
             string idLibroPrestado = "";
             string tipoTransaccion = "";
-            DateTime fechaDevolucion = DateTime.Parse("1/01/1000");
+            DateTime fechaMaxDevolucion = DateTime.Parse("1/01/1000");
+            DateTime fechaTransaccion = DateTime.Parse("1/01/1000");
 
             try
             {
@@ -175,7 +177,13 @@ namespace ProyBiblioteca
                     int ultimaComa = s.LastIndexOf(',');
                     int ultimoHashtag = s.LastIndexOf('#');
 
-                    if (!s.Contains("devolucion") && !s.Contains("fecha") && (indicePrimerEspacio != -1))
+
+                    if (s.Contains("fecha"))
+                    {
+                        string[] split = s.Substring(indicePrimerEspacio).Split(',');
+                        fechaTransaccion = DateTime.Parse(split[0].Trim()+","+split[1].Trim() + ","+split[2].Trim());
+                    }
+                    else if (!s.Contains("devolucion") && (indicePrimerEspacio != -1))
                     {
                         // Desde la posición inicial hasta el primer espacio.
                         tipoTransaccion = s.Substring(0, indicePrimerEspacio);
@@ -187,15 +195,16 @@ namespace ProyBiblioteca
                         idLibroPrestado = s.Substring(s.IndexOf(',') + 1, ultimaComa - s.IndexOf(',') - 1);
 
                         // Fecha 
-                        fechaDevolucion = DateTime.Parse(s.Substring(s.IndexOf('#') + 1, ultimoHashtag - s.IndexOf('#') - 1));
-
+                        fechaMaxDevolucion = DateTime.Parse(s.Substring(s.IndexOf('#') + 1, ultimoHashtag - s.IndexOf('#') - 1));
+                        /*
                         Console.WriteLine("-------------------------------------");
                         Console.WriteLine($"Tipo de transacción: {tipoTransaccion}");
                         Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
                         Console.WriteLine($"ID de libro prestado: {idLibroPrestado}");
-                        Console.WriteLine($"Fecha de devolución: {fechaDevolucion.ToString("d/M/yyyy")}");
-
-                        Transaccion ts = new Transaccion(nombreUsuario, idLibroPrestado, tipoTransaccion, fechaDevolucion);
+                        Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
+                        Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
+                        */
+                        Transaccion ts = new Prestamo(nombreUsuario, idLibroPrestado, fechaMaxDevolucion, fechaTransaccion); ;
 
                         misTransacciones.Add(ts);
                     } else if (s.Contains("devolucion")){
@@ -204,19 +213,36 @@ namespace ProyBiblioteca
 
                         tipoTransaccion = split[0];
                         idLibroPrestado = split[1];
+                        /*
+                        Console.WriteLine("-------------------------------------");
                         Console.WriteLine($"Tipo de transacción: {tipoTransaccion}");
                         Console.WriteLine($"Id libro devuelto: {idLibroPrestado}");
+                        */
+                        Transaccion ts = new Devolucion(idLibroPrestado,fechaTransaccion);
+                        misTransacciones.Add(ts);
+                    } 
+                  }
 
+                //Imprimir todas las transacciones en MisTransacciones
+                foreach (Transaccion ts in misTransacciones)
+                {
+                    if (ts.GetType().Name.Equals("Prestamo")) {
+                        Prestamo ps = (Prestamo)ts;
+                        Console.WriteLine("-------------------------------------");
+                        Console.WriteLine($"Tipo de transacción: Prestamo");
+                        Console.WriteLine($"Nombre de usuario: {ps.NombreUsuario}");
+                        Console.WriteLine($"ID de libro prestado: {ps.IdLibroPrestado}");
+                        Console.WriteLine($"Fecha de máxima de devolución: {ps.FechaMaxDevolucion.ToString("d/M/yyyy")}");
+                        Console.WriteLine($"Fecha transacción: {ps.FechaTransaccion.ToString("d/M/yyyy")}");
+                    } else if (ts.GetType().Name.Equals("Devolucion")) {
+                        Devolucion dv = (Devolucion)ts;
 
-                    } else if (s.Contains("fecha")){
-
+                        Console.WriteLine("-------------------------------------");
+                        Console.WriteLine($"Tipo de transacción: Devolución");
+                        Console.WriteLine($"Id libro devuelto: {dv.IdLibro}");
+                        Console.WriteLine($"Fecha de transacción: {dv.FechaTransaccion.ToString("d/M/yyyy")}");
                     }
-                
-
-
-
-                }
-
+                } 
             }
             catch (Exception ex)
             {

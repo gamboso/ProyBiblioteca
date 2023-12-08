@@ -8,20 +8,16 @@ namespace ProyBiblioteca
 {
     class Transaccion
     {
-        String nombreUsuario, idLibroPrestado,tipoTransaccion;
-        DateTime fechaDevolucion;
+        String  idLibro;
+        DateTime fechaTransaccion;
 
-        public Transaccion(string nombreUsuario, string idLibroPrestado, string tipoTransaccion, DateTime fechaDevolucion)
+        public Transaccion( string idLibro, DateTime fechaTransaccion)
         {
-            this.nombreUsuario = nombreUsuario;
-            this.idLibroPrestado = idLibroPrestado;
-            this.tipoTransaccion = tipoTransaccion;
-            this.fechaDevolucion = fechaDevolucion;
+            this.idLibro = idLibro;
+            this.fechaTransaccion = fechaTransaccion;
         }
+        public string IdLibro { get; set; }
+        public DateTime FechaTransaccion { get => fechaTransaccion; set => fechaTransaccion = value; }
 
-        public string NombreUsuario { get => nombreUsuario; set => nombreUsuario = value; }
-        public string IdLibroPrestado { get => idLibroPrestado; set => idLibroPrestado = value; }
-        public DateTime FechaDevolucion { get => fechaDevolucion; set => fechaDevolucion = value; }
-        public string TipoTransaccion { get => tipoTransaccion; set => tipoTransaccion = value; }
     }
 }
