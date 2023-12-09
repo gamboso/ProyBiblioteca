@@ -826,6 +826,10 @@ namespace ProyBiblioteca
                         else
                         {
                             // AÑADIR LA TRANSACCIÓN DE DEVOLUCIÓN
+
+
+
+
                             MessageBox.Show("Se aniadio corerctamente!");
                         }
                     }
@@ -867,9 +871,54 @@ namespace ProyBiblioteca
                     }
                     else
                     {
-                        
+
+                        String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
+                        // transaccion = new Prestamo(nombreUsuario, idLib, fechaMaxDevolucion?, fechaTransaccion);
+
+                        Persona persona = null;
+                        Libro libro = null;
+                        foreach (Persona p in misUsuarios)
+                        {
+                            if (p.Nombre.Equals(nombreUsuario))
+                            {
+                                persona = p;
+                                Console.WriteLine(p);
+                            }
+                            else if (p == null)
+                            {
+                                MessageBox.Show("No se encontró el usuario.");
+                            }
+                        }
+
+
+                        foreach (Libro lib in LibrosEnStock)
+                        {
+                            if (idLib.Equals(lib.Titulo))
+                            {
+                                libro = lib;
+                            }
+                        }
+
+
+                        /*FALTA DIFERENCIAR ENTRE TIPOS PARA QUE FECHAMAXDEVOLUCION JALE */
+                        MessageBox.Show(persona.GetType().Name);
+                        DateTime fechaMaxDevolucion = persona.calcularFechaDevolucion(libro);
+
+
+                        Console.WriteLine("-------------------------------------");
+                        Console.WriteLine($"Tipo de transacción: Prestamo");
+                        Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
+                        Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo}");
+                        Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
+                        Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
+
+                        string libroId = libro.IdLibro;
+                        transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
+
+                        Prestamo pres = (Prestamo)transaccion;
 
                     }
+
 
                     //Añadir la transacción
                     misTransacciones.Add(transaccion);
