@@ -13,3 +13,4 @@ fecha 2, 3, 2022
 prestamo Miguel Angel Fernandez, 1234, #1/4/2022#
 fecha 9, 12, 2023
 prestamo Felisa Perez,  1212, #23/1/2024#
+prestamo Felisa Perez,  1212, #23/1/2024#

@@ -19,5 +19,9 @@ namespace ProyBiblioteca
         public string IdLibro { get; set; }
         public DateTime FechaTransaccion { get => fechaTransaccion; set => fechaTransaccion = value; }
 
+        public override string ToString()
+        {
+            return $"ID Libro: {IdLibro}, Fecha de Transacción: {FechaTransaccion.ToString("yyyy-MM-dd")}";
+        }
     }
 }

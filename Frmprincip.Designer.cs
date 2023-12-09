@@ -194,7 +194,6 @@
             this.cbUsuariosAnadirPrestamos.Name = "cbUsuariosAnadirPrestamos";
             this.cbUsuariosAnadirPrestamos.Size = new System.Drawing.Size(241, 24);
             this.cbUsuariosAnadirPrestamos.TabIndex = 21;
-            this.cbUsuariosAnadirPrestamos.TextChanged += new System.EventHandler(this.evitarEscrituraEnComboBox);
             // 
             // cbLibrosaniadirPrestamoODevolucion
             // 
@@ -204,7 +203,6 @@
             this.cbLibrosaniadirPrestamoODevolucion.Name = "cbLibrosaniadirPrestamoODevolucion";
             this.cbLibrosaniadirPrestamoODevolucion.Size = new System.Drawing.Size(241, 24);
             this.cbLibrosaniadirPrestamoODevolucion.TabIndex = 20;
-            this.cbLibrosaniadirPrestamoODevolucion.TextChanged += new System.EventHandler(this.evitarEscrituraEnComboBox);
             // 
             // mtbFechaAniadirPrestamo
             // 
@@ -399,12 +397,14 @@
             // lvBorrar
             // 
             this.lvBorrar.HideSelection = false;
+            this.lvBorrar.LargeImageList = this.ilProfesoresAlumnosPAS;
             this.lvBorrar.Location = new System.Drawing.Point(264, 116);
             this.lvBorrar.Name = "lvBorrar";
             this.lvBorrar.Size = new System.Drawing.Size(602, 263);
+            this.lvBorrar.SmallImageList = this.ilProfesoresAlumnosPAS;
             this.lvBorrar.TabIndex = 17;
             this.lvBorrar.UseCompatibleStateImageBehavior = false;
-            this.lvBorrar.View = System.Windows.Forms.View.Details;
+            this.lvBorrar.View = System.Windows.Forms.View.SmallIcon;
             this.lvBorrar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvBorrar_MouseDoubleClick);
             // 
             // lblBorrar
@@ -661,6 +661,7 @@
             this.ilProfesoresAlumnosPAS.Images.SetKeyName(0, "profesor.png");
             this.ilProfesoresAlumnosPAS.Images.SetKeyName(1, "alumno.png");
             this.ilProfesoresAlumnosPAS.Images.SetKeyName(2, "pas.png");
+            this.ilProfesoresAlumnosPAS.Images.SetKeyName(3, "libro-cerrado.png");
             // 
             // ilPrestamos
             // 

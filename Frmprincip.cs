@@ -44,6 +44,7 @@ namespace ProyBiblioteca
             Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
             ActualizaListaDeLibrosEnStockYLibrosPrestados();
+            
 
         }
 
@@ -419,6 +420,7 @@ namespace ProyBiblioteca
             {
                 case "Libro":
                     cambiarListView("Libro");
+                    CambiarlvBorrar("Libro");
                     tpAñadir.Text = "Añadir";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
@@ -458,6 +460,7 @@ namespace ProyBiblioteca
 
                 case "Persona":
                     cambiarListView("Persona");
+                    CambiarlvBorrar("Persona");
                     tpAñadir.Text = "Añadir";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
@@ -501,6 +504,7 @@ namespace ProyBiblioteca
 
                 case "Transaccion":
                     cambiarListView("Transaccion");
+                    CambiarlvBorrar("Transaccion");
                     tpAñadir.Text = "Prestar y Devolver";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
@@ -551,6 +555,94 @@ namespace ProyBiblioteca
             }
 
         }
+
+        private void CambiarlvBorrar(String tipoLV)
+        {
+            
+            lvBorrar.Clear();
+            if (tipoLV.Equals("Libro"))
+            {
+                foreach (Libro l in misLibros)
+                {
+                    lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
+                    ListViewItem item = new ListViewItem(l.Titulo, 3);
+
+
+                    lvBorrar.Items.Add(item);
+
+                }
+
+            }
+            else if (tipoLV.Equals("Transaccion"))
+            {
+                foreach (Transaccion t in misTransacciones)
+                {
+                    lvBorrar.SmallImageList = ilPrestamos;
+                    string clase = t.GetType().ToString();
+                    // Encuentra la última posición del punto
+                    int lastIndex = clase.LastIndexOf('.');
+
+                    // Obtiene la parte después del último punto
+                    string resultadoclase = lastIndex != -1 ? clase.Substring(lastIndex + 1) : clase;
+                    Console.WriteLine(resultadoclase);
+
+                    if (resultadoclase.Equals("Prestamo"))
+                    {
+                        ListViewItem item = new ListViewItem(resultadoclase + ": " +t.ToString(), 1);
+                        lvBorrar.Items.Add(item);
+                    }
+                    else if (resultadoclase.Equals("Devolucion"))
+                    {
+
+                        ListViewItem item = new ListViewItem(resultadoclase + ": " + t.ToString(), 0);
+                        lvBorrar.Items.Add(item);
+
+                    }
+                    
+
+                }
+
+            }
+            else if (tipoLV.Equals("Persona"))
+            {
+                foreach (Persona p in misUsuarios)
+                {
+                    lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
+                    
+                    string clase = p.GetType().ToString();
+                    // Encuentra la última posición del punto
+                    int lastIndex = clase.LastIndexOf('.');
+
+                    // Obtiene la parte después del último punto
+                    string resultadoclase = lastIndex != -1 ? clase.Substring(lastIndex + 1) : clase;
+                    Console.WriteLine(resultadoclase);
+                    if (resultadoclase.Equals("PAS"))
+                    {
+                        ListViewItem item = new ListViewItem(p.Nombre, 1);
+                        lvBorrar.Items.Add(item);
+                    } 
+                    else if (resultadoclase.Equals("Alumno"))
+                    {
+
+                        ListViewItem item = new ListViewItem(p.Nombre, 2);
+                        lvBorrar.Items.Add(item);
+
+                    }
+                    else if (resultadoclase.Equals("Profesor"))
+                    {
+
+                        ListViewItem item = new ListViewItem(p.Nombre, 0);
+                        lvBorrar.Items.Add(item);
+
+                    }
+
+
+                }
+            }
+            
+            
+        }
+
         //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
         private void cambiarListView(String tipoLV)
         {
@@ -644,25 +736,31 @@ namespace ProyBiblioteca
             // Recorre todas las pestañas del TabControl
             foreach (TabPage tabPage in tcOpciones.TabPages)
             {
-                LimpiarTextBoxEnControles(tabPage.Controls);
+                LimpiarControles(tabPage.Controls);
             }
         }
 
-        private void LimpiarTextBoxEnControles(Control.ControlCollection controls)
+        private void LimpiarControles(Control.ControlCollection controls)
         {
-            // Recorre todos los controles en busca de TextBox
+            // Recorre todos los controles
             foreach (Control control in controls)
             {
-
                 if (control is TextBox)
                 {
-
                     ((TextBox)control).Clear();
+                }
+                else if (control is MaskedTextBox)
+                {
+                    ((MaskedTextBox)control).Clear();
+                }
+                else if (control is ComboBox)
+                {
+                    ((ComboBox)control).SelectedIndex = -1;
                 }
                 else if (control.HasChildren)
                 {
-                    //recursivo
-                    LimpiarTextBoxEnControles(control.Controls);
+                    // Recursivo para los controles secundarios
+                    LimpiarControles(control.Controls);
                 }
             }
         }
@@ -985,10 +1083,10 @@ namespace ProyBiblioteca
         }
 
         //Método que controla que no se pueda escribir en un combo box 
-        private void evitarEscrituraEnComboBox(object sender, EventArgs e)
+       /* private void evitarEscrituraEnComboBox(object sender, EventArgs e)
         {
             cbUsuariosAnadirPrestamos.ResetText();
-        }
+        }*/
 
         private void escribirFecha()
         {
