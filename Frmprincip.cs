@@ -732,74 +732,121 @@ namespace ProyBiblioteca
             switch (interfSeleccionada)
             {
                 case "Libros":
-                    String titulo = tbxAtrib1.Text;
-                    String idLibro = tbxAtrib2.Text;
-                    String ubicacion = "";
-                    if (rbOpcion1.Checked)
-
+                    // SI ALGUNA CADENA ESTA VACIA NO GUARDA NADA
+                    if (tbxAtrib1.Text.Equals("") || tbxAtrib2.Text.Equals(""))
                     {
-                        ubicacion = rbOpcion1.Text;
+                        MessageBox.Show("No puedes dejar campos vacios");
                     }
                     else
-                        ubicacion = rbOpcion2.Text;
+                    {
+                        String titulo = tbxAtrib1.Text;
+                        String idLibro = tbxAtrib2.Text;
+                        String ubicacion = "";
+                        if (rbOpcion1.Checked)
 
-                    Libro l = new Libro(ubicacion, titulo, idLibro);
-                    misLibros.Add(l);
+                        {
+                            ubicacion = rbOpcion1.Text;
+                        }
+                        else
+                            ubicacion = rbOpcion2.Text;
 
-                    MessageBox.Show("El libro se ha añadido correctamente");
+                        Libro l = new Libro(ubicacion, titulo, idLibro);
+                        misLibros.Add(l);
+
+                        MessageBox.Show("El libro se ha añadido correctamente");
+                    }
                     break;
 
                 case "Usuarios":
-                    String nombre = tbxAtrib1.Text;
-                    String depto = tbxAtrib2.Text;
-                    DateTime fechaSancion = DateTime.Parse("1/01/1000");
-                    // Convertir la fechaTransaccion sin la hora
-                    if (!tbxAtrib3.Text.Equals(""))
+                    // SI ALGUNA CADENA ESTA VACIA NO GUARDA NADA
+                    if (tbxAtrib1.Text.Equals("") || tbxAtrib2.Text.Equals("") || tbxAtrib3.Text.Equals(""))
                     {
-                        if (DateTime.TryParseExact(tbxAtrib3.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaSancion))
-                        {
-                            Persona p = null;
-                            fechaSancion = DateTime.Parse(fechaSancion.ToShortDateString());
-                            if (rbOpcion1.Checked)
-                            {
-                                p = new Alumno(nombre, depto, fechaSancion);
-                            }
-                            else if (rbOpcion2.Checked)
-                            {
-                                p = new Profesor(nombre, depto, fechaSancion);
-                            }
-                            else if (rbOpcion3.Checked)
-                            {
-                                p = new PAS(nombre, depto, fechaSancion);
-                            }
-                            misUsuarios.Add(p);
-                        }
-                        else
-                        {
-                            MessageBox.Show("El formato de la fecha es inválido");
-                        }
+                        MessageBox.Show("No puedes dejar campos vacios");
                     }
                     else
                     {
-                        Persona p = null;
-                        if (rbOpcion1.Checked)
+                        String nombre = tbxAtrib1.Text;
+                        String depto = tbxAtrib2.Text;
+                        DateTime fechaSancion = DateTime.Parse("1/01/1000");
+                        // Convertir la fechaTransaccion sin la hora
+                        if (!tbxAtrib3.Text.Equals(""))
                         {
-                            p = new Alumno(nombre, depto);
+                            if (DateTime.TryParseExact(tbxAtrib3.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaSancion))
+                            {
+                                Persona p = null;
+                                fechaSancion = DateTime.Parse(fechaSancion.ToShortDateString());
+                                if (rbOpcion1.Checked)
+                                {
+                                    p = new Alumno(nombre, depto, fechaSancion);
+                                }
+                                else if (rbOpcion2.Checked)
+                                {
+                                    p = new Profesor(nombre, depto, fechaSancion);
+                                }
+                                else if (rbOpcion3.Checked)
+                                {
+                                    p = new PAS(nombre, depto, fechaSancion);
+                                }
+                                misUsuarios.Add(p);
+                            }
+                            else
+                            {
+                                MessageBox.Show("El formato de la fecha es inválido");
+                            }
                         }
-                        else if (rbOpcion2.Checked)
+                        else
                         {
-                            p = new Profesor(nombre, depto);
+                            Persona p = null;
+                            if (rbOpcion1.Checked)
+                            {
+                                p = new Alumno(nombre, depto);
+                            }
+                            else if (rbOpcion2.Checked)
+                            {
+                                p = new Profesor(nombre, depto);
+                            }
+                            else if (rbOpcion3.Checked)
+                            {
+                                p = new PAS(nombre, depto);
+                            }
+                            misUsuarios.Add(p);
                         }
-                        else if (rbOpcion3.Checked)
-                        {
-                            p = new PAS(nombre, depto);
-                        }
-                        misUsuarios.Add(p);
+                        MessageBox.Show("El usuario se ha añadido correctamente");
                     }
-                    MessageBox.Show("El usuario se ha añadido correctamente");
                     break;
 
                 case "Transacciones":
+                    if (rbOpcion1.Checked) //DEVOLUCION
+                    {
+                        if (cbLibrosaniadirPrestamoODevolucion.Text.Equals("") ||
+                            mtbFechaAniadirPrestamo.MaskCompleted == false)
+                        {
+                            MessageBox.Show("No puedes dejar campos vacíos");
+                        }
+                        else
+                        {
+                            // AÑADIR LA TRANSACCIÓN DE DEVOLUCIÓN
+                            MessageBox.Show("Se aniadio corerctamente!");
+                        }
+                    }
+                    else if (rbOpcion2.Checked) // PRESTAMO
+                    {
+                        if (cbUsuariosAnadirPrestamos.Text.Equals("") ||
+                            cbLibrosaniadirPrestamoODevolucion.Text.Equals("") ||
+                            mtbFechaAniadirPrestamo.MaskCompleted == false)
+                        {
+                            MessageBox.Show("No puedes dejar campos vacíos");
+                        }
+                        else
+                        {
+                            // AÑADIR LA TRANSACCIÓN DE PRÉSTAMO
+                            MessageBox.Show("Se aniadio corerctamente!");
+                        }
+                    }
+
+
+
+
                     String idLib = cbLibrosaniadirPrestamoODevolucion.SelectedItem.ToString();
 
                     /*
@@ -820,51 +867,7 @@ namespace ProyBiblioteca
                     }
                     else
                     {
-                        String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
-
-                        Persona persona = null;
-                        Libro libro = null;
-                        foreach (Persona p in misUsuarios)
-                        {
-                            if (p.Nombre.Equals(nombreUsuario))
-                            {
-                                persona = p;
-                                Console.WriteLine(p);
-                            }
-                            else if (p == null)
-                            {
-                                MessageBox.Show("No se encontró el usuario.");
-                            }
-                        }
-
-
-                        foreach (Libro lib in LibrosEnStock)
-                        {
-                            if (idLib.Equals(lib.Titulo))
-                            {
-                                libro = lib;
-                            }
-                        }
-
-
-
-
-                        /*FALTA DIFERENCIAR ENTRE TIPOS PARA QUE FECHAMAXDEVOLUCION JALE */
-                        MessageBox.Show(persona.GetType().Name);
-                        DateTime fechaMaxDevolucion = persona.calcularFechaDevolucion(libro);
-
-
-                        Console.WriteLine("-------------------------------------");
-                        Console.WriteLine($"Tipo de transacción: Prestamo");
-                        Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
-                        Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo}");
-                        Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
-                        Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
-
-                        string libroId = libro.IdLibro;
-                        transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
-
-                        Prestamo pres = (Prestamo)transaccion;
+                        
 
                     }
 

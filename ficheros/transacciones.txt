@@ -19,3 +19,6 @@ prestamo Felisa Perez, , #1/1/0001#
 prestamo Pedro Almodovar, , #1/1/0001#
 prestamo Pedro Almodovar,  1234, #1/1/0001#
 prestamo Albert Einstein,  4321, #1/1/0001#
+devolucion 
+devolucion 
+devolucion 
