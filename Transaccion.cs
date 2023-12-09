@@ -8,7 +8,7 @@ namespace ProyBiblioteca
 {
     class Transaccion
     {
-        String  idLibro;
+        string idLibro;
         DateTime fechaTransaccion;
 
         public Transaccion( string idLibro, DateTime fechaTransaccion)

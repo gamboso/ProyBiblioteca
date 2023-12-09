@@ -8,7 +8,7 @@ namespace ProyBiblioteca
 {
     internal interface IUsuario
     {
-        void calcularFechaDevolucion();
+        DateTime calcularFechaDevolucion(Libro l);
 
         void calcularFechaSancion();
     }

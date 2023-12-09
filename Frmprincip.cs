@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 
 /*ACUERDATE DE GUARDAR EN GITHUB ANTES DE SALIR*/
@@ -85,6 +86,7 @@ namespace ProyBiblioteca
             {
                 e.Cancel = true; // Esto evita que se cierre el formulario
             }
+          
         }
 
         private void cargarUsuarios()
@@ -213,7 +215,7 @@ namespace ProyBiblioteca
                     int ultimoHashtag = s.LastIndexOf('#');
 
 
-                    if (s.Contains("fechaTransaccion"))
+                    if (s.Contains("fecha")) // Esto es el "fecha" literal del archivo se refiere a la fecha de la transacción 
                     {
                         string[] split = s.Substring(indicePrimerEspacio).Split(',');
                         fechaTransaccion = DateTime.Parse(split[0].Trim() + "," + split[1].Trim() + "," + split[2].Trim());
@@ -261,6 +263,7 @@ namespace ProyBiblioteca
                 }
 
                 //Imprimir todas las transacciones en MisTransacciones
+
                 foreach (Transaccion ts in misTransacciones)
                 {
                     if (ts.GetType().Name.Equals("Prestamo"))
@@ -269,7 +272,7 @@ namespace ProyBiblioteca
                         Console.WriteLine("-------------------------------------");
                         Console.WriteLine($"Tipo de transacción: Prestamo");
                         Console.WriteLine($"Nombre de usuario: {ps.NombreUsuario}");
-                        Console.WriteLine($"ID de libro prestado: {ps.IdLibroPrestado}");
+                        Console.WriteLine($"ID de libro prestado: {ps.IdLibro}");
                         Console.WriteLine($"Fecha de máxima de devolución: {ps.FechaMaxDevolucion.ToString("d/M/yyyy")}");
                         Console.WriteLine($"Fecha transacción: {ps.FechaTransaccion.ToString("d/M/yyyy")}");
                     }
@@ -798,11 +801,18 @@ namespace ProyBiblioteca
 
                 case "Transacciones":
                     String idLib = cbLibrosaniadirPrestamoODevolucion.SelectedItem.ToString();
+
+                    /*
                     DateTime fechaTransaccion = DateTime.Parse("1/01/1000");
                     if (DateTime.TryParseExact(mtbFechaAniadirPrestamo.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaSancion))
                     {
-                        fechaTransaccion = DateTime.Parse(fechaTransaccion.ToShortDateString());
+                        fechaTransaccion = DateTime.Parse(fechaTransaccion.ToShortDateString()); 
                     }
+                    */
+
+                    // Siempre es la transaccion la fecha actual
+                    DateTime fechaTransaccion = DateTime.Now;
+
                     Transaccion transaccion = null;
                     if (rbOpcion1.Checked)
                     {
@@ -811,10 +821,62 @@ namespace ProyBiblioteca
                     else
                     {
                         String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
-                       // transaccion = new Prestamo(nombreUsuario, idLib, fechaMaxDevolucion?, fechaTransaccion);
+
+                        Persona persona = null;
+                        Libro libro = null;
+                        foreach (Persona p in misUsuarios)
+                        {
+                            if (p.Nombre.Equals(nombreUsuario))
+                            {
+                                persona = p;
+                                Console.WriteLine(p);
+                            }
+                            else if (p == null)
+                            {
+                                MessageBox.Show("No se encontró el usuario.");
+                            }
+                        }
+
+
+                        foreach (Libro lib in LibrosEnStock)
+                        {
+                            if (idLib.Equals(lib.Titulo))
+                            {
+                                libro = lib;
+                            }
+                        }
+
+
+
+
+                        /*FALTA DIFERENCIAR ENTRE TIPOS PARA QUE FECHAMAXDEVOLUCION JALE */
+                        MessageBox.Show(persona.GetType().Name);
+                        DateTime fechaMaxDevolucion = persona.calcularFechaDevolucion(libro);
+
+
+                        Console.WriteLine("-------------------------------------");
+                        Console.WriteLine($"Tipo de transacción: Prestamo");
+                        Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
+                        Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo}");
+                        Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
+                        Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
+
+                        string libroId = libro.IdLibro;
+                        transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
+
+                        Prestamo pres = (Prestamo)transaccion;
+
                     }
-                    
+
+                    //Añadir la transacción
                     misTransacciones.Add(transaccion);
+
+                    //Escribir de las transacciones de hoy si hace falta
+                    escribirFecha();
+                    // Escribir la transacción en el fichero
+                    escribirTransaccion(transaccion);
+
+                    transaccion.ToString();
                     MessageBox.Show("La transacción se ha añadido correctamente");
                     break;
 
@@ -829,6 +891,76 @@ namespace ProyBiblioteca
         {
             cbUsuariosAnadirPrestamos.ResetText();
         }
+
+        private void escribirFecha() {
+            //Leer el fichero transacciones.txt
+            DateTime diaHoy = DateTime.Now;
+            string fechaHoy = diaHoy.ToString("d, M, yyyy"); ;
+            string linea = "fecha "+fechaHoy;
+            string ultimaLinea = ""; 
+            string[] transacciones = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt");
+            foreach (string s in transacciones)
+            {
+                int indicePrimerEspacio = s.IndexOf(' ');
+                int ultimaComa = s.LastIndexOf(',');
+                int ultimoHashtag = s.LastIndexOf('#');
+
+
+                if (s.Equals(linea)) // Esto es el "fecha" literal del archivo se refiere a la fecha de la transacción 
+                {
+                    ultimaLinea = s;
+                    break;
+                }
+            }
+
+            if (!ultimaLinea.Equals(linea))
+            {
+                //Añadir al fichero de transacciones la fecha actual
+                StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt");
+           
+                sw.WriteLine(linea);
+                sw.Flush();
+                sw.Close();
+            }
+        }
+       
+
+        private void escribirTransaccion(Transaccion t)
+        {
+            if (t is Prestamo)
+            {
+                Prestamo p = (Prestamo) t;
+
+                string usuario = p.NombreUsuario;
+                string idLibro = p.IdLibro;  // Asegúrate de que la propiedad sea IdLibroPrestado
+                string fechaDev = p.FechaMaxDevolucion.ToString("d/M/yyyy");
+
+                string linea = "prestamo " + usuario + ", " + idLibro + ", " + "#" + fechaDev + "#";
+
+                // Añadir al fichero de transacciones la fecha actual
+                using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt"))
+                {
+                    sw.WriteLine(linea);
+                }
+            }
+            else if (t is Devolucion)
+            {
+                Devolucion d = (Devolucion) t;
+
+                string idLibro = d.IdLibro;  // Asegúrate de que la propiedad sea IdLibro
+
+                string linea = "devolucion " + idLibro;
+
+                // Añadir al fichero de transacciones la fecha actual
+                using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt"))
+                {
+                    sw.WriteLine(linea);
+                }
+            }
+        }
+
+
+
     }
 
 }

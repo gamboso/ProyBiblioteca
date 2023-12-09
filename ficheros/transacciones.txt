@@ -10,4 +10,12 @@ prestamo Juan Dorado, 7777, #1/3/2022#
 prestamo Juan Dorado, 8888, #1/3/2022#
 devolucion 1234
 fecha 2, 3, 2022
-prestamo Miguel Angel Fernandez, 1234, #1/4/2022#
+prestamo Miguel Angel Fernandez, 1234, #1/4/2022#fecha 9, 12, 2023
+prestamo Albert Einstein, , #1/1/0001#
+fecha 9, 12, 2023
+prestamo Juan Sanz, , #1/1/0001#
+prestamo Felisa Perez, , #1/1/0001#
+prestamo Felisa Perez, , #1/1/0001#
+prestamo Pedro Almodovar, , #1/1/0001#
+prestamo Pedro Almodovar,  1234, #1/1/0001#
+prestamo Albert Einstein,  4321, #1/1/0001#

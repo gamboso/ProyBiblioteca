@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyBiblioteca
 {
-    class Libro
+   public class Libro
     {
         //Atributos de la clase Libro
         String titulo, ubicacion;

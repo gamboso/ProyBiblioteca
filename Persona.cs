@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,14 +34,55 @@ namespace ProyBiblioteca
         public string Departamento { get => departamento; set => departamento = value; }
         public DateTime FechaSancion { get => fechaSancion; set => fechaSancion = value; }
 
-        public void calcularFechaDevolucion()
+        public DateTime calcularFechaDevolucion(Libro l)
         {
-            
+
+            /*La fecha en la que se devolverá un libro dependerá del tipo de usuario y de la ubicación del libro.
+Alumno: 10 días si esta en sala y 15 si está en almacen.
+Pas: 15 días en ambos casos.
+Profesor: 30 días si está en sala, y 45 si está en almacen.*/
+
+            string tipo = this.GetType().Name;
+            if (tipo.Equals("Alumno") && l.Ubicacion.Equals("sala"))
+            {
+
+                //Añadir 10 dias
+                return DateTime.Now.AddDays(10);
+
+            }
+            else if (tipo.Equals("Alumno") && l.Ubicacion.Equals("almacen"))
+            {
+                //Añadir 15 dias
+
+                return DateTime.Now.AddDays(15);
+
+            }
+            else if (tipo.Equals("PAS"))
+            {
+                //Añadir 15 dias
+
+                return DateTime.Now.AddDays(15);
+            }
+            else if (tipo.Equals("Profesor") && l.Ubicacion.Equals("sala"))
+            {
+                //Añadir 30 dias
+                return DateTime.Now.AddDays(30);
+
+            }
+
+            else if (tipo.Equals("Profesor") && l.Ubicacion.Equals("almacen"))
+            {
+                //Añadir 45 dias
+                return DateTime.Now.AddDays(45);
+
+            }
+
+            return DateTime.MinValue;
         }
 
         public void calcularFechaSancion()
         {
-            
+
         }
     }
 }

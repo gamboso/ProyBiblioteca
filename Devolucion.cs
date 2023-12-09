@@ -8,15 +8,13 @@ namespace ProyBiblioteca
 {
     class Devolucion : Transaccion
     {
-        private string idLibroDevuelto;
         private DateTime fechaTransaccion;
 
         public Devolucion(string idLibro, DateTime fechaTransaccion) : base(idLibro, fechaTransaccion)
         {
-            this.idLibroDevuelto = idLibro;
+            this.IdLibro = idLibro;
             this.fechaTransaccion = fechaTransaccion;
         }
-        public string IdLibroDevuelto { get => idLibroDevuelto; set => idLibroDevuelto = value; }
 
 
     }
