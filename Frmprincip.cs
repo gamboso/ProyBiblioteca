@@ -1077,7 +1077,28 @@ namespace ProyBiblioteca
             }
         }
 
+        private void lvModificar_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lvBorrar.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lvBorrar.SelectedItems[0];
 
+                switch (interfSeleccionada)
+                {
+                    case "Libros":
+
+                        break;
+
+                    case "Usuarios":
+
+                        break;
+
+                    case "Transacciones":
+                        break;
+
+                }
+            }
+        }
 
     }
 

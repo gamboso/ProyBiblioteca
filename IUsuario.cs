@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyBiblioteca
 {
-    internal interface IUsuario
+    public  interface IUsuario
     {
         DateTime calcularFechaDevolucion(Libro l);
 

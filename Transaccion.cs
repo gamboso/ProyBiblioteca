@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyBiblioteca
 {
-    class Transaccion
+    public class Transaccion
     {
         string idLibro;
         DateTime fechaTransaccion;

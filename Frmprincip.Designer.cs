@@ -470,11 +470,12 @@
             // lvModificar
             // 
             this.lvModificar.HideSelection = false;
-            this.lvModificar.Location = new System.Drawing.Point(263, 115);
+            this.lvModificar.Location = new System.Drawing.Point(265, 115);
             this.lvModificar.Name = "lvModificar";
             this.lvModificar.Size = new System.Drawing.Size(603, 262);
             this.lvModificar.TabIndex = 16;
             this.lvModificar.UseCompatibleStateImageBehavior = false;
+            this.lvModificar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvModificar_MouseDoubleClick);
             // 
             // pcb3Modo
             // 
