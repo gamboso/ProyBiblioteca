@@ -37,6 +37,7 @@
             this.tcOpciones = new System.Windows.Forms.TabControl();
             this.tpAñadir = new System.Windows.Forms.TabPage();
             this.gbAux = new System.Windows.Forms.GroupBox();
+            this.cbUsuariosAnadirPrestamos = new System.Windows.Forms.ComboBox();
             this.cbLibrosaniadirPrestamoODevolucion = new System.Windows.Forms.ComboBox();
             this.mtbFechaAniadirPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.tbxAtrib3 = new System.Windows.Forms.TextBox();
@@ -83,7 +84,6 @@
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ilProfesoresAlumnosPAS = new System.Windows.Forms.ImageList(this.components);
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
-            this.cbUsuariosaniadirPrestamos = new System.Windows.Forms.ComboBox();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -136,8 +136,8 @@
             this.tsbPrestamos.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrestamos.Image")));
             this.tsbPrestamos.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPrestamos.Name = "tsbPrestamos";
-            this.tsbPrestamos.Size = new System.Drawing.Size(82, 34);
-            this.tsbPrestamos.Text = "Prestamos";
+            this.tsbPrestamos.Size = new System.Drawing.Size(100, 34);
+            this.tsbPrestamos.Text = "Transacciones";
             this.tsbPrestamos.Click += new System.EventHandler(this.tsbPrestamos_Click);
             // 
             // tcOpciones
@@ -171,7 +171,7 @@
             // 
             // gbAux
             // 
-            this.gbAux.Controls.Add(this.cbUsuariosaniadirPrestamos);
+            this.gbAux.Controls.Add(this.cbUsuariosAnadirPrestamos);
             this.gbAux.Controls.Add(this.cbLibrosaniadirPrestamoODevolucion);
             this.gbAux.Controls.Add(this.mtbFechaAniadirPrestamo);
             this.gbAux.Controls.Add(this.tbxAtrib3);
@@ -186,42 +186,58 @@
             this.gbAux.TabIndex = 16;
             this.gbAux.TabStop = false;
             // 
+            // cbUsuariosAnadirPrestamos
+            // 
+            this.cbUsuariosAnadirPrestamos.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUsuariosAnadirPrestamos.FormattingEnabled = true;
+            this.cbUsuariosAnadirPrestamos.Location = new System.Drawing.Point(252, 55);
+            this.cbUsuariosAnadirPrestamos.Name = "cbUsuariosAnadirPrestamos";
+            this.cbUsuariosAnadirPrestamos.Size = new System.Drawing.Size(241, 24);
+            this.cbUsuariosAnadirPrestamos.TabIndex = 21;
+            this.cbUsuariosAnadirPrestamos.TextChanged += new System.EventHandler(this.evitarEscrituraEnComboBox);
+            // 
             // cbLibrosaniadirPrestamoODevolucion
             // 
+            this.cbLibrosaniadirPrestamoODevolucion.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbLibrosaniadirPrestamoODevolucion.FormattingEnabled = true;
             this.cbLibrosaniadirPrestamoODevolucion.Location = new System.Drawing.Point(252, 110);
             this.cbLibrosaniadirPrestamoODevolucion.Name = "cbLibrosaniadirPrestamoODevolucion";
-            this.cbLibrosaniadirPrestamoODevolucion.Size = new System.Drawing.Size(241, 23);
+            this.cbLibrosaniadirPrestamoODevolucion.Size = new System.Drawing.Size(241, 24);
             this.cbLibrosaniadirPrestamoODevolucion.TabIndex = 20;
+            this.cbLibrosaniadirPrestamoODevolucion.TextChanged += new System.EventHandler(this.evitarEscrituraEnComboBox);
             // 
             // mtbFechaAniadirPrestamo
             // 
+            this.mtbFechaAniadirPrestamo.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mtbFechaAniadirPrestamo.Location = new System.Drawing.Point(393, 170);
             this.mtbFechaAniadirPrestamo.Mask = "00/00/0000";
             this.mtbFechaAniadirPrestamo.Name = "mtbFechaAniadirPrestamo";
-            this.mtbFechaAniadirPrestamo.Size = new System.Drawing.Size(100, 22);
+            this.mtbFechaAniadirPrestamo.Size = new System.Drawing.Size(100, 23);
             this.mtbFechaAniadirPrestamo.TabIndex = 19;
             this.mtbFechaAniadirPrestamo.ValidatingType = typeof(System.DateTime);
             // 
             // tbxAtrib3
             // 
+            this.tbxAtrib3.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAtrib3.Location = new System.Drawing.Point(241, 170);
             this.tbxAtrib3.Name = "tbxAtrib3";
-            this.tbxAtrib3.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib3.Size = new System.Drawing.Size(252, 23);
             this.tbxAtrib3.TabIndex = 18;
             // 
             // tbxAtrib2
             // 
+            this.tbxAtrib2.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAtrib2.Location = new System.Drawing.Point(241, 111);
             this.tbxAtrib2.Name = "tbxAtrib2";
-            this.tbxAtrib2.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib2.Size = new System.Drawing.Size(252, 23);
             this.tbxAtrib2.TabIndex = 17;
             // 
             // tbxAtrib1
             // 
+            this.tbxAtrib1.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAtrib1.Location = new System.Drawing.Point(241, 54);
             this.tbxAtrib1.Name = "tbxAtrib1";
-            this.tbxAtrib1.Size = new System.Drawing.Size(252, 22);
+            this.tbxAtrib1.Size = new System.Drawing.Size(252, 23);
             this.tbxAtrib1.TabIndex = 16;
             // 
             // lblAtrib3
@@ -306,7 +322,7 @@
             this.rbOpcion1.TabStop = true;
             this.rbOpcion1.Text = "radioButton1";
             this.rbOpcion1.UseVisualStyleBackColor = true;
-            this.rbOpcion1.CheckedChanged += new System.EventHandler(this.rbOpcion1_CheckedChanged);
+            this.rbOpcion1.CheckedChanged += new System.EventHandler(this.cambioCheckRadioButton);
             // 
             // pcbModo
             // 
@@ -345,6 +361,7 @@
             this.btnGuardar.Text = "GUARDAR";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.UseWaitCursor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // tpBorrado
             // 
@@ -650,14 +667,6 @@
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
             // 
-            // cbUsuariosaniadirPrestamos
-            // 
-            this.cbUsuariosaniadirPrestamos.FormattingEnabled = true;
-            this.cbUsuariosaniadirPrestamos.Location = new System.Drawing.Point(252, 55);
-            this.cbUsuariosaniadirPrestamos.Name = "cbUsuariosaniadirPrestamos";
-            this.cbUsuariosaniadirPrestamos.Size = new System.Drawing.Size(241, 23);
-            this.cbUsuariosaniadirPrestamos.TabIndex = 21;
-            // 
             // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -749,7 +758,7 @@
         private System.Windows.Forms.ImageList ilPrestamos;
         private System.Windows.Forms.MaskedTextBox mtbFechaAniadirPrestamo;
         private System.Windows.Forms.ComboBox cbLibrosaniadirPrestamoODevolucion;
-        private System.Windows.Forms.ComboBox cbUsuariosaniadirPrestamos;
+        private System.Windows.Forms.ComboBox cbUsuariosAnadirPrestamos;
     }
 }
 
