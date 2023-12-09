@@ -1022,6 +1022,25 @@ namespace ProyBiblioteca
         }
 
 
+        private void lvBorrar_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lvBorrar.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lvBorrar.SelectedItems[0];
+
+                // Muestra un cuadro de diálogo de confirmación
+                DialogResult result = MessageBox.Show("¿Deseas borrar este elemento?", "Confirmar borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Realiza la lógica de borrado aquí
+                    lvBorrar.Items.Remove(selectedItem);
+                    // También puedes añadir la lógica para borrar de tu fuente de datos si es necesario
+                }
+            }
+        }
+
+
 
     }
 

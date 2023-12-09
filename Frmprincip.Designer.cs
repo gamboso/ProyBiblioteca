@@ -405,6 +405,7 @@
             this.lvBorrar.TabIndex = 17;
             this.lvBorrar.UseCompatibleStateImageBehavior = false;
             this.lvBorrar.View = System.Windows.Forms.View.Details;
+            this.lvBorrar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvBorrar_MouseDoubleClick);
             // 
             // lblBorrar
             // 
