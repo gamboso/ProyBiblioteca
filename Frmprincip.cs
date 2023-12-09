@@ -86,7 +86,7 @@ namespace ProyBiblioteca
             {
                 e.Cancel = true; // Esto evita que se cierre el formulario
             }
-          
+
         }
 
         private void cargarUsuarios()
@@ -145,7 +145,6 @@ namespace ProyBiblioteca
                             usuario = new Profesor(nombre, departamento);
                         }
                         // se usa el constructor sin sancion si no tiene fechaTransaccion (la fechaTransaccion inicializada es 1/01/1000)
-                        usuario = new Persona(nombre, departamento);
                     }
                     else
                     {
@@ -816,6 +815,14 @@ namespace ProyBiblioteca
                     break;
 
                 case "Transacciones":
+                    String idLib = cbLibrosaniadirPrestamoODevolucion.SelectedItem.ToString();
+
+                    // Siempre es la transaccion la fecha actual
+
+                    DateTime fechaTransaccion = DateTime.Now;
+
+                    Transaccion transaccion = null;
+
                     if (rbOpcion1.Checked) //DEVOLUCION
                     {
                         if (cbLibrosaniadirPrestamoODevolucion.Text.Equals("") ||
@@ -827,13 +834,13 @@ namespace ProyBiblioteca
                         {
                             // AÑADIR LA TRANSACCIÓN DE DEVOLUCIÓN
 
-
+                            transaccion = new Devolucion(idLib, fechaTransaccion);
 
 
                             MessageBox.Show("Se aniadio corerctamente!");
                         }
                     }
-                    else if (rbOpcion2.Checked) // PRESTAMO
+                    else  // PRESTAMO
                     {
                         if (cbUsuariosAnadirPrestamos.Text.Equals("") ||
                             cbLibrosaniadirPrestamoODevolucion.Text.Equals("") ||
@@ -843,93 +850,95 @@ namespace ProyBiblioteca
                         }
                         else
                         {
-                            // AÑADIR LA TRANSACCIÓN DE PRÉSTAMO
-                            MessageBox.Show("Se aniadio corerctamente!");
-                        }
-                    }
 
+                            String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
 
+                            Persona persona = null;
+                            Libro libro = null;
+                            DateTime fechaMaxDevolucion = DateTime.MaxValue;
 
-
-                    String idLib = cbLibrosaniadirPrestamoODevolucion.SelectedItem.ToString();
-
-                    /*
-                    DateTime fechaTransaccion = DateTime.Parse("1/01/1000");
-                    if (DateTime.TryParseExact(mtbFechaAniadirPrestamo.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaSancion))
-                    {
-                        fechaTransaccion = DateTime.Parse(fechaTransaccion.ToShortDateString()); 
-                    }
-                    */
-
-                    // Siempre es la transaccion la fecha actual
-                    DateTime fechaTransaccion = DateTime.Now;
-
-                    Transaccion transaccion = null;
-                    if (rbOpcion1.Checked)
-                    {
-                        transaccion = new Devolucion(idLib, fechaTransaccion);
-                    }
-                    else
-                    {
-
-                        String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
-                        // transaccion = new Prestamo(nombreUsuario, idLib, fechaMaxDevolucion?, fechaTransaccion);
-
-                        Persona persona = null;
-                        Libro libro = null;
-                        foreach (Persona p in misUsuarios)
-                        {
-                            if (p.Nombre.Equals(nombreUsuario))
+                            foreach (Persona p in misUsuarios)
                             {
-                                persona = p;
-                                Console.WriteLine(p);
+                                if (p.Nombre.Equals(nombreUsuario))
+                                {
+                                    persona = p;
+
+                                    switch (persona)
+                                    {
+                                        case Alumno alumno:
+                                            // Acciones específicas para Alumno
+                                            MessageBox.Show($"Es un Alumno: {alumno.GetType().Name}");
+                                            fechaMaxDevolucion = alumno.calcularFechaDevolucion(libro);
+                                            // Otras acciones específicas para Alumno
+                                            break;
+
+                                        case Profesor profesor:
+                                            // Acciones específicas para Profesor
+                                            MessageBox.Show($"Es un Profesor: {profesor.GetType().Name}");
+                                            fechaMaxDevolucion = profesor.calcularFechaDevolucion(libro);
+                                            // Otras acciones específicas para Profesor
+                                            break;
+
+                                        case PAS pas:
+                                            // Acciones específicas para PAS
+                                            MessageBox.Show($"Es un PAS: {pas.GetType().Name}");
+                                            fechaMaxDevolucion = pas.calcularFechaDevolucion(libro);
+                                            // Otras acciones específicas para PAS
+                                            break;
+
+                                        default:
+                                            // Acciones por defecto o para otros tipos de Persona
+                                            MessageBox.Show($"Es otro tipo de Persona: {p.GetType().Name}");
+                                            // Otras acciones por defecto
+                                            break;
+                                    }
+                                }
                             }
-                            else if (p == null)
+
+                            // Verificar si el usuario no se encontró en la lista
+                            if (persona == null)
                             {
                                 MessageBox.Show("No se encontró el usuario.");
                             }
-                        }
 
 
-                        foreach (Libro lib in LibrosEnStock)
-                        {
-                            if (idLib.Equals(lib.Titulo))
+                            foreach (Libro lib in LibrosEnStock)
                             {
-                                libro = lib;
+                                if (idLib.Equals(lib.Titulo))
+                                {
+                                    libro = lib;
+                                }
                             }
+
+                            //   MessageBox.Show(persona.GetType().Name);
+                            //  DateTime fechaMaxDevolucion = persona.calcularFechaDevolucion(libro);
+
+
+                            Console.WriteLine("-------------------------------------");
+                            Console.WriteLine($"Tipo de transacción: Prestamo");
+                            Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
+                            Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo}");
+                            Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
+                            Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
+
+                            string libroId = libro.IdLibro;
+                            transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
+
+                            Prestamo pres = (Prestamo)transaccion;
+
+                            //Añadir la transacción
+                            misTransacciones.Add(transaccion);
+
+
+                            transaccion.ToString();
+                            MessageBox.Show("La transacción se ha añadido correctamente");
                         }
-
-
-                        /*FALTA DIFERENCIAR ENTRE TIPOS PARA QUE FECHAMAXDEVOLUCION JALE */
-                        MessageBox.Show(persona.GetType().Name);
-                        DateTime fechaMaxDevolucion = persona.calcularFechaDevolucion(libro);
-
-
-                        Console.WriteLine("-------------------------------------");
-                        Console.WriteLine($"Tipo de transacción: Prestamo");
-                        Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
-                        Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo}");
-                        Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
-                        Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
-
-                        string libroId = libro.IdLibro;
-                        transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
-
-                        Prestamo pres = (Prestamo)transaccion;
-
                     }
-
-
-                    //Añadir la transacción
-                    misTransacciones.Add(transaccion);
-
                     //Escribir de las transacciones de hoy si hace falta
                     escribirFecha();
                     // Escribir la transacción en el fichero
                     escribirTransaccion(transaccion);
 
-                    transaccion.ToString();
-                    MessageBox.Show("La transacción se ha añadido correctamente");
                     break;
 
 
@@ -944,12 +953,13 @@ namespace ProyBiblioteca
             cbUsuariosAnadirPrestamos.ResetText();
         }
 
-        private void escribirFecha() {
+        private void escribirFecha()
+        {
             //Leer el fichero transacciones.txt
             DateTime diaHoy = DateTime.Now;
             string fechaHoy = diaHoy.ToString("d, M, yyyy"); ;
-            string linea = "fecha "+fechaHoy;
-            string ultimaLinea = ""; 
+            string linea = "fecha " + fechaHoy;
+            string ultimaLinea = "";
             string[] transacciones = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt");
             foreach (string s in transacciones)
             {
@@ -969,19 +979,19 @@ namespace ProyBiblioteca
             {
                 //Añadir al fichero de transacciones la fecha actual
                 StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt");
-           
+
                 sw.WriteLine(linea);
                 sw.Flush();
                 sw.Close();
             }
         }
-       
+
 
         private void escribirTransaccion(Transaccion t)
         {
             if (t is Prestamo)
             {
-                Prestamo p = (Prestamo) t;
+                Prestamo p = (Prestamo)t;
 
                 string usuario = p.NombreUsuario;
                 string idLibro = p.IdLibro;  // Asegúrate de que la propiedad sea IdLibroPrestado
@@ -997,7 +1007,7 @@ namespace ProyBiblioteca
             }
             else if (t is Devolucion)
             {
-                Devolucion d = (Devolucion) t;
+                Devolucion d = (Devolucion)t;
 
                 string idLibro = d.IdLibro;  // Asegúrate de que la propiedad sea IdLibro
 
