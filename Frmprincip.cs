@@ -25,7 +25,7 @@ namespace ProyBiblioteca
             InitializeComponent();
         }
         List<Libro> LibrosEnStock = new List<Libro>();
-        List<Libro> LibrosPestados = new List<Libro>();
+        List<Libro> LibrosPrestados = new List<Libro>();
         List<Persona> misUsuarios = new List<Persona>();
         List<Libro> misLibros = new List<Libro>();
         List<Transaccion> misTransacciones = new List<Transaccion>();
@@ -50,28 +50,28 @@ namespace ProyBiblioteca
         private void ActualizaListaDeLibrosEnStockYLibrosPrestados()
         {
 
-            LibrosPestados.Clear();
+            LibrosPrestados.Clear();
             LibrosEnStock.Clear();
 
             foreach (Libro l in misLibros)
             {
                 bool estaPrestado = false;
-                /*foreach (Transaccion t in misTransacciones)
+                foreach (Transaccion t in misTransacciones)
                 {
-                    estaPrestado = t.IdLibro.Equals(l.IdLibro); 
+                    estaPrestado = t.IdLibro.Equals(l.IdLibro);
                     if (estaPrestado)
                         break;
-                }*/
+                }
 
                 if (estaPrestado)
                 {
-                    LibrosPestados.Add(l);
-                    Console.WriteLine("Libro Prestado: " + l);
+                    LibrosPrestados.Add(l);
+                    Console.WriteLine("Libro Prestado: " + l.Titulo);
                 }
                 else
                 {
                     LibrosEnStock.Add(l);
-                    Console.WriteLine("Libro en Stock: " + l);
+                    Console.WriteLine("Libro en Stock: " + l.Titulo);
                 }
             }
         }
@@ -692,7 +692,7 @@ namespace ProyBiblioteca
                 {
                     ActualizaListaDeLibrosEnStockYLibrosPrestados();
                     cbLibrosaniadirPrestamoODevolucion.Items.Clear();
-                    foreach (Libro l in LibrosPestados)
+                    foreach (Libro l in LibrosPrestados)
                     {
                         cbLibrosaniadirPrestamoODevolucion.Items.Add(l.Titulo);
                     }
@@ -815,7 +815,7 @@ namespace ProyBiblioteca
                     break;
 
                 case "Transacciones":
-                    String idLib = cbLibrosaniadirPrestamoODevolucion.SelectedItem.ToString();
+                    String tituloLib = cbLibrosaniadirPrestamoODevolucion.SelectedItem.ToString();
 
                     // Siempre es la transaccion la fecha actual
 
@@ -834,7 +834,28 @@ namespace ProyBiblioteca
                         {
                             // AÑADIR LA TRANSACCIÓN DE DEVOLUCIÓN
 
-                            transaccion = new Devolucion(idLib, fechaTransaccion);
+                            Libro libro = null;
+
+
+                            int position = 0;
+                            foreach (Libro lib in LibrosPrestados)
+                            {
+
+                                if (tituloLib.Equals(lib.Titulo))
+
+                                {
+
+                                    libro = lib;
+
+                                    break;
+                                }
+                                position++;
+                            }
+
+                            string libroId = libro.IdLibro;
+
+                            //añadir devolucion
+                            transaccion = new Devolucion(libroId, fechaTransaccion);
 
 
                             MessageBox.Show("Se aniadio corerctamente!");
@@ -842,6 +863,7 @@ namespace ProyBiblioteca
                     }
                     else  // PRESTAMO
                     {
+
                         if (cbUsuariosAnadirPrestamos.Text.Equals("") ||
                             cbLibrosaniadirPrestamoODevolucion.Text.Equals("") ||
                             mtbFechaAniadirPrestamo.MaskCompleted == false)
@@ -856,6 +878,24 @@ namespace ProyBiblioteca
                             Persona persona = null;
                             Libro libro = null;
                             DateTime fechaMaxDevolucion = DateTime.MaxValue;
+
+                            int position = 0 ;
+                            foreach (Libro lib in LibrosEnStock)
+                            {
+                             
+                                if (tituloLib.Equals(lib.Titulo))
+
+                                {
+                                                                 
+                                    libro = lib;
+                                    
+                                    break;
+                                }
+                                position++;
+                            }
+
+                            LibrosPrestados.RemoveAt(position);
+                            LibrosEnStock.Add(libro);
 
                             foreach (Persona p in misUsuarios)
                             {
@@ -902,22 +942,11 @@ namespace ProyBiblioteca
                             }
 
 
-                            foreach (Libro lib in LibrosEnStock)
-                            {
-                                if (idLib.Equals(lib.Titulo))
-                                {
-                                    libro = lib;
-                                }
-                            }
-
-                            //   MessageBox.Show(persona.GetType().Name);
-                            //  DateTime fechaMaxDevolucion = persona.calcularFechaDevolucion(libro);
-
 
                             Console.WriteLine("-------------------------------------");
                             Console.WriteLine($"Tipo de transacción: Prestamo");
                             Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
-                            Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo}");
+                            Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo} ");
                             Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
                             Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
 
@@ -928,7 +957,8 @@ namespace ProyBiblioteca
 
                             //Añadir la transacción
                             misTransacciones.Add(transaccion);
-
+                            LibrosEnStock.RemoveAt(position);
+                            LibrosPrestados.Add(libro);
 
                             transaccion.ToString();
                             MessageBox.Show("La transacción se ha añadido correctamente");

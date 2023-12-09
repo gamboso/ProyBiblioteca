@@ -9,11 +9,11 @@ namespace ProyBiblioteca
    public class Libro
     {
         //Atributos de la clase Libro
-        String titulo, ubicacion;
-        String idLibro;
+        string titulo, ubicacion;
+        string idLibro;
 
         //Constructor
-        public Libro(string ubicacion, string titulo, String idLibro)
+        public Libro(string ubicacion, string titulo, string idLibro)
         {
             this.ubicacion = ubicacion;
             this.titulo = titulo;
@@ -24,6 +24,6 @@ namespace ProyBiblioteca
         //Getters y Setters
         public string Titulo { get => titulo; set => titulo = value; }
         public string Ubicacion { get => ubicacion; set => ubicacion = value; }
-        public String IdLibro { get => idLibro; set => idLibro = value; }
+        public string IdLibro { get => idLibro; set => idLibro = value; }
     }
 }
