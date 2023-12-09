@@ -12,13 +12,4 @@ devolucion 1234
 fecha 2, 3, 2022
 prestamo Miguel Angel Fernandez, 1234, #1/4/2022#
 fecha 9, 12, 2023
-prestamo Albert Einstein,  1212, #23/1/2024#
-devolucion  6666
-devolucion  1111
-devolucion  4321
-devolucion  1234
-devolucion  1111
-devolucion  1234
-devolucion  1234
-prestamo Albert Einstein,  1212, #23/1/2024#
-prestamo Pedro Almodovar,  1212, #24/12/2023#
+prestamo Felisa Perez,  1212, #23/1/2024#

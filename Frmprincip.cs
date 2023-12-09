@@ -856,7 +856,12 @@ namespace ProyBiblioteca
 
                             //añadir devolucion
                             transaccion = new Devolucion(libroId, fechaTransaccion);
-
+                            //a
+                            if (LibrosPrestados.Count > 0 && position < LibrosPrestados.Count)
+                            {
+                                LibrosEnStock.RemoveAt(position);
+                            }
+                            LibrosPrestados.Add(libro);
 
                             MessageBox.Show("Se aniadio corerctamente!");
                         }
@@ -893,8 +898,10 @@ namespace ProyBiblioteca
                                 }
                                 position++;
                             }
-
-                            LibrosPrestados.RemoveAt(position);
+                            if (LibrosPrestados.Count > 0 && position < LibrosPrestados.Count)
+                            {
+                                LibrosPrestados.RemoveAt(position);
+                            }
                             LibrosEnStock.Add(libro);
 
                             foreach (Persona p in misUsuarios)
