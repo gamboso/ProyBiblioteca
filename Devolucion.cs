@@ -15,7 +15,5 @@ namespace ProyBiblioteca
             this.IdLibro = idLibro;
             this.fechaTransaccion = fechaTransaccion;
         }
-
-
     }
 }

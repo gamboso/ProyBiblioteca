@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyBiblioteca
 {
-    internal class Alumno : Persona 
+    internal class Alumno : Persona
     {
         public Alumno(string nombre, string departamento) : base(nombre, departamento)
         {
@@ -21,10 +21,5 @@ namespace ProyBiblioteca
             Departamento = departamento;
             FechaSancion = fechaSancion;
         }
-        
-        
-     
-
-
     }
 }

@@ -455,7 +455,7 @@ namespace ProyBiblioteca
                     cbLibrosaniadirPrestamoODevolucion.Hide();
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
-
+                    lblInfoBuscar.Show();
                     break;
 
                 case "Persona":
@@ -499,7 +499,7 @@ namespace ProyBiblioteca
                     cbLibrosaniadirPrestamoODevolucion.Hide();
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
-
+                    lblInfoBuscar.Show();
                     break;
 
                 case "Transaccion":
@@ -546,6 +546,7 @@ namespace ProyBiblioteca
                     lblFechaBorrarPrestamo.Show();
                     cbLibrosaniadirPrestamoODevolucion.Show();
                     mtbFechaAniadirPrestamo.Show();
+                    lblInfoBuscar.Hide();
 
                     break;
 
@@ -663,8 +664,8 @@ namespace ProyBiblioteca
                 chUbi.Width = 200;
                 chUbi.Text = "Ubicación";
 
-                lvBusqueda.Columns.Add(chID);
                 lvBusqueda.Columns.Add(chTitulo);
+                lvBusqueda.Columns.Add(chID);
                 lvBusqueda.Columns.Add(chUbi);
 
             }
@@ -1198,6 +1199,24 @@ namespace ProyBiblioteca
             }
         }
 
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            String sBusqueda = txbBuscar.Text; 
+            if (interfSeleccionada.Equals("Libros"))
+            {
+                lvBusqueda.Items.Clear();
+                foreach (Libro lib in misLibros)
+                {
+                    if (lib.Titulo.Contains(sBusqueda))
+                    {
+                        ListViewItem lviAux = new ListViewItem(lib.Titulo);
+                        lviAux.SubItems.Add(lib.IdLibro);
+                        lviAux.SubItems.Add(lib.Ubicacion);
+                        lvBusqueda.Items.Add(lviAux);
+                    }
+                }
+            }
+        }
     }
 
 }

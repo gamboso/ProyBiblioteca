@@ -57,6 +57,7 @@
             this.lblFechaBorrarPrestamo = new System.Windows.Forms.Label();
             this.mtbFechaBorrarPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.lvBorrar = new System.Windows.Forms.ListView();
+            this.ilProfesoresAlumnosPAS = new System.Windows.Forms.ImageList(this.components);
             this.lblBorrar = new System.Windows.Forms.Label();
             this.pcb2Modo = new System.Windows.Forms.PictureBox();
             this.tpModificado = new System.Windows.Forms.TabPage();
@@ -82,8 +83,8 @@
             this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ilProfesoresAlumnosPAS = new System.Windows.Forms.ImageList(this.components);
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
+            this.lblInfoBuscar = new System.Windows.Forms.Label();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -407,6 +408,15 @@
             this.lvBorrar.View = System.Windows.Forms.View.SmallIcon;
             this.lvBorrar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvBorrar_MouseDoubleClick);
             // 
+            // ilProfesoresAlumnosPAS
+            // 
+            this.ilProfesoresAlumnosPAS.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilProfesoresAlumnosPAS.ImageStream")));
+            this.ilProfesoresAlumnosPAS.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilProfesoresAlumnosPAS.Images.SetKeyName(0, "profesor.png");
+            this.ilProfesoresAlumnosPAS.Images.SetKeyName(1, "alumno.png");
+            this.ilProfesoresAlumnosPAS.Images.SetKeyName(2, "pas.png");
+            this.ilProfesoresAlumnosPAS.Images.SetKeyName(3, "libro-cerrado.png");
+            // 
             // lblBorrar
             // 
             this.lblBorrar.AutoSize = true;
@@ -488,6 +498,7 @@
             // 
             // tpBuscar
             // 
+            this.tpBuscar.Controls.Add(this.lblInfoBuscar);
             this.tpBuscar.Controls.Add(this.mtbFechaBusquedaPrestamo);
             this.tpBuscar.Controls.Add(this.cbFiltrarPor);
             this.tpBuscar.Controls.Add(this.lblFiltrarPor);
@@ -546,10 +557,11 @@
             this.btnBuscar.TabIndex = 22;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txbBuscar
             // 
-            this.txbBuscar.Location = new System.Drawing.Point(394, 51);
+            this.txbBuscar.Location = new System.Drawing.Point(394, 61);
             this.txbBuscar.Name = "txbBuscar";
             this.txbBuscar.Size = new System.Drawing.Size(374, 22);
             this.txbBuscar.TabIndex = 21;
@@ -654,21 +666,21 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
-            // ilProfesoresAlumnosPAS
-            // 
-            this.ilProfesoresAlumnosPAS.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilProfesoresAlumnosPAS.ImageStream")));
-            this.ilProfesoresAlumnosPAS.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilProfesoresAlumnosPAS.Images.SetKeyName(0, "profesor.png");
-            this.ilProfesoresAlumnosPAS.Images.SetKeyName(1, "alumno.png");
-            this.ilProfesoresAlumnosPAS.Images.SetKeyName(2, "pas.png");
-            this.ilProfesoresAlumnosPAS.Images.SetKeyName(3, "libro-cerrado.png");
-            // 
             // ilPrestamos
             // 
             this.ilPrestamos.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilPrestamos.ImageStream")));
             this.ilPrestamos.TransparentColor = System.Drawing.Color.Transparent;
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
+            // 
+            // lblInfoBuscar
+            // 
+            this.lblInfoBuscar.AutoSize = true;
+            this.lblInfoBuscar.Location = new System.Drawing.Point(391, 34);
+            this.lblInfoBuscar.Name = "lblInfoBuscar";
+            this.lblInfoBuscar.Size = new System.Drawing.Size(150, 15);
+            this.lblInfoBuscar.TabIndex = 26;
+            this.lblInfoBuscar.Text = "Búsqueda por nombre: ";
             // 
             // FrmBiblio
             // 
@@ -762,6 +774,7 @@
         private System.Windows.Forms.MaskedTextBox mtbFechaAniadirPrestamo;
         private System.Windows.Forms.ComboBox cbLibrosaniadirPrestamoODevolucion;
         private System.Windows.Forms.ComboBox cbUsuariosAnadirPrestamos;
+        private System.Windows.Forms.Label lblInfoBuscar;
     }
 }
 
