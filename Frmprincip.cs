@@ -44,7 +44,7 @@ namespace ProyBiblioteca
             Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
             ActualizaListaDeLibrosEnStockYLibrosPrestados();
-            
+
 
         }
 
@@ -516,8 +516,6 @@ namespace ProyBiblioteca
                     rbOpcion2.Text = "Préstamo";
                     rbOpcion3.Hide();
 
-
-
                     lblAtrib1.Text = "Nombre usuario";
                     lblAtrib1.Hide();
                     tbxAtrib1.Hide();
@@ -559,7 +557,7 @@ namespace ProyBiblioteca
 
         private void CambiarlvBorrar(String tipoLV)
         {
-            
+
             lvBorrar.Clear();
             if (tipoLV.Equals("Libro"))
             {
@@ -589,7 +587,7 @@ namespace ProyBiblioteca
 
                     if (resultadoclase.Equals("Prestamo"))
                     {
-                        ListViewItem item = new ListViewItem(resultadoclase + ": " +t.ToString(), 1);
+                        ListViewItem item = new ListViewItem(resultadoclase + ": " + t.ToString(), 1);
                         lvBorrar.Items.Add(item);
                     }
                     else if (resultadoclase.Equals("Devolucion"))
@@ -599,7 +597,7 @@ namespace ProyBiblioteca
                         lvBorrar.Items.Add(item);
 
                     }
-                    
+
 
                 }
 
@@ -609,7 +607,7 @@ namespace ProyBiblioteca
                 foreach (Persona p in misUsuarios)
                 {
                     lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
-                    
+
                     string clase = p.GetType().ToString();
                     // Encuentra la última posición del punto
                     int lastIndex = clase.LastIndexOf('.');
@@ -621,7 +619,7 @@ namespace ProyBiblioteca
                     {
                         ListViewItem item = new ListViewItem(p.Nombre, 1);
                         lvBorrar.Items.Add(item);
-                    } 
+                    }
                     else if (resultadoclase.Equals("Alumno"))
                     {
 
@@ -640,8 +638,8 @@ namespace ProyBiblioteca
 
                 }
             }
-            
-            
+
+
         }
 
         //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
@@ -983,16 +981,16 @@ namespace ProyBiblioteca
                             Libro libro = null;
                             DateTime fechaMaxDevolucion = DateTime.MaxValue;
 
-                            int position = 0 ;
+                            int position = 0;
                             foreach (Libro lib in LibrosEnStock)
                             {
-                             
+
                                 if (tituloLib.Equals(lib.Titulo))
 
                                 {
-                                                                 
+
                                     libro = lib;
-                                    
+
                                     break;
                                 }
                                 position++;
@@ -1084,10 +1082,10 @@ namespace ProyBiblioteca
         }
 
         //Método que controla que no se pueda escribir en un combo box 
-       /* private void evitarEscrituraEnComboBox(object sender, EventArgs e)
-        {
-            cbUsuariosAnadirPrestamos.ResetText();
-        }*/
+        /* private void evitarEscrituraEnComboBox(object sender, EventArgs e)
+         {
+             cbUsuariosAnadirPrestamos.ResetText();
+         }*/
 
         private void escribirFecha()
         {
@@ -1201,7 +1199,7 @@ namespace ProyBiblioteca
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            String sBusqueda = txbBuscar.Text; 
+            String sBusqueda = txbBuscar.Text;
             if (interfSeleccionada.Equals("Libros"))
             {
                 lvBusqueda.Items.Clear();
@@ -1213,6 +1211,25 @@ namespace ProyBiblioteca
                         lviAux.SubItems.Add(lib.IdLibro);
                         lviAux.SubItems.Add(lib.Ubicacion);
                         lvBusqueda.Items.Add(lviAux);
+                    }
+                }
+            }
+            else if (interfSeleccionada.Equals("Usuarios"))
+            {
+                lvBusqueda.Items.Clear();
+                foreach (Persona per in misUsuarios)
+                {
+                    if (per.Nombre.Contains(sBusqueda))
+                    {
+                        ListViewItem lviAux = new ListViewItem(per.Nombre);
+                        lviAux.SubItems.Add(per.Departamento);
+                        lviAux.SubItems.Add(per.GetType().Name);
+                        //Falta comprobar que si no tiene fecha, añada un elemnto vacío
+                        lviAux.SubItems.Add(per.FechaSancion.ToString());
+                      
+
+                        lvBusqueda.Items.Add(lviAux);
+
                     }
                 }
             }
