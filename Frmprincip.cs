@@ -365,7 +365,7 @@ namespace ProyBiblioteca
         private void tsbPrestamos_Click(object sender, EventArgs e)
         {
             interfSeleccionada = tsbPrestamos.Text;
-            cargarInterfazPrestamos();
+            cargarInterfazTransacciones();
         }
 
         private void cargarInterfazLibros()
@@ -390,7 +390,7 @@ namespace ProyBiblioteca
 
         }
 
-        private void cargarInterfazPrestamos()
+        private void cargarInterfazTransacciones()
         {
             cargarImagen("Prestamo");
             cambioDeInterfaz("Transaccion");
@@ -419,8 +419,9 @@ namespace ProyBiblioteca
             switch (tipo)
             {
                 case "Libro":
-                    cambiarListView("Libro");
-                    CambiarlvBorrar("Libro");
+                    //Elementos de la interfaz de añadir -------------------------------------------
+                    cambiarListViewBusqueda("Libro");
+                    cambiarLvBorrar("Libro");
                     tpAñadir.Text = "Añadir";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
@@ -432,35 +433,39 @@ namespace ProyBiblioteca
                     rbOpcion3.Hide();
                     tbxAtrib1.Show();
                     tbxAtrib2.Show();
+                    //------------------------------------------------------------------------------
 
+                    //Elementos de la interfaz de búsqueda------------------------------------------
                     lblAtrib1.Text = "Título Libro";
                     lblAtrib1.Show();
                     tbxAtrib1.Show();
                     lblAtrib2.Text = "ID Libro";
                     lblAtrib3.Hide();
                     tbxAtrib3.Hide();
-                    lvDevoluciones.Hide();
-                    lvPrestamos.Hide();
-                    lvBusqueda.Show();
-                    lblDevoluciones.Hide();
-                    lblFiltrarPor.Hide();
-                    lblPrestamo.Hide();
                     cbFiltrarPor.Hide();
                     mtbFechaBusquedaPrestamo.Hide();
                     txbBuscar.Show();
-                    lblFechaModificarPrestamo.Hide();
-                    mtbFechaBorrarPrestamo.Hide();
-                    mtbFechaModificarPrestamo.Hide();
-                    lblFechaBorrarPrestamo.Hide();
                     cbLibrosaniadirPrestamoODevolucion.Hide();
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
                     lblInfoBuscar.Show();
+                    //------------------------------------------------------------------------------
+
+                    //Elementos de la interfaz de modificar ----------------------------------------
+                    mtbFechaModificarPrestamo.Hide();
+                    lblFechaModificarPrestamo.Hide();
+                    //------------------------------------------------------------------------------
+
+                    //Elementos de la interfaz de borrado ------------------------------------------
+                    mtbFechaBorrarPrestamo.Hide();
+                    lblFechaBorrarPrestamo.Hide();
+                    //------------------------------------------------------------------------------
                     break;
 
                 case "Persona":
-                    cambiarListView("Persona");
-                    CambiarlvBorrar("Persona");
+                    //Elementos de la interfaz de añadir -------------------------------------------
+                    cambiarListViewBusqueda("Persona");
+                    cambiarLvBorrar("Persona");
                     tpAñadir.Text = "Añadir";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
@@ -483,33 +488,37 @@ namespace ProyBiblioteca
                     lblAtrib3.Show();
                     lblAtrib3.Text = "Fecha sanción";
                     tbxAtrib3.Show();
-                    lvDevoluciones.Hide();
-                    lvPrestamos.Hide();
-                    lvBusqueda.Show();
-                    lblDevoluciones.Hide();
+                    //------------------------------------------------------------------------------
+
+                    //Elementos de la interfaz de búsqueda------------------------------------------
                     lblFiltrarPor.Hide();
-                    lblPrestamo.Hide();
                     cbFiltrarPor.Hide();
                     mtbFechaBusquedaPrestamo.Hide();
                     txbBuscar.Show();
-                    lblFechaModificarPrestamo.Hide();
-                    mtbFechaBorrarPrestamo.Hide();
-                    mtbFechaModificarPrestamo.Hide();
-                    lblFechaBorrarPrestamo.Hide();
                     cbLibrosaniadirPrestamoODevolucion.Hide();
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
                     lblInfoBuscar.Show();
+                    //------------------------------------------------------------------------------
+
+                    //Elementos de la interfaz de modificación -------------------------------------
+                    mtbFechaModificarPrestamo.Hide();
+                    lblFechaModificarPrestamo.Hide();
+                    //------------------------------------------------------------------------------
+
+                    //Elementos de la interfaz de borrado ------------------------------------------
+                    mtbFechaBorrarPrestamo.Hide();
+                    lblFechaBorrarPrestamo.Hide();
+                    //------------------------------------------------------------------------------
                     break;
 
                 case "Transaccion":
-                    cambiarListView("Transaccion");
-                    CambiarlvBorrar("Transaccion");
+                    //Elementos de la interfaz de añadir -------------------------------------------
+                    cambiarLvBorrar("Transaccion");
                     tpAñadir.Text = "Prestar y Devolver";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
-
 
                     gbAtribs.Text = "Tipo ";
                     rbOpcion1.Text = "Devolución";
@@ -523,29 +532,33 @@ namespace ProyBiblioteca
 
                     lblAtrib2.Text = "ID Libro";
                     lblAtrib3.Show();
-                    lblAtrib3.Text = "Fecha devolución";
+                    lblAtrib3.Text = "Fecha Devolución";
                     tbxAtrib3.Hide();
                     tbxAtrib2.Hide();
                     tbxAtrib1.Hide();
+                    //------------------------------------------------------------------------------
 
+                    //Elementos de la interfaz de búsqueda------------------------------------------
                     txbBuscar.Hide();
                     mtbFechaBusquedaPrestamo.Hide();
-                    lvDevoluciones.Show();
-                    lvPrestamos.Show();
-                    lvBusqueda.Hide();
-                    lblDevoluciones.Show();
                     lblFiltrarPor.Show();
-                    lblPrestamo.Show();
                     cbFiltrarPor.Show();
-                    lblFechaModificarPrestamo.Show();
                     mtbFechaBusquedaPrestamo.Show();
-                    mtbFechaBorrarPrestamo.Show();
-                    mtbFechaModificarPrestamo.Show();
-                    lblFechaBorrarPrestamo.Show();
                     cbLibrosaniadirPrestamoODevolucion.Show();
                     mtbFechaAniadirPrestamo.Show();
                     lblInfoBuscar.Hide();
+                    cbFiltrarPor.SelectedIndex = 0;
+                    //------------------------------------------------------------------------------
 
+                    //Elementos de la interfaz de modificación -------------------------------------
+                    lblFechaModificarPrestamo.Show();
+                    mtbFechaModificarPrestamo.Show();
+                    //------------------------------------------------------------------------------
+
+                    //Elementos de la interfaz de borrado ------------------------------------------
+                    mtbFechaBorrarPrestamo.Show();
+                    lblFechaBorrarPrestamo.Show();
+                    //------------------------------------------------------------------------------
                     break;
 
                 default:
@@ -555,7 +568,7 @@ namespace ProyBiblioteca
 
         }
 
-        private void CambiarlvBorrar(String tipoLV)
+        private void cambiarLvBorrar(String tipoLV)
         {
 
             lvBorrar.Clear();
@@ -643,7 +656,7 @@ namespace ProyBiblioteca
         }
 
         //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
-        private void cambiarListView(String tipoLV)
+        private void cambiarListViewBusqueda(String tipoLV)
         {
             lvBusqueda.Columns.Clear();
             lvBusqueda.Items.Clear();
@@ -665,30 +678,6 @@ namespace ProyBiblioteca
                 lvBusqueda.Columns.Add(chTitulo);
                 lvBusqueda.Columns.Add(chID);
                 lvBusqueda.Columns.Add(chUbi);
-
-            }
-            else if (tipoLV.Equals("Transaccion"))
-            {
-                ColumnHeader chIDLibro = new ColumnHeader();
-                chIDLibro.Width = 150;
-                chIDLibro.Text = "ID Libro";
-
-                ColumnHeader chNombreUsuario = new ColumnHeader();
-                chNombreUsuario.Width = 150;
-                chNombreUsuario.Text = "Nombre Usuario";
-
-                ColumnHeader chTipoTransaccion = new ColumnHeader();
-                chTipoTransaccion.Width = 150;
-                chTipoTransaccion.Text = "Transacción";
-
-                ColumnHeader chFechaDev = new ColumnHeader();
-                chFechaDev.Width = 150;
-                chFechaDev.Text = "Fecha devolución";
-
-                lvBusqueda.Columns.Add(chIDLibro);
-                lvBusqueda.Columns.Add(chNombreUsuario);
-                lvBusqueda.Columns.Add(chTipoTransaccion);
-                lvBusqueda.Columns.Add(chFechaDev);
 
             }
             else if (tipoLV.Equals("Persona"))
@@ -767,7 +756,7 @@ namespace ProyBiblioteca
         private void cbFiltrarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (cbFiltrarPor.Text.Equals("Fecha"))
+            if (cbFiltrarPor.Text.Equals("Fecha Transaccion"))
             {
                 txbBuscar.Hide();
                 mtbFechaBusquedaPrestamo.Show();
@@ -793,7 +782,7 @@ namespace ProyBiblioteca
                     {
                         cbLibrosaniadirPrestamoODevolucion.Items.Add(l.Titulo);
                     }
-                    lblAtrib3.Text = "Fecha Devolucion:";
+                    lblAtrib3.Text = "Fecha Devolución";
                     lblAtrib1.Hide();
                     tbxAtrib1.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
@@ -815,7 +804,7 @@ namespace ProyBiblioteca
                     {
                         cbLibrosaniadirPrestamoODevolucion.Items.Add(l.Titulo);
                     }
-                    lblAtrib3.Text = "Fecha Prestamo:";
+                    lblAtrib3.Text = "Fecha Préstamo";
                     lblAtrib1.Show();
                     tbxAtrib1.Hide();
                     cbUsuariosAnadirPrestamos.Show();
@@ -1081,12 +1070,6 @@ namespace ProyBiblioteca
             }
         }
 
-        //Método que controla que no se pueda escribir en un combo box 
-        /* private void evitarEscrituraEnComboBox(object sender, EventArgs e)
-         {
-             cbUsuariosAnadirPrestamos.ResetText();
-         }*/
-
         private void escribirFecha()
         {
             //Leer el fichero transacciones.txt
@@ -1224,16 +1207,54 @@ namespace ProyBiblioteca
                         ListViewItem lviAux = new ListViewItem(per.Nombre);
                         lviAux.SubItems.Add(per.Departamento);
                         lviAux.SubItems.Add(per.GetType().Name);
-                        //Falta comprobar que si no tiene fecha, añada un elemnto vacío
-                        lviAux.SubItems.Add(per.FechaSancion.ToString());
-                      
+                        //Falta comprobar que si no tiene fecha, añada un elemento vacío
+                        lviAux.SubItems.Add(per.FechaSancion.ToString("dd/M/yyyy"));
 
                         lvBusqueda.Items.Add(lviAux);
 
                     }
                 }
             }
+            else if (interfSeleccionada.Equals("Transacciones"))
+            {
+                /*
+                foreach (Transaccion transaccion in misTransacciones)
+                {
+                    ListViewItem lviAux = new ListViewItem();
+                    if (transaccion.GetType().Name.Equals("Prestamo"))
+                    {
+                        Prestamo presAux = (Prestamo) transaccion;
+                        lviAux.Text = presAux.NombreUsuario;
+                        lviAux.SubItems.Add(presAux.IdLibro);
+                        lviAux.SubItems.Add(presAux.FechaMaxDevolucion.ToString("dd/M/yyyy"));
+                        lviAux.SubItems.Add(presAux.FechaTransaccion.ToString("dd/M/yyyy"));
+                        lvBusqueda.Items.Add(lviAux);                    
+                    }
+                    else if (transaccion.GetType().Name.Equals("Devolucion"))
+                    {
+                        Devolucion devAux = (Devolucion) transaccion;
+                        lviAux.Text = devAux.IdLibro;
+                        lviAux.SubItems.Add(devAux.FechaTransaccion.ToString("dd/M/yyyy"));
+                        lvBusqueda.Items.Add(lviAux);
+                    }
+                }*/
+            }
         }
-    }
+        /*
+        private void comprobarFiltrado(ListViewItem lvi) {
+            if (cbFiltrarPor.Text.Equals("Usuarios"))
+            {
 
+            }
+            else if (cbFiltrarPor.Text.Equals("Fecha"))
+            {
+
+            }
+            else if (cbFiltrarPor.Text.Equals("IDLibro"))
+            {
+
+            }
+        */
+    }
 }
+

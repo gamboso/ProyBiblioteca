@@ -67,15 +67,12 @@
             this.lvModificar = new System.Windows.Forms.ListView();
             this.pcb3Modo = new System.Windows.Forms.PictureBox();
             this.tpBuscar = new System.Windows.Forms.TabPage();
+            this.lblInfoBuscar = new System.Windows.Forms.Label();
             this.mtbFechaBusquedaPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.cbFiltrarPor = new System.Windows.Forms.ComboBox();
             this.lblFiltrarPor = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txbBuscar = new System.Windows.Forms.TextBox();
-            this.lblPrestamo = new System.Windows.Forms.Label();
-            this.lblDevoluciones = new System.Windows.Forms.Label();
-            this.lvDevoluciones = new System.Windows.Forms.ListView();
-            this.lvPrestamos = new System.Windows.Forms.ListView();
             this.lvBusqueda = new System.Windows.Forms.ListView();
             this.pcb4Modo = new System.Windows.Forms.PictureBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -84,7 +81,14 @@
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
-            this.lblInfoBuscar = new System.Windows.Forms.Label();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.idLibr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.fechamax = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvPrestamos = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvDevoluciones = new System.Windows.Forms.ListView();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -504,8 +508,6 @@
             this.tpBuscar.Controls.Add(this.lblFiltrarPor);
             this.tpBuscar.Controls.Add(this.btnBuscar);
             this.tpBuscar.Controls.Add(this.txbBuscar);
-            this.tpBuscar.Controls.Add(this.lblPrestamo);
-            this.tpBuscar.Controls.Add(this.lblDevoluciones);
             this.tpBuscar.Controls.Add(this.lvDevoluciones);
             this.tpBuscar.Controls.Add(this.lvPrestamos);
             this.tpBuscar.Controls.Add(this.lvBusqueda);
@@ -517,6 +519,15 @@
             this.tpBuscar.TabIndex = 3;
             this.tpBuscar.Text = "Búsqueda";
             this.tpBuscar.UseVisualStyleBackColor = true;
+            // 
+            // lblInfoBuscar
+            // 
+            this.lblInfoBuscar.AutoSize = true;
+            this.lblInfoBuscar.Location = new System.Drawing.Point(391, 34);
+            this.lblInfoBuscar.Name = "lblInfoBuscar";
+            this.lblInfoBuscar.Size = new System.Drawing.Size(150, 15);
+            this.lblInfoBuscar.TabIndex = 26;
+            this.lblInfoBuscar.Text = "Búsqueda por nombre: ";
             // 
             // mtbFechaBusquedaPrestamo
             // 
@@ -531,9 +542,10 @@
             // 
             this.cbFiltrarPor.FormattingEnabled = true;
             this.cbFiltrarPor.Items.AddRange(new object[] {
-            "Usuarios",
-            "Fecha",
-            "IDLibro"});
+            "Nombre Usuario",
+            "Fecha Transaccion",
+            "Titulo Libro",
+            "Departamento"});
             this.cbFiltrarPor.Location = new System.Drawing.Point(240, 51);
             this.cbFiltrarPor.Name = "cbFiltrarPor";
             this.cbFiltrarPor.Size = new System.Drawing.Size(121, 23);
@@ -565,48 +577,6 @@
             this.txbBuscar.Name = "txbBuscar";
             this.txbBuscar.Size = new System.Drawing.Size(374, 22);
             this.txbBuscar.TabIndex = 21;
-            // 
-            // lblPrestamo
-            // 
-            this.lblPrestamo.AutoSize = true;
-            this.lblPrestamo.Location = new System.Drawing.Point(81, 95);
-            this.lblPrestamo.Name = "lblPrestamo";
-            this.lblPrestamo.Size = new System.Drawing.Size(68, 15);
-            this.lblPrestamo.TabIndex = 20;
-            this.lblPrestamo.Text = "Prestamos";
-            // 
-            // lblDevoluciones
-            // 
-            this.lblDevoluciones.AutoSize = true;
-            this.lblDevoluciones.Location = new System.Drawing.Point(695, 95);
-            this.lblDevoluciones.Name = "lblDevoluciones";
-            this.lblDevoluciones.Size = new System.Drawing.Size(88, 15);
-            this.lblDevoluciones.TabIndex = 19;
-            this.lblDevoluciones.Text = "Devoluciones";
-            // 
-            // lvDevoluciones
-            // 
-            this.lvDevoluciones.FullRowSelect = true;
-            this.lvDevoluciones.GridLines = true;
-            this.lvDevoluciones.HideSelection = false;
-            this.lvDevoluciones.Location = new System.Drawing.Point(698, 113);
-            this.lvDevoluciones.Name = "lvDevoluciones";
-            this.lvDevoluciones.Size = new System.Drawing.Size(370, 363);
-            this.lvDevoluciones.TabIndex = 18;
-            this.lvDevoluciones.UseCompatibleStateImageBehavior = false;
-            this.lvDevoluciones.View = System.Windows.Forms.View.Details;
-            // 
-            // lvPrestamos
-            // 
-            this.lvPrestamos.FullRowSelect = true;
-            this.lvPrestamos.GridLines = true;
-            this.lvPrestamos.HideSelection = false;
-            this.lvPrestamos.Location = new System.Drawing.Point(84, 113);
-            this.lvPrestamos.Name = "lvPrestamos";
-            this.lvPrestamos.Size = new System.Drawing.Size(370, 363);
-            this.lvPrestamos.TabIndex = 17;
-            this.lvPrestamos.UseCompatibleStateImageBehavior = false;
-            this.lvPrestamos.View = System.Windows.Forms.View.Details;
             // 
             // lvBusqueda
             // 
@@ -673,14 +643,67 @@
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
             // 
-            // lblInfoBuscar
+            // columnHeader1
             // 
-            this.lblInfoBuscar.AutoSize = true;
-            this.lblInfoBuscar.Location = new System.Drawing.Point(391, 34);
-            this.lblInfoBuscar.Name = "lblInfoBuscar";
-            this.lblInfoBuscar.Size = new System.Drawing.Size(150, 15);
-            this.lblInfoBuscar.TabIndex = 26;
-            this.lblInfoBuscar.Text = "Búsqueda por nombre: ";
+            this.columnHeader1.Text = "Usuario";
+            this.columnHeader1.Width = 87;
+            // 
+            // idLibr
+            // 
+            this.idLibr.Text = "ID Libro";
+            this.idLibr.Width = 89;
+            // 
+            // fechamax
+            // 
+            this.fechamax.Text = "Fecha Máxima Dev";
+            this.fechamax.Width = 135;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Fecha Transaccion";
+            this.columnHeader2.Width = 152;
+            // 
+            // lvPrestamos
+            // 
+            this.lvPrestamos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.idLibr,
+            this.fechamax,
+            this.columnHeader2});
+            this.lvPrestamos.FullRowSelect = true;
+            this.lvPrestamos.GridLines = true;
+            this.lvPrestamos.HideSelection = false;
+            this.lvPrestamos.Location = new System.Drawing.Point(44, 113);
+            this.lvPrestamos.Name = "lvPrestamos";
+            this.lvPrestamos.Size = new System.Drawing.Size(465, 363);
+            this.lvPrestamos.TabIndex = 17;
+            this.lvPrestamos.UseCompatibleStateImageBehavior = false;
+            this.lvPrestamos.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "ID Libro";
+            this.columnHeader3.Width = 125;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Fecha Transaccion";
+            this.columnHeader4.Width = 169;
+            // 
+            // lvDevoluciones
+            // 
+            this.lvDevoluciones.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            this.lvDevoluciones.FullRowSelect = true;
+            this.lvDevoluciones.GridLines = true;
+            this.lvDevoluciones.HideSelection = false;
+            this.lvDevoluciones.Location = new System.Drawing.Point(698, 113);
+            this.lvDevoluciones.Name = "lvDevoluciones";
+            this.lvDevoluciones.Size = new System.Drawing.Size(453, 363);
+            this.lvDevoluciones.TabIndex = 18;
+            this.lvDevoluciones.UseCompatibleStateImageBehavior = false;
+            this.lvDevoluciones.View = System.Windows.Forms.View.Details;
             // 
             // FrmBiblio
             // 
@@ -752,12 +775,8 @@
         private System.Windows.Forms.Label lblAtrib3;
         private System.Windows.Forms.Label lblAtrib2;
         private System.Windows.Forms.Label lblAtrib1;
-        private System.Windows.Forms.ListView lvDevoluciones;
-        private System.Windows.Forms.ListView lvPrestamos;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txbBuscar;
-        private System.Windows.Forms.Label lblPrestamo;
-        private System.Windows.Forms.Label lblDevoluciones;
         private System.Windows.Forms.ComboBox cbFiltrarPor;
         private System.Windows.Forms.Label lblFiltrarPor;
         private System.Windows.Forms.MaskedTextBox mtbFechaBusquedaPrestamo;
@@ -775,6 +794,14 @@
         private System.Windows.Forms.ComboBox cbLibrosaniadirPrestamoODevolucion;
         private System.Windows.Forms.ComboBox cbUsuariosAnadirPrestamos;
         private System.Windows.Forms.Label lblInfoBuscar;
+        private System.Windows.Forms.ListView lvDevoluciones;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ListView lvPrestamos;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader idLibr;
+        private System.Windows.Forms.ColumnHeader fechamax;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 
