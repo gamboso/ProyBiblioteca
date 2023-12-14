@@ -806,7 +806,7 @@ namespace ProyBiblioteca
             {
                 if (rbOpcion2.Text.Equals("Préstamo"))
                 {
-                                       
+
                     cargarLibrosEnStockYUsuariosCB();
 
                     lblAtrib3.Text = "Fecha Préstamo";
@@ -987,7 +987,7 @@ namespace ProyBiblioteca
                             MessageBox.Show("Se añadio correctamente!");
 
                             //ACTUALIZAR LISTA Y CARGAR LOS LIBROS
-                        //    ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                            //    ActualizaListaDeLibrosEnStockYLibrosPrestados();
                             cargarLibrosPrestadosCB();
 
                         }
@@ -1092,7 +1092,7 @@ namespace ProyBiblioteca
                             MessageBox.Show("La transacción se ha añadido correctamente");
 
                             //ACTUALIZAR LISTA, CARGAR LOS LIBROS EN STOCK Y LOS USUARIOS
-                           // ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                            // ActualizaListaDeLibrosEnStockYLibrosPrestados();
                             cargarLibrosEnStockYUsuariosCB();
 
                         }
@@ -1101,7 +1101,7 @@ namespace ProyBiblioteca
                     escribirFecha();
                     // Escribir la transacción en el fichero
                     escribirTransaccion(transaccion);
-                    
+
                     break;
 
                 default:
