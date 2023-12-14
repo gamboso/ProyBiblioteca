@@ -33,12 +33,12 @@
             this.toolStripIconosIniciales = new System.Windows.Forms.ToolStrip();
             this.tsbLibros = new System.Windows.Forms.ToolStripButton();
             this.tsbUsuarios = new System.Windows.Forms.ToolStripButton();
-            this.tsbPrestamos = new System.Windows.Forms.ToolStripButton();
+            this.tsbTransacciones = new System.Windows.Forms.ToolStripButton();
             this.tcOpciones = new System.Windows.Forms.TabControl();
             this.tpAñadir = new System.Windows.Forms.TabPage();
             this.gbAux = new System.Windows.Forms.GroupBox();
             this.cbUsuariosAnadirPrestamos = new System.Windows.Forms.ComboBox();
-            this.cbLibrosaniadirPrestamoODevolucion = new System.Windows.Forms.ComboBox();
+            this.cbLibroPresDev = new System.Windows.Forms.ComboBox();
             this.mtbFechaAniadirPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.tbxAtrib3 = new System.Windows.Forms.TextBox();
             this.tbxAtrib2 = new System.Windows.Forms.TextBox();
@@ -89,8 +89,11 @@
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
+<<<<<<< HEAD
+=======
             this.lblPrestamos = new System.Windows.Forms.Label();
             this.lblDevol = new System.Windows.Forms.Label();
+>>>>>>> 24768997a00c66ef00efa9d435b8c7fabfdbacd4
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -112,7 +115,7 @@
             this.toolStripIconosIniciales.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbLibros,
             this.tsbUsuarios,
-            this.tsbPrestamos});
+            this.tsbTransacciones});
             this.toolStripIconosIniciales.Location = new System.Drawing.Point(0, 0);
             this.toolStripIconosIniciales.Name = "toolStripIconosIniciales";
             this.toolStripIconosIniciales.Size = new System.Drawing.Size(1197, 37);
@@ -138,14 +141,14 @@
             this.tsbUsuarios.ToolTipText = "Usuarios";
             this.tsbUsuarios.Click += new System.EventHandler(this.tsbUsuarios_Click);
             // 
-            // tsbPrestamos
+            // tsbTransacciones
             // 
-            this.tsbPrestamos.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrestamos.Image")));
-            this.tsbPrestamos.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbPrestamos.Name = "tsbPrestamos";
-            this.tsbPrestamos.Size = new System.Drawing.Size(100, 34);
-            this.tsbPrestamos.Text = "Transacciones";
-            this.tsbPrestamos.Click += new System.EventHandler(this.tsbPrestamos_Click);
+            this.tsbTransacciones.Image = ((System.Drawing.Image)(resources.GetObject("tsbTransacciones.Image")));
+            this.tsbTransacciones.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbTransacciones.Name = "tsbTransacciones";
+            this.tsbTransacciones.Size = new System.Drawing.Size(100, 34);
+            this.tsbTransacciones.Text = "Transacciones";
+            this.tsbTransacciones.Click += new System.EventHandler(this.tsbPrestamos_Click);
             // 
             // tcOpciones
             // 
@@ -179,7 +182,7 @@
             // gbAux
             // 
             this.gbAux.Controls.Add(this.cbUsuariosAnadirPrestamos);
-            this.gbAux.Controls.Add(this.cbLibrosaniadirPrestamoODevolucion);
+            this.gbAux.Controls.Add(this.cbLibroPresDev);
             this.gbAux.Controls.Add(this.mtbFechaAniadirPrestamo);
             this.gbAux.Controls.Add(this.tbxAtrib3);
             this.gbAux.Controls.Add(this.tbxAtrib2);
@@ -202,14 +205,14 @@
             this.cbUsuariosAnadirPrestamos.Size = new System.Drawing.Size(241, 24);
             this.cbUsuariosAnadirPrestamos.TabIndex = 21;
             // 
-            // cbLibrosaniadirPrestamoODevolucion
+            // cbLibroPresDev
             // 
-            this.cbLibrosaniadirPrestamoODevolucion.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbLibrosaniadirPrestamoODevolucion.FormattingEnabled = true;
-            this.cbLibrosaniadirPrestamoODevolucion.Location = new System.Drawing.Point(252, 110);
-            this.cbLibrosaniadirPrestamoODevolucion.Name = "cbLibrosaniadirPrestamoODevolucion";
-            this.cbLibrosaniadirPrestamoODevolucion.Size = new System.Drawing.Size(241, 24);
-            this.cbLibrosaniadirPrestamoODevolucion.TabIndex = 20;
+            this.cbLibroPresDev.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLibroPresDev.FormattingEnabled = true;
+            this.cbLibroPresDev.Location = new System.Drawing.Point(252, 112);
+            this.cbLibroPresDev.Name = "cbLibroPresDev";
+            this.cbLibroPresDev.Size = new System.Drawing.Size(241, 24);
+            this.cbLibroPresDev.TabIndex = 20;
             // 
             // mtbFechaAniadirPrestamo
             // 
@@ -232,7 +235,7 @@
             // tbxAtrib2
             // 
             this.tbxAtrib2.Font = new System.Drawing.Font("Segoe UI Emoji", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxAtrib2.Location = new System.Drawing.Point(241, 111);
+            this.tbxAtrib2.Location = new System.Drawing.Point(241, 113);
             this.tbxAtrib2.Name = "tbxAtrib2";
             this.tbxAtrib2.Size = new System.Drawing.Size(252, 23);
             this.tbxAtrib2.TabIndex = 17;
@@ -709,6 +712,8 @@
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
             // 
+<<<<<<< HEAD
+=======
             // lblPrestamos
             // 
             this.lblPrestamos.AutoSize = true;
@@ -727,6 +732,7 @@
             this.lblDevol.TabIndex = 28;
             this.lblDevol.Text = "Devoluciones";
             // 
+>>>>>>> 24768997a00c66ef00efa9d435b8c7fabfdbacd4
             // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -768,7 +774,7 @@
         private System.Windows.Forms.ToolStrip toolStripIconosIniciales;
         private System.Windows.Forms.ToolStripButton tsbLibros;
         private System.Windows.Forms.ToolStripButton tsbUsuarios;
-        private System.Windows.Forms.ToolStripButton tsbPrestamos;
+        private System.Windows.Forms.ToolStripButton tsbTransacciones;
         private System.Windows.Forms.TabControl tcOpciones;
         private System.Windows.Forms.TabPage tpAñadir;
         private System.Windows.Forms.TabPage tpBorrado;
@@ -813,7 +819,7 @@
         private System.Windows.Forms.ImageList ilProfesoresAlumnosPAS;
         private System.Windows.Forms.ImageList ilPrestamos;
         private System.Windows.Forms.MaskedTextBox mtbFechaAniadirPrestamo;
-        private System.Windows.Forms.ComboBox cbLibrosaniadirPrestamoODevolucion;
+        private System.Windows.Forms.ComboBox cbLibroPresDev;
         private System.Windows.Forms.ComboBox cbUsuariosAnadirPrestamos;
         private System.Windows.Forms.Label lblInfoBuscar;
         private System.Windows.Forms.ListView lvDevoluciones;
