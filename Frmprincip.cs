@@ -449,6 +449,9 @@ namespace ProyBiblioteca
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
                     lblInfoBuscar.Show();
+                    lvBusqueda.Show();
+                    lvPrestamos.Hide();
+                    lvDevoluciones.Hide();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de modificar ----------------------------------------
@@ -464,8 +467,6 @@ namespace ProyBiblioteca
 
                 case "Persona":
                     //Elementos de la interfaz de añadir -------------------------------------------
-                    cambiarListViewBusqueda("Persona");
-                    cambiarLvBorrar("Persona");
                     tpAñadir.Text = "Añadir";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
@@ -491,6 +492,7 @@ namespace ProyBiblioteca
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
+                    cambiarListViewBusqueda("Persona");
                     lblFiltrarPor.Hide();
                     cbFiltrarPor.Hide();
                     mtbFechaBusquedaPrestamo.Hide();
@@ -499,6 +501,9 @@ namespace ProyBiblioteca
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
                     lblInfoBuscar.Show();
+                    lvPrestamos.Hide();
+                    lvDevoluciones.Hide();
+                    lvBusqueda.Show();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de modificación -------------------------------------
@@ -507,6 +512,7 @@ namespace ProyBiblioteca
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de borrado ------------------------------------------
+                    cambiarLvBorrar("Persona");
                     mtbFechaBorrarPrestamo.Hide();
                     lblFechaBorrarPrestamo.Hide();
                     //------------------------------------------------------------------------------
@@ -548,6 +554,9 @@ namespace ProyBiblioteca
                     mtbFechaAniadirPrestamo.Show();
                     lblInfoBuscar.Hide();
                     cbFiltrarPor.SelectedIndex = 0;
+                    lvBusqueda.Hide();
+                    lvDevoluciones.Show();
+                    lvPrestamos.Show();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de modificación -------------------------------------
