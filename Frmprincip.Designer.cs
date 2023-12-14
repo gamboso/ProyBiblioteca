@@ -89,11 +89,9 @@
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
-<<<<<<< HEAD
-=======
+
             this.lblPrestamos = new System.Windows.Forms.Label();
             this.lblDevol = new System.Windows.Forms.Label();
->>>>>>> 24768997a00c66ef00efa9d435b8c7fabfdbacd4
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -712,8 +710,6 @@
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
             // 
-<<<<<<< HEAD
-=======
             // lblPrestamos
             // 
             this.lblPrestamos.AutoSize = true;
@@ -732,7 +728,6 @@
             this.lblDevol.TabIndex = 28;
             this.lblDevol.Text = "Devoluciones";
             // 
->>>>>>> 24768997a00c66ef00efa9d435b8c7fabfdbacd4
             // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
