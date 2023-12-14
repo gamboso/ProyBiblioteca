@@ -67,6 +67,8 @@
             this.lvModificar = new System.Windows.Forms.ListView();
             this.pcb3Modo = new System.Windows.Forms.PictureBox();
             this.tpBuscar = new System.Windows.Forms.TabPage();
+            this.lblDevol = new System.Windows.Forms.Label();
+            this.lblPrestamos = new System.Windows.Forms.Label();
             this.lblInfoBuscar = new System.Windows.Forms.Label();
             this.mtbFechaBusquedaPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.cbFiltrarPor = new System.Windows.Forms.ComboBox();
@@ -89,9 +91,16 @@
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
-
-            this.lblPrestamos = new System.Windows.Forms.Label();
-            this.lblDevol = new System.Windows.Forms.Label();
+            this.lbAtr1 = new System.Windows.Forms.Label();
+            this.lbAtr2 = new System.Windows.Forms.Label();
+            this.lblAtr3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtAtr1 = new System.Windows.Forms.TextBox();
+            this.txtAtr2 = new System.Windows.Forms.TextBox();
+            this.txtAtr12 = new System.Windows.Forms.TextBox();
+            this.maskedAtr3 = new System.Windows.Forms.MaskedTextBox();
+            this.masked2Atr3 = new System.Windows.Forms.MaskedTextBox();
+            this.btnGuardarMod = new System.Windows.Forms.Button();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -444,6 +453,16 @@
             // 
             // tpModificado
             // 
+            this.tpModificado.Controls.Add(this.btnGuardarMod);
+            this.tpModificado.Controls.Add(this.masked2Atr3);
+            this.tpModificado.Controls.Add(this.maskedAtr3);
+            this.tpModificado.Controls.Add(this.txtAtr12);
+            this.tpModificado.Controls.Add(this.txtAtr2);
+            this.tpModificado.Controls.Add(this.txtAtr1);
+            this.tpModificado.Controls.Add(this.label4);
+            this.tpModificado.Controls.Add(this.lblAtr3);
+            this.tpModificado.Controls.Add(this.lbAtr2);
+            this.tpModificado.Controls.Add(this.lbAtr1);
             this.tpModificado.Controls.Add(this.lblFechaModificarPrestamo);
             this.tpModificado.Controls.Add(this.mtbFechaModificarPrestamo);
             this.tpModificado.Controls.Add(this.lblModificar);
@@ -487,11 +506,14 @@
             // lvModificar
             // 
             this.lvModificar.HideSelection = false;
+            this.lvModificar.LargeImageList = this.ilProfesoresAlumnosPAS;
             this.lvModificar.Location = new System.Drawing.Point(265, 115);
             this.lvModificar.Name = "lvModificar";
             this.lvModificar.Size = new System.Drawing.Size(603, 262);
+            this.lvModificar.SmallImageList = this.ilProfesoresAlumnosPAS;
             this.lvModificar.TabIndex = 16;
             this.lvModificar.UseCompatibleStateImageBehavior = false;
+            this.lvModificar.View = System.Windows.Forms.View.SmallIcon;
             this.lvModificar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvModificar_MouseDoubleClick);
             // 
             // pcb3Modo
@@ -524,6 +546,24 @@
             this.tpBuscar.TabIndex = 3;
             this.tpBuscar.Text = "Búsqueda";
             this.tpBuscar.UseVisualStyleBackColor = true;
+            // 
+            // lblDevol
+            // 
+            this.lblDevol.AutoSize = true;
+            this.lblDevol.Location = new System.Drawing.Point(695, 94);
+            this.lblDevol.Name = "lblDevol";
+            this.lblDevol.Size = new System.Drawing.Size(88, 15);
+            this.lblDevol.TabIndex = 28;
+            this.lblDevol.Text = "Devoluciones";
+            // 
+            // lblPrestamos
+            // 
+            this.lblPrestamos.AutoSize = true;
+            this.lblPrestamos.Location = new System.Drawing.Point(44, 94);
+            this.lblPrestamos.Name = "lblPrestamos";
+            this.lblPrestamos.Size = new System.Drawing.Size(72, 15);
+            this.lblPrestamos.TabIndex = 27;
+            this.lblPrestamos.Text = " Préstamos";
             // 
             // lblInfoBuscar
             // 
@@ -710,23 +750,89 @@
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
             // 
-            // lblPrestamos
+            // lbAtr1
             // 
-            this.lblPrestamos.AutoSize = true;
-            this.lblPrestamos.Location = new System.Drawing.Point(44, 94);
-            this.lblPrestamos.Name = "lblPrestamos";
-            this.lblPrestamos.Size = new System.Drawing.Size(72, 15);
-            this.lblPrestamos.TabIndex = 27;
-            this.lblPrestamos.Text = " Préstamos";
+            this.lbAtr1.AutoSize = true;
+            this.lbAtr1.Location = new System.Drawing.Point(907, 190);
+            this.lbAtr1.Name = "lbAtr1";
+            this.lbAtr1.Size = new System.Drawing.Size(65, 15);
+            this.lbAtr1.TabIndex = 22;
+            this.lbAtr1.Text = "Atributo1";
             // 
-            // lblDevol
+            // lbAtr2
             // 
-            this.lblDevol.AutoSize = true;
-            this.lblDevol.Location = new System.Drawing.Point(695, 94);
-            this.lblDevol.Name = "lblDevol";
-            this.lblDevol.Size = new System.Drawing.Size(88, 15);
-            this.lblDevol.TabIndex = 28;
-            this.lblDevol.Text = "Devoluciones";
+            this.lbAtr2.AutoSize = true;
+            this.lbAtr2.Location = new System.Drawing.Point(907, 247);
+            this.lbAtr2.Name = "lbAtr2";
+            this.lbAtr2.Size = new System.Drawing.Size(65, 15);
+            this.lbAtr2.TabIndex = 23;
+            this.lbAtr2.Text = "Atributo2";
+            // 
+            // lblAtr3
+            // 
+            this.lblAtr3.AutoSize = true;
+            this.lblAtr3.Location = new System.Drawing.Point(907, 305);
+            this.lblAtr3.Name = "lblAtr3";
+            this.lblAtr3.Size = new System.Drawing.Size(65, 15);
+            this.lblAtr3.TabIndex = 24;
+            this.lblAtr3.Text = "Atributo3";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(995, 115);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 15);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "MODIFICAR";
+            // 
+            // txtAtr1
+            // 
+            this.txtAtr1.Location = new System.Drawing.Point(1033, 187);
+            this.txtAtr1.Name = "txtAtr1";
+            this.txtAtr1.Size = new System.Drawing.Size(100, 22);
+            this.txtAtr1.TabIndex = 26;
+            // 
+            // txtAtr2
+            // 
+            this.txtAtr2.Location = new System.Drawing.Point(1033, 247);
+            this.txtAtr2.Name = "txtAtr2";
+            this.txtAtr2.Size = new System.Drawing.Size(100, 22);
+            this.txtAtr2.TabIndex = 27;
+            // 
+            // txtAtr12
+            // 
+            this.txtAtr12.Location = new System.Drawing.Point(1033, 187);
+            this.txtAtr12.Name = "txtAtr12";
+            this.txtAtr12.Size = new System.Drawing.Size(100, 22);
+            this.txtAtr12.TabIndex = 28;
+            // 
+            // maskedAtr3
+            // 
+            this.maskedAtr3.Location = new System.Drawing.Point(1033, 305);
+            this.maskedAtr3.Mask = "00/00/0000";
+            this.maskedAtr3.Name = "maskedAtr3";
+            this.maskedAtr3.Size = new System.Drawing.Size(100, 22);
+            this.maskedAtr3.TabIndex = 29;
+            this.maskedAtr3.ValidatingType = typeof(System.DateTime);
+            // 
+            // masked2Atr3
+            // 
+            this.masked2Atr3.Location = new System.Drawing.Point(1033, 305);
+            this.masked2Atr3.Mask = "00/00/0000";
+            this.masked2Atr3.Name = "masked2Atr3";
+            this.masked2Atr3.Size = new System.Drawing.Size(100, 22);
+            this.masked2Atr3.TabIndex = 30;
+            this.masked2Atr3.ValidatingType = typeof(System.DateTime);
+            // 
+            // btnGuardarMod
+            // 
+            this.btnGuardarMod.Location = new System.Drawing.Point(996, 354);
+            this.btnGuardarMod.Name = "btnGuardarMod";
+            this.btnGuardarMod.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardarMod.TabIndex = 31;
+            this.btnGuardarMod.Text = "GUARDAR";
+            this.btnGuardarMod.UseVisualStyleBackColor = true;
             // 
             // FrmBiblio
             // 
@@ -827,6 +933,16 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Label lblDevol;
         private System.Windows.Forms.Label lblPrestamos;
+        private System.Windows.Forms.Button btnGuardarMod;
+        private System.Windows.Forms.MaskedTextBox masked2Atr3;
+        private System.Windows.Forms.MaskedTextBox maskedAtr3;
+        private System.Windows.Forms.TextBox txtAtr12;
+        private System.Windows.Forms.TextBox txtAtr2;
+        private System.Windows.Forms.TextBox txtAtr1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblAtr3;
+        private System.Windows.Forms.Label lbAtr2;
+        private System.Windows.Forms.Label lbAtr1;
     }
 }
 

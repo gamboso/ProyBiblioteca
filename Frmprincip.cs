@@ -461,6 +461,16 @@ namespace ProyBiblioteca
                     //Elementos de la interfaz de modificar ----------------------------------------
                     mtbFechaModificarPrestamo.Hide();
                     lblFechaModificarPrestamo.Hide();
+                    lbAtr1.Show();
+                    lbAtr2.Show();
+                    lbAtr1.Text = "Titulo";
+                    lbAtr2.Text = "ID Libro";
+                    txtAtr1.Show();
+                    txtAtr12.Hide();
+                    txtAtr2.Show();
+                    masked2Atr3.Hide();
+                    maskedAtr3.Hide();
+                    lblAtr3.Hide();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de borrado ------------------------------------------
@@ -516,6 +526,18 @@ namespace ProyBiblioteca
                     //Elementos de la interfaz de modificación -------------------------------------
                     mtbFechaModificarPrestamo.Hide();
                     lblFechaModificarPrestamo.Hide();
+                    lbAtr1.Show();
+                    lbAtr2.Show();
+                    lbAtr1.Text = "Nombre";
+                    lbAtr2.Text = "Departamento";
+                    lblAtr3.Text = "Fecha Sancion";
+                    txtAtr1.Hide();
+                    txtAtr12.Show();
+                    txtAtr2.Show();
+                    masked2Atr3.Hide();
+                    maskedAtr3.Show();
+                    lblAtr3.Show();
+
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de borrado ------------------------------------------
@@ -571,6 +593,16 @@ namespace ProyBiblioteca
                     //Elementos de la interfaz de modificación -------------------------------------
                     lblFechaModificarPrestamo.Show();
                     mtbFechaModificarPrestamo.Show();
+                    lbAtr1.Show();
+                    lbAtr2.Hide();
+                    lbAtr1.Text = "ID Libro";
+                    lblAtr3.Text = "Fecha Devolucion";
+                    txtAtr1.Show();
+                    txtAtr12.Hide();
+                    txtAtr2.Hide();
+                    masked2Atr3.Show();
+                    maskedAtr3.Hide();
+                    lblAtr3.Show();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de borrado ------------------------------------------
@@ -588,17 +620,21 @@ namespace ProyBiblioteca
 
         private void cambiarLvBorrar(String tipoLV)
         {
-
+            lvModificar.Clear();
             lvBorrar.Clear();
             if (tipoLV.Equals("Libro"))
             {
                 foreach (Libro l in misLibros)
                 {
                     lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
+                    lvModificar.SmallImageList = ilProfesoresAlumnosPAS;
+
                     ListViewItem item = new ListViewItem(l.Titulo, 3);
+                    ListViewItem items = new ListViewItem(l.Titulo, 3);
 
 
                     lvBorrar.Items.Add(item);
+                    lvModificar.Items.Add(items);
 
                 }
 
@@ -608,6 +644,7 @@ namespace ProyBiblioteca
                 foreach (Transaccion t in misTransacciones)
                 {
                     lvBorrar.SmallImageList = ilPrestamos;
+                    lvModificar.SmallImageList = ilPrestamos;
                     string clase = t.GetType().ToString();
                     // Encuentra la última posición del punto
                     int lastIndex = clase.LastIndexOf('.');
@@ -620,12 +657,16 @@ namespace ProyBiblioteca
                     {
                         ListViewItem item = new ListViewItem(resultadoclase + ": " + t.ToString(), 1);
                         lvBorrar.Items.Add(item);
+                        ListViewItem items = new ListViewItem(resultadoclase + ": " + t.ToString(), 1);
+                        lvModificar.Items.Add(items);
                     }
                     else if (resultadoclase.Equals("Devolucion"))
                     {
 
                         ListViewItem item = new ListViewItem(resultadoclase + ": " + t.ToString(), 0);
                         lvBorrar.Items.Add(item);
+                        ListViewItem items = new ListViewItem(resultadoclase + ": " + t.ToString(), 0);
+                        lvModificar.Items.Add(items);
 
                     }
 
@@ -638,6 +679,7 @@ namespace ProyBiblioteca
                 foreach (Persona p in misUsuarios)
                 {
                     lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
+                    lvModificar.SmallImageList = ilProfesoresAlumnosPAS;
 
                     string clase = p.GetType().ToString();
                     // Encuentra la última posición del punto
@@ -650,12 +692,16 @@ namespace ProyBiblioteca
                     {
                         ListViewItem item = new ListViewItem(p.Nombre, 1);
                         lvBorrar.Items.Add(item);
+                        ListViewItem items = new ListViewItem(p.Nombre, 1);
+                        lvModificar.Items.Add(items);
                     }
                     else if (resultadoclase.Equals("Alumno"))
                     {
 
                         ListViewItem item = new ListViewItem(p.Nombre, 2);
                         lvBorrar.Items.Add(item);
+                        ListViewItem items = new ListViewItem(p.Nombre, 2);
+                        lvModificar.Items.Add(items);
 
                     }
                     else if (resultadoclase.Equals("Profesor"))
@@ -663,6 +709,8 @@ namespace ProyBiblioteca
 
                         ListViewItem item = new ListViewItem(p.Nombre, 0);
                         lvBorrar.Items.Add(item);
+                        ListViewItem items = new ListViewItem(p.Nombre, 0);
+                        lvModificar.Items.Add(items);
 
                     }
 
@@ -670,8 +718,8 @@ namespace ProyBiblioteca
                 }
             }
 
-        }
 
+        }
         //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
         private void cambiarListViewBusqueda(String tipoLV)
         {
