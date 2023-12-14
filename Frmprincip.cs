@@ -452,6 +452,8 @@ namespace ProyBiblioteca
                     lvBusqueda.Show();
                     lvPrestamos.Hide();
                     lvDevoluciones.Hide();
+                    lblDevol.Hide();
+                    lblPrestamos.Hide();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de modificar ----------------------------------------
@@ -504,6 +506,8 @@ namespace ProyBiblioteca
                     lvPrestamos.Hide();
                     lvDevoluciones.Hide();
                     lvBusqueda.Show();
+                    lblPrestamos.Hide();
+                    lblDevol.Hide();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de modificación -------------------------------------
@@ -557,6 +561,8 @@ namespace ProyBiblioteca
                     lvBusqueda.Hide();
                     lvDevoluciones.Show();
                     lvPrestamos.Show();
+                    lblPrestamos.Show();
+                    lblDevol.Show();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de modificación -------------------------------------
