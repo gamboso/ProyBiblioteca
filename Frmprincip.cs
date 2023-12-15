@@ -932,7 +932,8 @@ namespace ProyBiblioteca
 
                 case "Usuarios":
                     // SI ALGUNA CADENA ESTA VACIA NO GUARDA NADA
-                    if (tbxAtrib1.Text.Equals("") || tbxAtrib2.Text.Equals("") || tbxAtrib3.Text.Equals(""))
+                    //   if (tbxAtrib1.Text.Equals("") || tbxAtrib2.Text.Equals("") || tbxAtrib3.Text.Equals(""))
+                    if (tbxAtrib1.Text.Equals("") || tbxAtrib2.Text.Equals("")) // El atributo 3 fechaSancion si puede estar en blanco
                     {
                         MessageBox.Show("No puedes dejar campos vacios");
                     }
@@ -940,7 +941,7 @@ namespace ProyBiblioteca
                     {
                         String nombre = tbxAtrib1.Text;
                         String depto = tbxAtrib2.Text;
-                        DateTime fechaSancion = DateTime.Parse("1/01/1000");
+                        DateTime fechaSancion = DateTime.Parse("1/01/0001");
                         // Convertir la fechaTransaccion sin la hora
                         if (!tbxAtrib3.Text.Equals(""))
                         {
@@ -960,7 +961,14 @@ namespace ProyBiblioteca
                                 {
                                     p = new PAS(nombre, depto, fechaSancion);
                                 }
+                                //Añadir persona a la lista
                                 misUsuarios.Add(p);
+
+                                //Llamar al método para añadir a la persona al archivo
+                                escribirPersona(p);
+
+                                //Recargar lista de usuarios
+                                cargarUsuarios();
                             }
                             else
                             {
@@ -981,8 +989,18 @@ namespace ProyBiblioteca
                             else if (rbOpcion3.Checked)
                             {
                                 p = new PAS(nombre, depto);
+
                             }
+                            //Añadir persona a la lista
                             misUsuarios.Add(p);
+
+                            //Llamar al método para añadir a la persona al archivo
+                            escribirPersona(p);
+
+                            //Cargar usuarios
+                            cargarUsuarios();
+
+
                         }
                         MessageBox.Show("El usuario se ha añadido correctamente");
                     }
@@ -1189,6 +1207,46 @@ namespace ProyBiblioteca
                 sw.Close();
             }
         }
+
+        private void escribirPersona(Persona persona)
+        {
+            string rutaArchivo = Directory.GetCurrentDirectory() + "\\ficheros\\usuarios.txt";
+
+            string tipoUsuario = "";
+            if (persona is Alumno)
+            {
+                tipoUsuario = "alumno";
+            }
+            else if (persona is Profesor)
+            {
+                tipoUsuario = "profesor";
+            }
+            else if (persona is PAS)
+            {
+                tipoUsuario = "pas";
+            }
+
+            string nombre = persona.Nombre;
+            string departamento = persona.Departamento;
+            string fechaSancion = persona.FechaSancion.ToString("d/M/yyyy");
+
+            string linea = "";
+
+            if (persona.FechaSancion == DateTime.MinValue)
+            {
+                linea = $"{tipoUsuario} {nombre}, {departamento}";
+            }
+            else {
+                linea = $"{tipoUsuario} {nombre}, {departamento}, #{fechaSancion}#";
+
+            }
+            // Agregar al archivo de usuarios
+            using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\usuarios.txt"))
+            {
+                sw.WriteLine(linea);
+            }
+        }
+
 
 
         private void escribirTransaccion(Transaccion t)
