@@ -437,6 +437,7 @@ namespace ProyBiblioteca
                     rbOpcion3.Hide();
                     tbxAtrib1.Show();
                     tbxAtrib2.Show();
+                    mtbFechaAniadirPrestamo.Hide();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
@@ -446,7 +447,6 @@ namespace ProyBiblioteca
                     mtbBuscarFechaTransac.Hide();
                     tbxBuscar.Show();
                     cbLibroPresDev.Hide();
-                    mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
                     lblInfoBuscar.Show();
                     lvBusqueda.Show();
@@ -502,6 +502,7 @@ namespace ProyBiblioteca
                     lblAtrib3.Show();
                     lblAtrib3.Text = "Fecha sanción";
                     tbxAtrib3.Show();
+                    mtbFechaAniadirPrestamo.Hide();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
@@ -511,7 +512,6 @@ namespace ProyBiblioteca
                     mtbBuscarFechaTransac.Hide();
                     tbxBuscar.Show();
                     cbLibroPresDev.Hide();
-                    mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
                     lblInfoBuscar.Show();
                     lvPrestamos.Hide();
@@ -568,6 +568,7 @@ namespace ProyBiblioteca
                     tbxAtrib3.Hide();
                     tbxAtrib2.Hide();
                     tbxAtrib1.Hide();
+                    mtbFechaAniadirPrestamo.Show();
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
@@ -576,7 +577,6 @@ namespace ProyBiblioteca
                     lblFiltroTransacciones.Show();
                     cbFiltroTransacciones.Show();
                     cbLibroPresDev.Show();
-                    mtbFechaAniadirPrestamo.Hide();
                     lblInfoBuscar.Hide();
                     cbFiltroTransacciones.SelectedIndex = 0;
                     lvBusqueda.Hide();
@@ -607,12 +607,9 @@ namespace ProyBiblioteca
                     lblFechaBorrarPrestamo.Show();
                     //------------------------------------------------------------------------------
                     break;
-
                 default:
                     break;
-
             }
-
         }
 
         private void cambiarLvBorrar(String tipoLV)
@@ -666,10 +663,7 @@ namespace ProyBiblioteca
                         lvModificar.Items.Add(items);
 
                     }
-
-
                 }
-
             }
             else if (tipoLV.Equals("Persona"))
             {
@@ -710,13 +704,10 @@ namespace ProyBiblioteca
                         lvModificar.Items.Add(items);
 
                     }
-
-
                 }
             }
-
-
         }
+
         //Método que cambia la Interfaz de Búsqueda en función del objeto a buscar (Libros, Personas o Transacciones)
         private void cambiarListViewBusqueda(String tipoLV)
         {
@@ -766,6 +757,7 @@ namespace ProyBiblioteca
                 lvBusqueda.Columns.Add(chFechaSancion);
             }
         }
+
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -838,9 +830,7 @@ namespace ProyBiblioteca
             {
                 if (rbOpcion1.Text.Equals("Devolución"))
                 {
-
                     cargarLibrosPrestadosCB();
-
                     lblAtrib3.Text = "Fecha Devolución";
                     lblAtrib1.Hide();
                     tbxAtrib1.Hide();
@@ -851,9 +841,7 @@ namespace ProyBiblioteca
             {
                 if (rbOpcion2.Text.Equals("Préstamo"))
                 {
-
                     cargarLibrosEnStockYUsuariosCB();
-
                     lblAtrib3.Text = "Fecha Préstamo";
                     lblAtrib1.Show();
                     tbxAtrib1.Hide();
@@ -864,7 +852,6 @@ namespace ProyBiblioteca
 
         private void cargarLibrosPrestadosCB()
         {
-
             // cbLibroPresDev.SelectedItem = "";
 
             cbLibroPresDev.Text = "";
@@ -889,14 +876,11 @@ namespace ProyBiblioteca
                 cbLibroPresDev.Items.Add(l.Titulo);
             }
 
-
             foreach (Persona p in misUsuarios)
             {
                 cbUsuariosAnadirPrestamos.Items.Add(p.Nombre);
             }
-
         }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             switch (interfSeleccionada)
@@ -917,8 +901,9 @@ namespace ProyBiblioteca
                         {
                             ubicacion = rbOpcion1.Text;
                         }
-                        else
+                        else {
                             ubicacion = rbOpcion2.Text;
+                        }
 
                         if (existeIDLibro(idLibro))
                         {
@@ -945,10 +930,10 @@ namespace ProyBiblioteca
                         String nombre = tbxAtrib1.Text;
                         String depto = tbxAtrib2.Text;
                         DateTime fechaSancion = DateTime.Parse("1/01/0001");
-
+                        
                         if (existeNombrePers(nombre))
                         {
-                            MessageBox.Show("Vaya! Este nombre ya existe");
+                            MessageBox.Show("Vaya! " + nombre + " ya existe");
                         }
                         else
                         {
@@ -1034,7 +1019,6 @@ namespace ProyBiblioteca
                         else  // Si no estan vacios añade el libro  
                         {
                             Libro libro = null;
-
                             int position = 0;
                             foreach (Libro lib in LibrosPrestados)
                             {
@@ -1062,7 +1046,7 @@ namespace ProyBiblioteca
                             MessageBox.Show("Se añadio correctamente!");
 
                             //ACTUALIZAR LISTA Y CARGAR LOS LIBROS
-                            //    ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                            //ActualizaListaDeLibrosEnStockYLibrosPrestados();
                             cargarLibrosPrestadosCB();
 
                         }
@@ -1077,7 +1061,6 @@ namespace ProyBiblioteca
                         }
                         else
                         {
-
                             String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
 
                             Persona persona = null;
@@ -1175,7 +1158,6 @@ namespace ProyBiblioteca
                     escribirFecha();
                     // Escribir la transacción en el fichero
                     escribirTransaccion(transaccion);
-
                     break;
 
                 default:
@@ -1183,33 +1165,34 @@ namespace ProyBiblioteca
             }
         }
 
-        //Método que comprueba si el id parámetro ya existe en la colección de libros
+        //Método que comprueba si el id parámetro ya existeID en la colección de libros
         private Boolean existeIDLibro(String id)
         {
-            MessageBox.Show(misLibros.Count + "");
+            Boolean existeID = false;
             foreach (Libro l in misLibros)
             {
-                if (l.IdLibro.Equals(id))
+                if (int.Parse(l.IdLibro) == int.Parse(id))
                 {
-                    return true;
+                    existeID = true;
                 }
             }
-            return false;
+            return existeID;
         }
 
-        //Método que comprueba si el nombre del usuario parámetro existe en la lista de usuarios
+        //Método que comprueba si el nombre del usuario parámetro existeID en la lista de usuarios
         private Boolean existeNombrePers(String nombre)
         {
+            Boolean existeNombre = false;
             foreach (Persona p in misUsuarios)
             {
                 if (p.Nombre.Equals(nombre))
                 {
-                    return true;
+                    existeNombre = true;
                 }
             }
-            return false;
+            
+            return existeNombre;
         }
-
 
         private void escribirFecha()
         {
@@ -1333,6 +1316,42 @@ namespace ProyBiblioteca
                     // Realiza la lógica de borrado aquí
                     lvBorrar.Items.Remove(selectedItem);
                     // También puedes añadir la lógica para borrar de tu fuente de datos si es necesario
+                    if (interfSeleccionada.Equals("Libros"))
+                    {
+                        Libro libBorrar = null;
+                        foreach (Libro l in misLibros)
+                        {
+                            if (l.Titulo.Equals(selectedItem.Text))
+                            {
+                                libBorrar = l;
+                            }
+                        }
+                        misLibros.Remove(libBorrar);
+                    }
+                    else if (interfSeleccionada.Equals("Usuarios"))
+                    {
+                        Persona persBorrar = null;
+                        foreach (Persona p in misUsuarios)
+                        {
+                            if (p.Nombre.Equals(selectedItem.Text))
+                            {
+                                persBorrar = p;
+                            }
+                        }
+                        misUsuarios.Remove(persBorrar);
+                    }
+                    else
+                    {
+                        Transaccion transaccionBorrar = null;
+                        foreach (Transaccion t in misTransacciones)
+                        {
+                            if ((t.GetType().Name + ": " + t.ToString()).Equals(selectedItem.Text))
+                            {
+                                transaccionBorrar = t;
+                            }
+                        }
+                        misTransacciones.Remove(transaccionBorrar);
+                    }
                 }
             }
         }
@@ -1528,6 +1547,8 @@ namespace ProyBiblioteca
             lvi.SubItems.Add(presAux.FechaTransaccion.ToString("dd/MM/yyyy"));
             lvPrestamos.Items.Add(lvi);
         }
+
+
     }
 }
 

@@ -11,3 +11,4 @@ alumno Andres, Informatica
 alumno Andres, Informatica, #28/7/2003#
 alumno Felipe, Limpieza
 alumno Albert Einsteint, Limpieza
+profesor Albert Einsteins, dep
