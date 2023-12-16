@@ -412,8 +412,6 @@ namespace ProyBiblioteca
             pcb4Modo.Image = System.Drawing.Image.FromFile(".\\Icons\\" + imagen + ".png");
         }
 
-
-
         //Método que cambia los cuatro tipos de interfaces en función del objeto a añadir (Libros, Personas o Transacciones)
         private void cambioDeInterfaz(String tipo)
         {
@@ -427,10 +425,15 @@ namespace ProyBiblioteca
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
-
                     gbAtribs.Text = "Ubicación del libro ";
                     rbOpcion1.Text = "Sala";
                     rbOpcion2.Text = "Almacén";
+                    lblAtrib1.Text = "Título Libro";
+                    lblAtrib1.Show();
+                    tbxAtrib1.Show();
+                    lblAtrib2.Text = "ID Libro";
+                    lblAtrib3.Hide();
+                    tbxAtrib3.Hide();
                     rbOpcion3.Hide();
                     tbxAtrib1.Show();
                     tbxAtrib2.Show();
@@ -438,15 +441,10 @@ namespace ProyBiblioteca
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
                     cambiarListViewBusqueda("Libro");
-                    lblAtrib1.Text = "Título Libro";
-                    lblAtrib1.Show();
-                    tbxAtrib1.Show();
-                    lblAtrib2.Text = "ID Libro";
-                    lblAtrib3.Hide();
-                    tbxAtrib3.Hide();
-                    cbFiltrarPor.Hide();
-                    mtbFechaBusquedaPrestamo.Hide();
-                    txbBuscar.Show();
+                    lblFiltroTransacciones.Hide();
+                    cbFiltroTransacciones.Hide();
+                    mtbBuscarFechaTransac.Hide();
+                    tbxBuscar.Show();
                     cbLibroPresDev.Hide();
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
@@ -508,10 +506,10 @@ namespace ProyBiblioteca
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
                     cambiarListViewBusqueda("Persona");
-                    lblFiltrarPor.Hide();
-                    cbFiltrarPor.Hide();
-                    mtbFechaBusquedaPrestamo.Hide();
-                    txbBuscar.Show();
+                    lblFiltroTransacciones.Hide();
+                    cbFiltroTransacciones.Hide();
+                    mtbBuscarFechaTransac.Hide();
+                    tbxBuscar.Show();
                     cbLibroPresDev.Hide();
                     mtbFechaAniadirPrestamo.Hide();
                     cbUsuariosAnadirPrestamos.Hide();
@@ -549,7 +547,6 @@ namespace ProyBiblioteca
 
                 case "Transaccion":
                     //Elementos de la interfaz de añadir -------------------------------------------
-                    cambiarLvBorrar("Transaccion");
                     tpAñadir.Text = "Prestar y Devolver";
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
@@ -574,15 +571,14 @@ namespace ProyBiblioteca
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
-                    txbBuscar.Hide();
-                    mtbFechaBusquedaPrestamo.Hide();
-                    lblFiltrarPor.Show();
-                    cbFiltrarPor.Show();
-                    mtbFechaBusquedaPrestamo.Show();
+                    tbxBuscar.Show();
+                    mtbBuscarFechaTransac.Hide();
+                    lblFiltroTransacciones.Show();
+                    cbFiltroTransacciones.Show();
                     cbLibroPresDev.Show();
-                    mtbFechaAniadirPrestamo.Show();
+                    mtbFechaAniadirPrestamo.Hide();
                     lblInfoBuscar.Hide();
-                    cbFiltrarPor.SelectedIndex = 0;
+                    cbFiltroTransacciones.SelectedIndex = 0;
                     lvBusqueda.Hide();
                     lvDevoluciones.Show();
                     lvPrestamos.Show();
@@ -606,6 +602,7 @@ namespace ProyBiblioteca
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de borrado ------------------------------------------
+                    cambiarLvBorrar("Transaccion");
                     mtbFechaBorrarPrestamo.Show();
                     lblFechaBorrarPrestamo.Show();
                     //------------------------------------------------------------------------------
@@ -821,16 +818,16 @@ namespace ProyBiblioteca
         private void cbFiltrarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (cbFiltrarPor.Text.Equals("Fecha Transaccion"))
+            if (cbFiltroTransacciones.Text.Equals("Fecha Transaccion"))
             {
-                txbBuscar.Hide();
-                mtbFechaBusquedaPrestamo.Show();
+                tbxBuscar.Hide();
+                mtbBuscarFechaTransac.Show();
 
             }
             else
             {
-                txbBuscar.Show();
-                mtbFechaBusquedaPrestamo.Hide();
+                tbxBuscar.Show();
+                mtbBuscarFechaTransac.Hide();
             }
         }
 
@@ -923,10 +920,16 @@ namespace ProyBiblioteca
                         else
                             ubicacion = rbOpcion2.Text;
 
-                        Libro l = new Libro(ubicacion, titulo, idLibro);
-                        misLibros.Add(l);
-
-                        MessageBox.Show("El libro se ha añadido correctamente");
+                        if (existeIDLibro(idLibro))
+                        {
+                            MessageBox.Show("Vaya! El ID del libro ya existe");
+                        }
+                        else
+                        {
+                            Libro l = new Libro(ubicacion, titulo, idLibro);
+                            misLibros.Add(l);
+                            MessageBox.Show("El libro se ha añadido correctamente");
+                        }
                     }
                     break;
 
@@ -942,24 +945,61 @@ namespace ProyBiblioteca
                         String nombre = tbxAtrib1.Text;
                         String depto = tbxAtrib2.Text;
                         DateTime fechaSancion = DateTime.Parse("1/01/0001");
-                        // Convertir la fechaTransaccion sin la hora
-                        if (!tbxAtrib3.Text.Equals(""))
+
+                        if (existeNombrePers(nombre))
                         {
-                            if (DateTime.TryParseExact(tbxAtrib3.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaSancion))
+                            MessageBox.Show("Vaya! Este nombre ya existe");
+                        }
+                        else
+                        {
+                            // Convertir la fechaTransaccion sin la hora
+                            if (!tbxAtrib3.Text.Equals(""))
+                            {
+                                if (DateTime.TryParseExact(tbxAtrib3.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaSancion))
+                                {
+                                    Persona p = null;
+                                    fechaSancion = DateTime.Parse(fechaSancion.ToShortDateString());
+                                    if (rbOpcion1.Checked)
+                                    {
+                                        p = new Alumno(nombre, depto, fechaSancion);
+                                    }
+                                    else if (rbOpcion2.Checked)
+                                    {
+                                        p = new Profesor(nombre, depto, fechaSancion);
+                                    }
+                                    else if (rbOpcion3.Checked)
+                                    {
+                                        p = new PAS(nombre, depto, fechaSancion);
+                                    }
+                                    //Añadir persona a la lista
+                                    misUsuarios.Add(p);
+
+                                    //Llamar al método para añadir a la persona al archivo
+                                    escribirPersona(p);
+
+                                    //Recargar lista de usuarios
+                                    cargarUsuarios();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("El formato de la fecha es inválido");
+                                }
+                            }
+                            else
                             {
                                 Persona p = null;
-                                fechaSancion = DateTime.Parse(fechaSancion.ToShortDateString());
                                 if (rbOpcion1.Checked)
                                 {
-                                    p = new Alumno(nombre, depto, fechaSancion);
+                                    p = new Alumno(nombre, depto);
                                 }
                                 else if (rbOpcion2.Checked)
                                 {
-                                    p = new Profesor(nombre, depto, fechaSancion);
+                                    p = new Profesor(nombre, depto);
                                 }
                                 else if (rbOpcion3.Checked)
                                 {
-                                    p = new PAS(nombre, depto, fechaSancion);
+                                    p = new PAS(nombre, depto);
+
                                 }
                                 //Añadir persona a la lista
                                 misUsuarios.Add(p);
@@ -967,42 +1007,12 @@ namespace ProyBiblioteca
                                 //Llamar al método para añadir a la persona al archivo
                                 escribirPersona(p);
 
-                                //Recargar lista de usuarios
+                                //Cargar usuarios
                                 cargarUsuarios();
+
                             }
-                            else
-                            {
-                                MessageBox.Show("El formato de la fecha es inválido");
-                            }
+                            MessageBox.Show("El usuario se ha añadido correctamente");
                         }
-                        else
-                        {
-                            Persona p = null;
-                            if (rbOpcion1.Checked)
-                            {
-                                p = new Alumno(nombre, depto);
-                            }
-                            else if (rbOpcion2.Checked)
-                            {
-                                p = new Profesor(nombre, depto);
-                            }
-                            else if (rbOpcion3.Checked)
-                            {
-                                p = new PAS(nombre, depto);
-
-                            }
-                            //Añadir persona a la lista
-                            misUsuarios.Add(p);
-
-                            //Llamar al método para añadir a la persona al archivo
-                            escribirPersona(p);
-
-                            //Cargar usuarios
-                            cargarUsuarios();
-
-
-                        }
-                        MessageBox.Show("El usuario se ha añadido correctamente");
                     }
                     break;
 
@@ -1021,8 +1031,7 @@ namespace ProyBiblioteca
                         {
                             MessageBox.Show("No puedes dejar campos vacíos");
                         }
-                        else  // Si no no estan vacios añade el libro  
-
+                        else  // Si no estan vacios añade el libro  
                         {
                             Libro libro = null;
 
@@ -1060,7 +1069,6 @@ namespace ProyBiblioteca
                     }
                     else  // SI ESTA GUARDANDO PRESTAMO
                     {
-
                         if (cbUsuariosAnadirPrestamos.Text.Equals("") ||
                             cbLibroPresDev.Text.Equals("") ||
                             mtbFechaAniadirPrestamo.MaskCompleted == false)
@@ -1175,6 +1183,34 @@ namespace ProyBiblioteca
             }
         }
 
+        //Método que comprueba si el id parámetro ya existe en la colección de libros
+        private Boolean existeIDLibro(String id)
+        {
+            MessageBox.Show(misLibros.Count + "");
+            foreach (Libro l in misLibros)
+            {
+                if (l.IdLibro.Equals(id))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Método que comprueba si el nombre del usuario parámetro existe en la lista de usuarios
+        private Boolean existeNombrePers(String nombre)
+        {
+            foreach (Persona p in misUsuarios)
+            {
+                if (p.Nombre.Equals(nombre))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         private void escribirFecha()
         {
             //Leer el fichero transacciones.txt
@@ -1236,7 +1272,8 @@ namespace ProyBiblioteca
             {
                 linea = $"{tipoUsuario} {nombre}, {departamento}";
             }
-            else {
+            else
+            {
                 linea = $"{tipoUsuario} {nombre}, {departamento}, #{fechaSancion}#";
 
             }
@@ -1246,8 +1283,6 @@ namespace ProyBiblioteca
                 sw.WriteLine(linea);
             }
         }
-
-
 
         private void escribirTransaccion(Transaccion t)
         {
@@ -1327,7 +1362,11 @@ namespace ProyBiblioteca
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            String sBusqueda = txbBuscar.Text;
+            lvPrestamos.Items.Clear();
+            lvDevoluciones.Items.Clear();
+            lvBusqueda.Items.Clear();
+
+            String sBusqueda = tbxBuscar.Text;
             if (interfSeleccionada.Equals("Libros"))
             {
                 lvBusqueda.Items.Clear();
@@ -1362,44 +1401,133 @@ namespace ProyBiblioteca
             }
             else if (interfSeleccionada.Equals("Transacciones"))
             {
-                /*
-                foreach (Transaccion transaccion in misTransacciones)
+                //Comprobamos qué opción está elegida en el combo box
+                switch (cbFiltroTransacciones.Text)
                 {
-                    ListViewItem lviAux = new ListViewItem();
-                    if (transaccion.GetType().Name.Equals("Prestamo"))
-                    {
-                        Prestamo presAux = (Prestamo) transaccion;
-                        lviAux.Text = presAux.NombreUsuario;
-                        lviAux.SubItems.Add(presAux.IdLibro);
-                        lviAux.SubItems.Add(presAux.FechaMaxDevolucion.ToString("dd/M/yyyy"));
-                        lviAux.SubItems.Add(presAux.FechaTransaccion.ToString("dd/M/yyyy"));
-                        lvBusqueda.Items.Add(lviAux);                    
-                    }
-                    else if (transaccion.GetType().Name.Equals("Devolucion"))
-                    {
-                        Devolucion devAux = (Devolucion) transaccion;
-                        lviAux.Text = devAux.IdLibro;
-                        lviAux.SubItems.Add(devAux.FechaTransaccion.ToString("dd/M/yyyy"));
-                        lvBusqueda.Items.Add(lviAux);
-                    }
-                }*/
+                    //Filtrar por la fecha de la transacción
+                    case "Fecha Transaccion":
+                        foreach (Transaccion transaccion in misTransacciones)
+                        {
+                            //Verificamos que la fecha de transacción coincide con la introducida en el MaskedTextbox
+                            if (transaccion.FechaTransaccion.ToString("dd/MM/yyyy").Equals(mtbBuscarFechaTransac.Text))
+                            {
+                                //Si la transacción es un préstamo...
+                                if (transaccion.GetType().Name.Equals("Prestamo"))
+                                {
+                                    //Creamos un objeto Prestamo auxiliar a partir de un casting de la transacción
+                                    Prestamo presAux = (Prestamo)transaccion;
+                                    anadirPrestamoFiltrado(presAux);
+                                }
+                                //Si la transacción es una devolución...
+                                else
+                                {
+                                    //Creamos un objeto Devolucion auxiliar igual a un casting de la transacción
+                                    Devolucion devAux = (Devolucion)transaccion;
+                                    anadirDevolFiltrada(devAux);
+                                }
+                            }
+                        }
+                        break;
+
+
+                    case "Titulo Libro":
+                        foreach (Transaccion transaccion in misTransacciones)
+                        {
+                            //Tomamos el id del libro de una transacción
+                            String idLibAux = transaccion.IdLibro;
+                            String nomLibroAux = "";
+                            foreach (Libro l in misLibros)
+                            {
+                                //Buscamos ese id en nuestra coleccion de libros y tomamos el título del libro
+                                if (l.IdLibro.Equals(idLibAux))
+                                {
+                                    nomLibroAux = l.Titulo;
+                                }
+                            }
+
+                            //Si el título del libro contiene la cadena buscada, la transacción se añade al ListView correspondiente
+                            if (nomLibroAux.Contains(sBusqueda))
+                            {
+                                if (transaccion.GetType().Name.Equals("Prestamo"))
+                                {
+                                    Prestamo presAux = (Prestamo)transaccion;
+                                    anadirPrestamoFiltrado(presAux);
+                                }
+                                else
+                                {
+                                    Devolucion devAux = (Devolucion)transaccion;
+                                    anadirDevolFiltrada(devAux);
+                                }
+                            }
+                        }
+                        break;
+
+                    case "Nombre Usuario":
+                        foreach (Transaccion transaccion in misTransacciones)
+                        {
+                            //Si la transacción es un préstamo...
+                            if (transaccion.GetType().Name.Equals("Prestamo"))
+                            {
+                                //Creamos un préstamo auxiliar
+                                Prestamo presAux = (Prestamo)transaccion;
+
+                                //Si el nombre de usuario del préstamo contiene la cadena buscada, añadimos el préstamo al ListView
+                                if (presAux.NombreUsuario.Contains(tbxBuscar.Text))
+                                {
+                                    anadirPrestamoFiltrado(presAux);
+                                }
+                            }
+                        }
+                        break;
+
+                    case "Departamento":
+                        foreach (Transaccion transaccion in misTransacciones)
+                        {
+                            //
+                            if (transaccion.GetType().Name.Equals("Prestamo"))
+                            {
+                                Prestamo presAux = (Prestamo)transaccion;
+                                String nomAux = presAux.NombreUsuario;
+                                String deptoAux = "";
+
+                                foreach (Persona pers in misUsuarios)
+                                {
+                                    if (pers.Nombre.Equals(nomAux))
+                                    {
+                                        deptoAux = pers.Departamento;
+                                    }
+                                }
+
+                                if (deptoAux.Contains(sBusqueda))
+                                {
+                                    anadirPrestamoFiltrado(presAux);
+                                }
+                            }
+                        }
+                        break;
+
+                    default:
+                        MessageBox.Show("Opción inválida");
+                        break;
+                }
             }
         }
-        /*
-        private void comprobarFiltrado(ListViewItem lvi) {
-            if (cbFiltrarPor.Text.Equals("Usuarios"))
-            {
 
-            }
-            else if (cbFiltrarPor.Text.Equals("Fecha"))
-            {
+        private void anadirDevolFiltrada(Devolucion devAux)
+        {
+            ListViewItem lvi = new ListViewItem(devAux.IdLibro);
+            lvi.SubItems.Add(devAux.FechaTransaccion.ToString("dd/MM/yyyy"));
+            lvDevoluciones.Items.Add(lvi);
+        }
 
-            }
-            else if (cbFiltrarPor.Text.Equals("IDLibro"))
-            {
-
-            }
-        */
+        private void anadirPrestamoFiltrado(Prestamo presAux)
+        {
+            ListViewItem lvi = new ListViewItem(presAux.NombreUsuario);
+            lvi.SubItems.Add(presAux.IdLibro);
+            lvi.SubItems.Add(presAux.FechaMaxDevolucion.ToString("dd/MM/yyyy"));
+            lvi.SubItems.Add(presAux.FechaTransaccion.ToString("dd/MM/yyyy"));
+            lvPrestamos.Items.Add(lvi);
+        }
     }
 }
 
