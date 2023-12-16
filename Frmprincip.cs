@@ -886,33 +886,40 @@ namespace ProyBiblioteca
             switch (interfSeleccionada)
             {
                 case "Libros":
-                    // SI ALGUNA CADENA ESTA VACIA NO GUARDA NADA
-                    if (tbxAtrib1.Text.Equals("") || tbxAtrib2.Text.Equals(""))
+                    // SI ALGUNA CADENA ESTA VACIA O NO ES UN NÚMERO NO GUARDA NADA
+                    if (string.IsNullOrEmpty(tbxAtrib1.Text) || string.IsNullOrEmpty(tbxAtrib2.Text))
                     {
-                        MessageBox.Show("No puedes dejar campos vacios");
+                        MessageBox.Show("No puedes dejar campos vacíos");
                     }
                     else
                     {
-                        String titulo = tbxAtrib1.Text;
-                        String idLibro = tbxAtrib2.Text;
-                        String ubicacion = "";
-                        if (rbOpcion1.Checked)
+                        string titulo = tbxAtrib1.Text;
+                        string idLibro = tbxAtrib2.Text;
+                        string ubicacion = rbOpcion1.Checked ? rbOpcion1.Text : rbOpcion2.Text;
 
+                        if (!int.TryParse(idLibro, out _))
                         {
-                            ubicacion = rbOpcion1.Text;
+                            MessageBox.Show("Debes introducir un número válido como ID del libro");
                         }
-                        else {
-                            ubicacion = rbOpcion2.Text;
-                        }
-
-                        if (existeIDLibro(idLibro))
+                        else if (existeIDLibro(idLibro))
                         {
-                            MessageBox.Show("Vaya! El ID del libro ya existe");
+                            MessageBox.Show("¡Vaya! El ID del libro ya existe");
                         }
                         else
                         {
                             Libro l = new Libro(ubicacion, titulo, idLibro);
+                            //Añadir el libro a la lista
                             misLibros.Add(l);
+
+                            //Escribir libros al fichero
+                            escribirLibro(l);
+                            
+                            //Cargar lista libros
+                            cargarLibros();
+
+                            // Actualizar libros
+                            ActualizaListaDeLibrosEnStockYLibrosPrestados();
+
                             MessageBox.Show("El libro se ha añadido correctamente");
                         }
                     }
@@ -930,7 +937,7 @@ namespace ProyBiblioteca
                         String nombre = tbxAtrib1.Text;
                         String depto = tbxAtrib2.Text;
                         DateTime fechaSancion = DateTime.Parse("1/01/0001");
-                        
+
                         if (existeNombrePers(nombre))
                         {
                             MessageBox.Show("Vaya! " + nombre + " ya existe");
@@ -964,6 +971,7 @@ namespace ProyBiblioteca
 
                                     //Recargar lista de usuarios
                                     cargarUsuarios();
+                                    
                                 }
                                 else
                                 {
@@ -1166,8 +1174,9 @@ namespace ProyBiblioteca
         }
 
         //Método que comprueba si el id parámetro ya existeID en la colección de libros
-        private Boolean existeIDLibro(String id)
+        private Boolean existeIDLibro(string id)
         {
+
             Boolean existeID = false;
             foreach (Libro l in misLibros)
             {
@@ -1179,8 +1188,10 @@ namespace ProyBiblioteca
             return existeID;
         }
 
+    
+
         //Método que comprueba si el nombre del usuario parámetro existeID en la lista de usuarios
-        private Boolean existeNombrePers(String nombre)
+        private Boolean existeNombrePers(string nombre)
         {
             Boolean existeNombre = false;
             foreach (Persona p in misUsuarios)
@@ -1190,7 +1201,7 @@ namespace ProyBiblioteca
                     existeNombre = true;
                 }
             }
-            
+
             return existeNombre;
         }
 
@@ -1226,6 +1237,41 @@ namespace ProyBiblioteca
                 sw.Close();
             }
         }
+
+
+
+        //Método para escribir Libro
+        private void escribirLibro(Libro libro)
+        {
+
+            string rutaArchivo = Directory.GetCurrentDirectory() + "\\ficheros\\usuarios.txt";
+
+
+            string ubicacion = "";
+            if (libro.Ubicacion.Equals("Almacén"))
+            {
+                ubicacion = "almacen";
+            }
+            else if(libro.Ubicacion.Equals("Sala"))
+            {
+                ubicacion = "sala";
+            }
+
+            string tituloLibro = libro.Titulo;
+            string idLibro = libro.IdLibro;
+
+            string linea = $"{ubicacion} {tituloLibro}, {idLibro}";
+
+            // Agregar al archivo de libros
+            using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\libros.txt"))
+            {
+                sw.WriteLine(linea);
+            }
+
+
+        }
+
+        //Método para escribir Persona
 
         private void escribirPersona(Persona persona)
         {
@@ -1267,6 +1313,8 @@ namespace ProyBiblioteca
             }
         }
 
+        //Método para escribir Transacción
+
         private void escribirTransaccion(Transaccion t)
         {
             if (t is Prestamo)
@@ -1301,7 +1349,64 @@ namespace ProyBiblioteca
             }
         }
 
+        //Método para borrar Libro del fichero
+        private void borrarLibro(Libro libro)
+        {
+            string tituloLibro = libro.Titulo;
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "ficheros", "libros.txt");
 
+            // Lectura de todas las líneas del archivo
+            string[] lines = File.ReadAllLines(filePath);
+
+            // Búsqueda del título del libro en cada línea
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Contains(tituloLibro))
+                {
+                    // Si se encuentra el título, se elimina la línea
+                    lines[i] = string.Empty;
+                    break;
+                }
+            }
+
+            // Escritura de las líneas modificadas de vuelta al archivo
+            File.WriteAllLines(filePath, lines);
+        }
+
+
+        //Método para borrar Persona del fichero
+        private void borrarPersona(Persona persona)
+        {
+            string nombre = persona.Nombre;
+
+            // Ruta del archivo usuarios.txt
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "ficheros", "usuarios.txt");
+
+            // Lectura de todas las líneas del archivo
+            List<string> lines = new List<string>(File.ReadAllLines(filePath));
+
+            // Búsqueda del nombre de la persona en cada línea
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i].Contains(nombre))
+                {
+                    // Si se encuentra el nombre, se elimina la línea
+                    lines.RemoveAt(i);
+                    break;
+                }
+            }
+
+            // Escritura de las líneas modificadas de vuelta al archivo
+            File.WriteAllLines(filePath, lines);
+        }
+
+        private void borrarTransaccion(Transaccion transaccion) {
+            string idLibroTransaccion = transaccion.IdLibro;
+        }
+
+
+
+        //Método para borrar 
         private void lvBorrar_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvBorrar.SelectedItems.Count > 0)
@@ -1309,7 +1414,7 @@ namespace ProyBiblioteca
                 ListViewItem selectedItem = lvBorrar.SelectedItems[0];
 
                 // Muestra un cuadro de diálogo de confirmación
-                DialogResult result = MessageBox.Show("¿Deseas borrar este elemento?", "Confirmar borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("¿Deseas borrar este elemento? " + selectedItem.Name, "Confirmar borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
@@ -1324,9 +1429,11 @@ namespace ProyBiblioteca
                             if (l.Titulo.Equals(selectedItem.Text))
                             {
                                 libBorrar = l;
+                                
                             }
                         }
                         misLibros.Remove(libBorrar);
+                        borrarLibro(libBorrar); // Llamada al método de borrar libro
                     }
                     else if (interfSeleccionada.Equals("Usuarios"))
                     {
@@ -1338,7 +1445,11 @@ namespace ProyBiblioteca
                                 persBorrar = p;
                             }
                         }
+
                         misUsuarios.Remove(persBorrar);
+
+                        borrarPersona(persBorrar); // Llamada al método de borrar persona
+
                     }
                     else
                     {
