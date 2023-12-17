@@ -101,6 +101,8 @@
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
+            this.txtAtr13 = new System.Windows.Forms.TextBox();
+            this.txtAtr22 = new System.Windows.Forms.TextBox();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -453,6 +455,8 @@
             // 
             // tpModificado
             // 
+            this.tpModificado.Controls.Add(this.txtAtr22);
+            this.tpModificado.Controls.Add(this.txtAtr13);
             this.tpModificado.Controls.Add(this.btnGuardarMod);
             this.tpModificado.Controls.Add(this.masked2Atr3);
             this.tpModificado.Controls.Add(this.maskedAtr3);
@@ -484,6 +488,7 @@
             this.btnGuardarMod.TabIndex = 31;
             this.btnGuardarMod.Text = "GUARDAR";
             this.btnGuardarMod.UseVisualStyleBackColor = true;
+            this.btnGuardarMod.Click += new System.EventHandler(this.btnGuardarMod_Click);
             // 
             // masked2Atr3
             // 
@@ -507,21 +512,21 @@
             // 
             this.txtAtr12.Location = new System.Drawing.Point(1033, 187);
             this.txtAtr12.Name = "txtAtr12";
-            this.txtAtr12.Size = new System.Drawing.Size(100, 22);
+            this.txtAtr12.Size = new System.Drawing.Size(129, 22);
             this.txtAtr12.TabIndex = 28;
             // 
             // txtAtr2
             // 
             this.txtAtr2.Location = new System.Drawing.Point(1033, 247);
             this.txtAtr2.Name = "txtAtr2";
-            this.txtAtr2.Size = new System.Drawing.Size(100, 22);
+            this.txtAtr2.Size = new System.Drawing.Size(129, 22);
             this.txtAtr2.TabIndex = 27;
             // 
             // txtAtr1
             // 
             this.txtAtr1.Location = new System.Drawing.Point(1033, 187);
             this.txtAtr1.Name = "txtAtr1";
-            this.txtAtr1.Size = new System.Drawing.Size(100, 22);
+            this.txtAtr1.Size = new System.Drawing.Size(129, 22);
             this.txtAtr1.TabIndex = 26;
             // 
             // label4
@@ -598,6 +603,7 @@
             this.lvModificar.TabIndex = 16;
             this.lvModificar.UseCompatibleStateImageBehavior = false;
             this.lvModificar.View = System.Windows.Forms.View.SmallIcon;
+            this.lvModificar.SelectedIndexChanged += new System.EventHandler(this.lvModificar_SelectedIndexChanged);
             this.lvModificar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvModificar_MouseDoubleClick);
             // 
             // pcb3Modo
@@ -834,6 +840,20 @@
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
             // 
+            // txtAtr13
+            // 
+            this.txtAtr13.Location = new System.Drawing.Point(1033, 187);
+            this.txtAtr13.Name = "txtAtr13";
+            this.txtAtr13.Size = new System.Drawing.Size(129, 22);
+            this.txtAtr13.TabIndex = 32;
+            // 
+            // txtAtr22
+            // 
+            this.txtAtr22.Location = new System.Drawing.Point(1033, 247);
+            this.txtAtr22.Name = "txtAtr22";
+            this.txtAtr22.Size = new System.Drawing.Size(129, 22);
+            this.txtAtr22.TabIndex = 33;
+            // 
             // FrmBiblio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -943,6 +963,8 @@
         private System.Windows.Forms.Label lblAtr3;
         private System.Windows.Forms.Label lbAtr2;
         private System.Windows.Forms.Label lbAtr1;
+        private System.Windows.Forms.TextBox txtAtr22;
+        private System.Windows.Forms.TextBox txtAtr13;
     }
 }
 

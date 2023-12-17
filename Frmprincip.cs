@@ -33,6 +33,7 @@ namespace ProyBiblioteca
         List<Transaccion> misTransacciones = new List<Transaccion>();
         //String auxiliar que toma el texto del toolStripMenuItem seleccionado
         string interfSeleccionada = "Libros";
+        private int indiceSeleccionado = -1;
         private void FrmPrincip_Load(object sender, EventArgs e)
         {
      
@@ -442,13 +443,6 @@ namespace ProyBiblioteca
                     tbxAtrib1.Show();
                     tbxAtrib2.Show();
                     mtbFechaAniadirPrestamo.Hide();
-
-                    /*Poner tpBorrado cuando es Libro*/
-                    if (!tcOpciones.TabPages.Contains(tpBorrado))
-                    {
-                        tcOpciones.TabPages.Insert(originalIndex,tpBorrado);
-                    }
-
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
@@ -476,6 +470,8 @@ namespace ProyBiblioteca
                     lbAtr2.Text = "ID Libro";
                     txtAtr1.Show();
                     txtAtr12.Hide();
+                    txtAtr13.Hide();
+                    txtAtr22.Hide();
                     txtAtr2.Show();
                     masked2Atr3.Hide();
                     maskedAtr3.Hide();
@@ -496,11 +492,6 @@ namespace ProyBiblioteca
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
 
-                    /*Poner tpBorrado si es Persona*/
-                    if (!tcOpciones.TabPages.Contains(tpBorrado))
-                    {
-                        tcOpciones.TabPages.Insert(originalIndex, tpBorrado);
-                    }
                     //GroupBox de RadioButtons
                     gbAtribs.Text = "Tipo de usuario ";
                     rbOpcion1.Text = "Alumno";
@@ -547,7 +538,9 @@ namespace ProyBiblioteca
                     lblAtr3.Text = "Fecha Sancion";
                     txtAtr1.Hide();
                     txtAtr12.Show();
-                    txtAtr2.Show();
+                    txtAtr22.Show();
+                    txtAtr13.Hide();
+                    txtAtr2.Hide();
                     masked2Atr3.Hide();
                     maskedAtr3.Show();
                     lblAtr3.Show();
@@ -567,12 +560,6 @@ namespace ProyBiblioteca
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
-
-                    if (tcOpciones.TabPages.Contains(tpBorrado))
-                    {
-                        originalIndex = tcOpciones.TabPages.IndexOf(tpBorrado);
-                        tcOpciones.TabPages.Remove(tpBorrado);
-                    }
 
                     gbAtribs.Text = "Tipo ";
                     rbOpcion1.Text = "Devolución";
@@ -615,9 +602,11 @@ namespace ProyBiblioteca
                     lbAtr2.Hide();
                     lbAtr1.Text = "ID Libro";
                     lblAtr3.Text = "Fecha Devolucion";
-                    txtAtr1.Show();
+                    txtAtr13.Show();
+                    txtAtr1.Hide();
                     txtAtr12.Hide();
                     txtAtr2.Hide();
+                    txtAtr22.Hide();
                     masked2Atr3.Show();
                     maskedAtr3.Hide();
                     lblAtr3.Show();
@@ -1509,7 +1498,7 @@ namespace ProyBiblioteca
                         break;
 
                     case "Usuarios":
- 
+
                         break;
 
                     case "Transacciones":
@@ -1518,6 +1507,158 @@ namespace ProyBiblioteca
                 }
             }
         }
+
+        private void lvModificar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Verificar si hay algún elemento seleccionado en el ListView
+            if (lvModificar.SelectedItems.Count > 0)
+            {
+                // Obtener el primer elemento seleccionado
+                ListViewItem selectedItem = lvModificar.SelectedItems[0];
+
+                switch (interfSeleccionada)
+                {
+                    case "Libros":
+                        string titulo = selectedItem.SubItems[0].Text;
+                        txtAtr1.Text = titulo;
+                        break;
+
+                    case "Usuarios":
+                        string Nombre = selectedItem.SubItems[0].Text;
+                        txtAtr12.Text = Nombre;
+                        break;
+
+                    case "Transacciones":
+                        string ID = selectedItem.SubItems[0].Text;
+                        txtAtr13.Text = ID;
+                        break;
+
+                }
+            }
+
+        }
+
+
+
+
+        private void btnGuardarMod_Click(object sender, EventArgs e)
+        {
+            switch (interfSeleccionada)
+            {
+                case "Libros":
+                    ModificarLibro(txtAtr1.Text, txtAtr2.Text, indiceSeleccionado);
+                    MessageBox.Show("Libro Modificado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "Usuarios":
+                    ModificarUsuario(txtAtr12.Text, txtAtr22.Text, maskedAtr3.Text, indiceSeleccionado);
+                    MessageBox.Show("Usuario Modificado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "Transacciones":
+                    ModificarTransaccion(txtAtr13.Text, masked2Atr3.Text, indiceSeleccionado);
+                    MessageBox.Show("Transacción Modificada", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void ModificarLibro(string nuevoTitulo, string nuevoIdLibro, int indiceSeleccionado)
+        {
+            if (indiceSeleccionado >= 0 && indiceSeleccionado < misLibros.Count)
+            {
+                misLibros[indiceSeleccionado].Titulo = nuevoTitulo;
+                misLibros[indiceSeleccionado].IdLibro = nuevoIdLibro;
+
+                // Actualizar el ListViewItem directamente en el ListView
+                lvModificar.Items[indiceSeleccionado].SubItems[0].Text = nuevoTitulo;
+                lvModificar.Items[indiceSeleccionado].SubItems[1].Text = nuevoIdLibro;
+
+                // Guardar los datos modificados
+                GuardarDatosLibro(misLibros);
+
+                // Establecer el índice seleccionado a -1 después de la modificación
+                this.indiceSeleccionado = -1;
+            }
+        }
+
+        private void ModificarUsuario(string nuevoNombre, string nuevoDepartamento, string nuevaFechaSancion, int indiceSeleccionado)
+        {
+            if (indiceSeleccionado >= 0 && indiceSeleccionado < misUsuarios.Count)
+            {
+                misUsuarios[indiceSeleccionado].Nombre = nuevoNombre;
+                misUsuarios[indiceSeleccionado].Departamento = nuevoDepartamento;
+                misUsuarios[indiceSeleccionado].FechaSancion = DateTime.Parse(nuevaFechaSancion);
+
+                // Actualizar el ListViewItem directamente en el ListView
+                lvModificar.Items[indiceSeleccionado].SubItems[0].Text = nuevoNombre;
+
+                // Guardar datos modificados
+                GuardarDatosUsuario(misUsuarios);
+
+                this.indiceSeleccionado = -1;
+            }
+        }
+
+
+        private void ModificarTransaccion(string nuevoIdLibro, string nuevaFechaDevolucion, int indiceSeleccionado)
+        {
+            if (indiceSeleccionado >= 0 && indiceSeleccionado < misTransacciones.Count)
+            {
+                misTransacciones[indiceSeleccionado].IdLibro = nuevoIdLibro;
+                misTransacciones[indiceSeleccionado].FechaTransaccion = DateTime.Parse(nuevaFechaDevolucion);
+
+                // Actualizar el ListViewItem directamente en el ListView
+                lvModificar.Items[indiceSeleccionado].SubItems[0].Text = nuevoIdLibro;
+
+                // Guardar datos modificados
+                GuardarDatosTransaccion(misTransacciones);
+
+                this.indiceSeleccionado = -1;
+            }
+        }
+
+        private void GuardarDatosLibro(List<Libro> libros)
+        {
+            try
+            {
+                File.WriteAllLines("libros.txt", libros.Select(libro => libro.ToString()));
+                Console.WriteLine("Datos de libros guardados correctamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al guardar datos de libros: " + ex.Message);
+            }
+        }
+
+        private void GuardarDatosUsuario(List<Persona> usuarios)
+        {
+            try
+            {
+                File.WriteAllLines("usuarios.txt", usuarios.Select(usuario => usuario.ToString()));
+                Console.WriteLine("Datos de usuarios guardados correctamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al guardar datos de usuarios: " + ex.Message);
+            }
+        }
+
+        private void GuardarDatosTransaccion(List<Transaccion> transacciones)
+        {
+            try
+            {
+                File.WriteAllLines("transacciones.txt", transacciones.Select(transaccion => transaccion.ToString()));
+                Console.WriteLine("Datos de transacciones guardados correctamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al guardar datos de transacciones: " + ex.Message);
+            }
+        }
+
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
