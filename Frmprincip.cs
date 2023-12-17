@@ -913,7 +913,7 @@ namespace ProyBiblioteca
 
                             //Escribir libros al fichero
                             escribirLibro(l);
-                            
+
                             //Cargar lista libros
                             cargarLibros();
 
@@ -971,7 +971,7 @@ namespace ProyBiblioteca
 
                                     //Recargar lista de usuarios
                                     cargarUsuarios();
-                                    
+
                                 }
                                 else
                                 {
@@ -1010,162 +1010,170 @@ namespace ProyBiblioteca
                     break;
 
                 case "Transacciones":
-                    String tituloLib = cbLibroPresDev.SelectedItem.ToString();
 
-                    // Siempre es la transaccion la fecha actual
-
-                    DateTime fechaTransaccion = DateTime.Now;
-
-                    Transaccion transaccion = null;
-
-                    if (rbOpcion1.Checked) // SI ESTA GUARDANDO EN DEVOLUCION
+                    try
                     {
-                        if (cbLibroPresDev.Text.Equals("") || mtbFechaAniadirPrestamo.MaskCompleted == false) // Si hay algún campo vacio no deja guardar
+                        String tituloLib = cbLibroPresDev.Text;
+
+                        // Siempre es la transaccion la fecha actual
+
+                        DateTime fechaTransaccion = DateTime.Now;
+
+                        Transaccion transaccion = null;
+
+                        if (rbOpcion1.Checked) // SI ESTA GUARDANDO EN DEVOLUCION
                         {
-                            MessageBox.Show("No puedes dejar campos vacíos");
-                        }
-                        else  // Si no estan vacios añade el libro  
-                        {
-                            Libro libro = null;
-                            int position = 0;
-                            foreach (Libro lib in LibrosPrestados)
+                            if (cbLibroPresDev.Text.Equals("") || mtbFechaAniadirPrestamo.MaskCompleted == false) // Si hay algún campo vacio no deja guardar
                             {
-                                if (tituloLib.Equals(lib.Titulo))
-                                {
-                                    libro = lib;
-                                    break;
-                                }
-                                else
-                                {
-                                    position = position + 1;
-                                }
+                                MessageBox.Show("No puedes dejar campos vacíos");
                             }
-
-                            string libroId = libro.IdLibro;
-
-                            //Añadir nueva devolución
-                            transaccion = new Devolucion(libroId, fechaTransaccion);
-
-                            //Quitar y poner los libros en stock
-                            MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
-                            LibrosPrestados.RemoveAt(position);
-                            MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
-                            LibrosEnStock.Add(libro);
-                            MessageBox.Show("Se añadio correctamente!");
-
-                            //ACTUALIZAR LISTA Y CARGAR LOS LIBROS
-                            //ActualizaListaDeLibrosEnStockYLibrosPrestados();
-                            cargarLibrosPrestadosCB();
-
-                        }
-                    }
-                    else  // SI ESTA GUARDANDO PRESTAMO
-                    {
-                        if (cbUsuariosAnadirPrestamos.Text.Equals("") ||
-                            cbLibroPresDev.Text.Equals("") ||
-                            mtbFechaAniadirPrestamo.MaskCompleted == false)
-                        {
-                            MessageBox.Show("No puedes dejar campos vacíos");
-                        }
-                        else
-                        {
-                            String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
-
-                            Persona persona = null;
-                            Libro libro = null;
-                            DateTime fechaMaxDevolucion = DateTime.MaxValue;
-
-                            int position = 0;
-                            foreach (Libro lib in LibrosEnStock)
+                            else  // Si no estan vacios añade el libro  
                             {
-                                if (tituloLib.Equals(lib.Titulo))
+                                Libro libro = null;
+                                int position = 0;
+                                foreach (Libro lib in LibrosPrestados)
                                 {
-                                    libro = lib;
-                                    break;
-                                }
-                                else
-                                {
-                                    position = position++;
-                                }
-                            }
-
-                            foreach (Persona p in misUsuarios)
-                            {
-                                if (p.Nombre.Equals(nombreUsuario))
-                                {
-                                    persona = p;
-
-                                    switch (persona)
+                                    if (tituloLib.Equals(lib.Titulo))
                                     {
-                                        case Alumno alumno:
-                                            // Acciones específicas para Alumno
-                                            MessageBox.Show($"Es un Alumno: {alumno.GetType().Name}");
-                                            fechaMaxDevolucion = alumno.calcularFechaDevolucion(libro);
-                                            // Otras acciones específicas para Alumno
-                                            break;
-
-                                        case Profesor profesor:
-                                            // Acciones específicas para Profesor
-                                            MessageBox.Show($"Es un Profesor: {profesor.GetType().Name}");
-                                            fechaMaxDevolucion = profesor.calcularFechaDevolucion(libro);
-                                            // Otras acciones específicas para Profesor
-                                            break;
-
-                                        case PAS pas:
-                                            // Acciones específicas para PAS
-                                            MessageBox.Show($"Es un PAS: {pas.GetType().Name}");
-                                            fechaMaxDevolucion = pas.calcularFechaDevolucion(libro);
-                                            // Otras acciones específicas para PAS
-                                            break;
-
-                                        default:
-                                            // Acciones por defecto o para otros tipos de Persona
-                                            MessageBox.Show($"Es otro tipo de Persona: {p.GetType().Name}");
-                                            // Otras acciones por defecto
-                                            break;
+                                        libro = lib;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        position = position + 1;
                                     }
                                 }
+
+                                string libroId = libro.IdLibro;
+
+                                //Añadir nueva devolución
+                                transaccion = new Devolucion(libroId, fechaTransaccion);
+
+                                //Quitar y poner los libros en stock
+                                MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
+                                LibrosPrestados.RemoveAt(position);
+                                MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
+                                LibrosEnStock.Add(libro);
+                                MessageBox.Show("Se añadio correctamente!");
+
+                                //ACTUALIZAR LISTA Y CARGAR LOS LIBROS
+                                //ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                                cargarLibrosPrestadosCB();
+
                             }
-                            // Verificar si el usuario no se encontró en la lista
-                            if (persona == null)
-                            {
-                                MessageBox.Show("No se encontró el usuario.");
-                            }
-
-                            Console.WriteLine("-------------------------------------");
-                            Console.WriteLine($"Tipo de transacción: Prestamo");
-                            Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
-                            Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo} ");
-                            Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
-                            Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
-
-                            string libroId = libro.IdLibro;
-                            transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
-
-                            Prestamo pres = (Prestamo)transaccion;
-
-                            //Añadir la transacción
-                            misTransacciones.Add(transaccion);
-
-                            //Quitar y poner los libros en stock
-
-                            LibrosEnStock.RemoveAt(position);
-                            LibrosPrestados.Add(libro);
-
-                            transaccion.ToString();
-
-                            MessageBox.Show("La transacción se ha añadido correctamente");
-
-                            //ACTUALIZAR LISTA, CARGAR LOS LIBROS EN STOCK Y LOS USUARIOS
-                            // ActualizaListaDeLibrosEnStockYLibrosPrestados();
-                            cargarLibrosEnStockYUsuariosCB();
-
                         }
+                        else  // SI ESTA GUARDANDO PRESTAMO
+                        {
+                            if (cbUsuariosAnadirPrestamos.Text.Equals("") ||
+                                cbLibroPresDev.Text.Equals("") ||
+                                mtbFechaAniadirPrestamo.MaskCompleted == false)
+                            {
+                                MessageBox.Show("No puedes dejar campos vacíos");
+                            }
+                            else
+                            {
+                                String nombreUsuario = cbUsuariosAnadirPrestamos.SelectedItem.ToString();
+
+                                Persona persona = null;
+                                Libro libro = null;
+                                DateTime fechaMaxDevolucion = DateTime.MaxValue;
+
+                                int position = 0;
+                                foreach (Libro lib in LibrosEnStock)
+                                {
+                                    if (tituloLib.Equals(lib.Titulo))
+                                    {
+                                        libro = lib;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        position = position++;
+                                    }
+                                }
+
+                                foreach (Persona p in misUsuarios)
+                                {
+                                    if (p.Nombre.Equals(nombreUsuario))
+                                    {
+                                        persona = p;
+
+                                        switch (persona)
+                                        {
+                                            case Alumno alumno:
+                                                // Acciones específicas para Alumno
+                                                MessageBox.Show($"Es un Alumno: {alumno.GetType().Name}");
+                                                fechaMaxDevolucion = alumno.calcularFechaDevolucion(libro);
+                                                // Otras acciones específicas para Alumno
+                                                break;
+
+                                            case Profesor profesor:
+                                                // Acciones específicas para Profesor
+                                                MessageBox.Show($"Es un Profesor: {profesor.GetType().Name}");
+                                                fechaMaxDevolucion = profesor.calcularFechaDevolucion(libro);
+                                                // Otras acciones específicas para Profesor
+                                                break;
+
+                                            case PAS pas:
+                                                // Acciones específicas para PAS
+                                                MessageBox.Show($"Es un PAS: {pas.GetType().Name}");
+                                                fechaMaxDevolucion = pas.calcularFechaDevolucion(libro);
+                                                // Otras acciones específicas para PAS
+                                                break;
+
+                                            default:
+                                                // Acciones por defecto o para otros tipos de Persona
+                                                MessageBox.Show($"Es otro tipo de Persona: {p.GetType().Name}");
+                                                // Otras acciones por defecto
+                                                break;
+                                        }
+                                    }
+                                }
+                                // Verificar si el usuario no se encontró en la lista
+                                if (persona == null)
+                                {
+                                    MessageBox.Show("No se encontró el usuario.");
+                                }
+
+                                Console.WriteLine("-------------------------------------");
+                                Console.WriteLine($"Tipo de transacción: Prestamo");
+                                Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
+                                Console.WriteLine($"ID de libro prestado: {libro.IdLibro} Título: {libro.Titulo} ");
+                                Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
+                                Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
+
+                                string libroId = libro.IdLibro;
+                                transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
+
+                                Prestamo pres = (Prestamo)transaccion;
+
+                                //Añadir la transacción
+                                misTransacciones.Add(transaccion);
+
+                                //Quitar y poner los libros en stock
+
+                                LibrosEnStock.RemoveAt(position);
+                                LibrosPrestados.Add(libro);
+
+                                transaccion.ToString();
+
+                                MessageBox.Show("La transacción se ha añadido correctamente");
+
+                                //ACTUALIZAR LISTA, CARGAR LOS LIBROS EN STOCK Y LOS USUARIOS
+                                // ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                                cargarLibrosEnStockYUsuariosCB();
+
+                            }
+                        }
+                        //Escribir de las transacciones de hoy si hace falta
+                        escribirFecha();
+                        // Escribir la transacción en el fichero
+                        escribirTransaccion(transaccion);
                     }
-                    //Escribir de las transacciones de hoy si hace falta
-                    escribirFecha();
-                    // Escribir la transacción en el fichero
-                    escribirTransaccion(transaccion);
+                    catch (Exception)
+                    {
+                        MessageBox.Show("No se pueden dejar campos vacíos");
+                    }
                     break;
 
                 default:
@@ -1188,7 +1196,7 @@ namespace ProyBiblioteca
             return existeID;
         }
 
-    
+
 
         //Método que comprueba si el nombre del usuario parámetro existeID en la lista de usuarios
         private Boolean existeNombrePers(string nombre)
@@ -1252,7 +1260,7 @@ namespace ProyBiblioteca
             {
                 ubicacion = "almacen";
             }
-            else if(libro.Ubicacion.Equals("Sala"))
+            else if (libro.Ubicacion.Equals("Sala"))
             {
                 ubicacion = "sala";
             }
@@ -1400,7 +1408,8 @@ namespace ProyBiblioteca
             File.WriteAllLines(filePath, lines);
         }
 
-        private void borrarTransaccion(Transaccion transaccion) {
+        private void borrarTransaccion(Transaccion transaccion)
+        {
             string idLibroTransaccion = transaccion.IdLibro;
         }
 
@@ -1429,7 +1438,7 @@ namespace ProyBiblioteca
                             if (l.Titulo.Equals(selectedItem.Text))
                             {
                                 libBorrar = l;
-                                
+
                             }
                         }
                         misLibros.Remove(libBorrar);
@@ -1521,11 +1530,17 @@ namespace ProyBiblioteca
                         ListViewItem lviAux = new ListViewItem(per.Nombre);
                         lviAux.SubItems.Add(per.Departamento);
                         lviAux.SubItems.Add(per.GetType().Name);
-                        //Falta comprobar que si no tiene fecha, añada un elemento vacío
-                        lviAux.SubItems.Add(per.FechaSancion.ToString("dd/M/yyyy"));
+                        String fechaSancion = per.FechaSancion.ToString("dd/MM/yyyy");
+                        if (fechaSancion.Equals("01/01/0001"))
+                        {
+                            lviAux.SubItems.Add("-");
+                        }
+                        else 
+                        {
+                            lviAux.SubItems.Add(per.FechaSancion.ToString("dd/M/yyyy"));
+                        }
 
                         lvBusqueda.Items.Add(lviAux);
-
                     }
                 }
             }
