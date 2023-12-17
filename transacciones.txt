@@ -1,4 +1,9 @@
-2ec5a 9, 12 , 2023
-prestamo Felisa Perez, , #1/1/0001#
-8ec5a 9, 12 , 2023
-prestamo Juan Sanz, , #1/1/0001#
+ID Libro: prestamo id libro noseke, Fecha de Transacción: 2004-04-05
+ID Libro:  1111, Fecha de Transacción: 2022-02-23
+ID Libro:  2222, Fecha de Transacción: 2022-02-23
+ID Libro:  4444, Fecha de Transacción: 2022-02-23
+ID Libro:  6666, Fecha de Transacción: 2022-02-23
+ID Libro:  7777, Fecha de Transacción: 2022-02-23
+ID Libro:  8888, Fecha de Transacción: 2022-02-23
+ID Libro: 1234, Fecha de Transacción: 2022-02-23
+ID Libro:  1234, Fecha de Transacción: 2022-03-02

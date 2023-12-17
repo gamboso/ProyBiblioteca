@@ -495,7 +495,7 @@
             this.masked2Atr3.Location = new System.Drawing.Point(1033, 305);
             this.masked2Atr3.Mask = "00/00/0000";
             this.masked2Atr3.Name = "masked2Atr3";
-            this.masked2Atr3.Size = new System.Drawing.Size(100, 22);
+            this.masked2Atr3.Size = new System.Drawing.Size(129, 22);
             this.masked2Atr3.TabIndex = 30;
             this.masked2Atr3.ValidatingType = typeof(System.DateTime);
             // 

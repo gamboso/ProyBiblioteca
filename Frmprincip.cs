@@ -1553,23 +1553,32 @@ namespace ProyBiblioteca
                 switch (interfSeleccionada)
                 {
                     case "Libros":
-                        string titulo = selectedItem.SubItems[0].Text;
+                        string titulo = selectedItem.Text;
+                        string idLibro = selectedItem.SubItems.Count > 1 ? selectedItem.SubItems[1].Text : string.Empty;
+
                         txtAtr1.Text = titulo;
+                        txtAtr2.Text = idLibro;
                         break;
 
                     case "Usuarios":
-                        string Nombre = selectedItem.SubItems[0].Text;
-                        txtAtr12.Text = Nombre;
+                        string nombre = selectedItem.Text;
+                        string departamento = selectedItem.SubItems.Count > 1 ? selectedItem.SubItems[1].Text : string.Empty;
+                        string fechaSancion = selectedItem.SubItems.Count > 2 ? selectedItem.SubItems[2].Text : string.Empty;
+
+                        txtAtr12.Text = nombre;
+                        txtAtr22.Text = departamento;
+                        maskedAtr3.Text = fechaSancion;
                         break;
 
                     case "Transacciones":
-                        string ID = selectedItem.SubItems[0].Text;
-                        txtAtr13.Text = ID;
-                        break;
+                        string idTransaccion = selectedItem.Text;
+                        string fechaDevolucion = selectedItem.SubItems.Count > 1 ? selectedItem.SubItems[1].Text : string.Empty;
 
+                        txtAtr13.Text = idTransaccion;
+                        masked2Atr3.Text = fechaDevolucion;
+                        break;
                 }
             }
-
         }
 
 
@@ -1580,22 +1589,126 @@ namespace ProyBiblioteca
             switch (interfSeleccionada)
             {
                 case "Libros":
-                    ModificarLibro(txtAtr1.Text, txtAtr2.Text, indiceSeleccionado);
-                    MessageBox.Show("Libro Modificado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Verificar si hay algún elemento seleccionado en el ListView
+                    if (lvModificar.SelectedItems.Count > 0)
+                    {
+                        // Obtener el primer elemento seleccionado
+                        ListViewItem selectedItem = lvModificar.SelectedItems[0];
+
+                        // Obtener el índice seleccionado
+                        int indiceSeleccionado = selectedItem.Index;
+
+                        // Verificar si los campos están llenos
+                        if (!string.IsNullOrEmpty(txtAtr1.Text) && !string.IsNullOrEmpty(txtAtr2.Text))
+                        {
+                            ModificarLibro(txtAtr1.Text, txtAtr2.Text, indiceSeleccionado);
+                            CargarDatosLibros(); // Recargar datos en el ListView
+                            MessageBox.Show("Libro Modificado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No puedes dejar campos vacíos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selecciona un libro para modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
 
                 case "Usuarios":
-                    ModificarUsuario(txtAtr12.Text, txtAtr22.Text, maskedAtr3.Text, indiceSeleccionado);
-                    MessageBox.Show("Usuario Modificado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Verificar si hay algún elemento seleccionado en el ListView
+                    if (lvModificar.SelectedItems.Count > 0)
+                    {
+                        // Obtener el primer elemento seleccionado
+                        ListViewItem selectedItem = lvModificar.SelectedItems[0];
+
+                        // Obtener el índice seleccionado
+                        int indiceSeleccionado = selectedItem.Index;
+
+                        // Verificar si los campos están llenos
+                        if (!string.IsNullOrEmpty(txtAtr12.Text) && !string.IsNullOrEmpty(txtAtr22.Text) && maskedAtr3.MaskCompleted)
+                        {
+                            ModificarUsuario(txtAtr12.Text, txtAtr22.Text, maskedAtr3.Text, indiceSeleccionado);
+                            CargarDatosUsuarios(); // Recargar datos en el ListView
+                            MessageBox.Show("Usuario Modificado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No puedes dejar campos vacíos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selecciona un usuario para modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
 
                 case "Transacciones":
-                    ModificarTransaccion(txtAtr13.Text, masked2Atr3.Text, indiceSeleccionado);
-                    MessageBox.Show("Transacción Modificada", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Verificar si hay algún elemento seleccionado en el ListView
+                    if (lvModificar.SelectedItems.Count > 0)
+                    {
+                        // Obtener el primer elemento seleccionado
+                        ListViewItem selectedItem = lvModificar.SelectedItems[0];
+
+                        // Obtener el índice seleccionado
+                        int indiceSeleccionado = selectedItem.Index;
+
+                        // Verificar si los campos están llenos
+                        if (!string.IsNullOrEmpty(txtAtr13.Text) && masked2Atr3.MaskCompleted)
+                        {
+                            ModificarTransaccion(txtAtr13.Text, masked2Atr3.Text, indiceSeleccionado);
+                            CargarDatosTransacciones(); // Recargar datos en el ListView
+                            MessageBox.Show("Transacción Modificada", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No puedes dejar campos vacíos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selecciona una transacción para modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
 
                 default:
                     break;
+            }
+        }
+
+            private void CargarDatosLibros()
+        {
+            // Cargar datos de libros en el ListView
+            lvModificar.Items.Clear();
+            foreach (Libro libro in misLibros)
+            {
+                ListViewItem item = new ListViewItem(libro.Titulo);
+                item.SubItems.Add(libro.IdLibro);
+                lvModificar.Items.Add(item);
+            }
+        }
+
+        private void CargarDatosUsuarios()
+        {
+            // Cargar datos de usuarios en el ListView
+            lvModificar.Items.Clear();
+            foreach (Persona persona in misUsuarios)
+            {
+                ListViewItem item = new ListViewItem(persona.Nombre);
+                item.SubItems.Add(persona.Departamento);
+                lvModificar.Items.Add(item);
+            }
+        }
+
+        private void CargarDatosTransacciones()
+        {
+            // Cargar datos de transacciones en el ListView
+            lvModificar.Items.Clear();
+            foreach (Transaccion transaccion in misTransacciones)
+            {
+                ListViewItem item = new ListViewItem(transaccion.IdLibro);
+                lvModificar.Items.Add(item);
             }
         }
 
@@ -1607,8 +1720,11 @@ namespace ProyBiblioteca
                 misLibros[indiceSeleccionado].IdLibro = nuevoIdLibro;
 
                 // Actualizar el ListViewItem directamente en el ListView
-                lvModificar.Items[indiceSeleccionado].SubItems[0].Text = nuevoTitulo;
-                lvModificar.Items[indiceSeleccionado].SubItems[1].Text = nuevoIdLibro;
+                lvModificar.Items[indiceSeleccionado].Text = nuevoTitulo;
+                if (lvModificar.Items[indiceSeleccionado].SubItems.Count > 1)
+                {
+                    lvModificar.Items[indiceSeleccionado].SubItems[1].Text = nuevoIdLibro;
+                }
 
                 // Guardar los datos modificados
                 GuardarDatosLibro(misLibros);
@@ -1627,7 +1743,15 @@ namespace ProyBiblioteca
                 misUsuarios[indiceSeleccionado].FechaSancion = DateTime.Parse(nuevaFechaSancion);
 
                 // Actualizar el ListViewItem directamente en el ListView
-                lvModificar.Items[indiceSeleccionado].SubItems[0].Text = nuevoNombre;
+                lvModificar.Items[indiceSeleccionado].Text = nuevoNombre;
+                if (lvModificar.Items[indiceSeleccionado].SubItems.Count > 1)
+                {
+                    lvModificar.Items[indiceSeleccionado].SubItems[1].Text = nuevoDepartamento;
+                }
+                if (lvModificar.Items[indiceSeleccionado].SubItems.Count > 2)
+                {
+                    lvModificar.Items[indiceSeleccionado].SubItems[2].Text = nuevaFechaSancion;
+                }
 
                 // Guardar datos modificados
                 GuardarDatosUsuario(misUsuarios);
@@ -1635,7 +1759,6 @@ namespace ProyBiblioteca
                 this.indiceSeleccionado = -1;
             }
         }
-
 
         private void ModificarTransaccion(string nuevoIdLibro, string nuevaFechaDevolucion, int indiceSeleccionado)
         {
@@ -1645,7 +1768,11 @@ namespace ProyBiblioteca
                 misTransacciones[indiceSeleccionado].FechaTransaccion = DateTime.Parse(nuevaFechaDevolucion);
 
                 // Actualizar el ListViewItem directamente en el ListView
-                lvModificar.Items[indiceSeleccionado].SubItems[0].Text = nuevoIdLibro;
+                lvModificar.Items[indiceSeleccionado].Text = nuevoIdLibro;
+                if (lvModificar.Items[indiceSeleccionado].SubItems.Count > 1)
+                {
+                    lvModificar.Items[indiceSeleccionado].SubItems[1].Text = nuevaFechaDevolucion;
+                }
 
                 // Guardar datos modificados
                 GuardarDatosTransaccion(misTransacciones);
@@ -1653,12 +1780,12 @@ namespace ProyBiblioteca
                 this.indiceSeleccionado = -1;
             }
         }
-
         private void GuardarDatosLibro(List<Libro> libros)
         {
             try
             {
-                File.WriteAllLines("libros.txt", libros.Select(libro => libro.ToString()));
+                List<string> lines = libros.Select(libro => libro.ToString()).ToList();
+                File.WriteAllLines("libros.txt", lines);
                 Console.WriteLine("Datos de libros guardados correctamente.");
             }
             catch (Exception ex)
@@ -1671,7 +1798,8 @@ namespace ProyBiblioteca
         {
             try
             {
-                File.WriteAllLines("usuarios.txt", usuarios.Select(usuario => usuario.ToString()));
+                List<string> lines = usuarios.Select(usuario => usuario.ToString()).ToList();
+                File.WriteAllLines("usuarios.txt", lines);
                 Console.WriteLine("Datos de usuarios guardados correctamente.");
             }
             catch (Exception ex)
@@ -1684,7 +1812,8 @@ namespace ProyBiblioteca
         {
             try
             {
-                File.WriteAllLines("transacciones.txt", transacciones.Select(transaccion => transaccion.ToString()));
+                List<string> lines = transacciones.Select(transaccion => transaccion.ToString()).ToList();
+                File.WriteAllLines("transacciones.txt", lines);
                 Console.WriteLine("Datos de transacciones guardados correctamente.");
             }
             catch (Exception ex)
@@ -1692,6 +1821,8 @@ namespace ProyBiblioteca
                 Console.WriteLine("Error al guardar datos de transacciones: " + ex.Message);
             }
         }
+
+
 
 
         private void btnBuscar_Click(object sender, EventArgs e)
