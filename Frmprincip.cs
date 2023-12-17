@@ -24,16 +24,18 @@ namespace ProyBiblioteca
         {
             InitializeComponent();
         }
+        //Posición original
+        int originalIndex;
         List<Libro> LibrosEnStock = new List<Libro>();
         List<Libro> LibrosPrestados = new List<Libro>();
         List<Persona> misUsuarios = new List<Persona>();
         List<Libro> misLibros = new List<Libro>();
         List<Transaccion> misTransacciones = new List<Transaccion>();
-
         //String auxiliar que toma el texto del toolStripMenuItem seleccionado
         string interfSeleccionada = "Libros";
         private void FrmPrincip_Load(object sender, EventArgs e)
         {
+     
             // Cambiar el directorio actual al del fichero
             Directory.SetCurrentDirectory("..\\..\\ficheros");
             // Debe ir antes de todo para que los métodos tengan el directorio correcto
@@ -44,7 +46,9 @@ namespace ProyBiblioteca
             Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
             ActualizaListaDeLibrosEnStockYLibrosPrestados();
-
+            //Guardar posición del tbBorrado
+            int originalIndex = tcOpciones.TabPages.IndexOf(tpBorrado);
+            //
 
         }
 
@@ -438,6 +442,13 @@ namespace ProyBiblioteca
                     tbxAtrib1.Show();
                     tbxAtrib2.Show();
                     mtbFechaAniadirPrestamo.Hide();
+
+                    /*Poner tpBorrado cuando es Libro*/
+                    if (!tcOpciones.TabPages.Contains(tpBorrado))
+                    {
+                        tcOpciones.TabPages.Insert(originalIndex,tpBorrado);
+                    }
+
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
@@ -485,6 +496,11 @@ namespace ProyBiblioteca
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
 
+                    /*Poner tpBorrado si es Persona*/
+                    if (!tcOpciones.TabPages.Contains(tpBorrado))
+                    {
+                        tcOpciones.TabPages.Insert(originalIndex, tpBorrado);
+                    }
                     //GroupBox de RadioButtons
                     gbAtribs.Text = "Tipo de usuario ";
                     rbOpcion1.Text = "Alumno";
@@ -551,6 +567,12 @@ namespace ProyBiblioteca
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
+
+                    if (tcOpciones.TabPages.Contains(tpBorrado))
+                    {
+                        originalIndex = tcOpciones.TabPages.IndexOf(tpBorrado);
+                        tcOpciones.TabPages.Remove(tpBorrado);
+                    }
 
                     gbAtribs.Text = "Tipo ";
                     rbOpcion1.Text = "Devolución";
@@ -625,7 +647,6 @@ namespace ProyBiblioteca
 
                     ListViewItem item = new ListViewItem(l.Titulo, 3);
                     ListViewItem items = new ListViewItem(l.Titulo, 3);
-
 
                     lvBorrar.Items.Add(item);
                     lvModificar.Items.Add(items);
@@ -1018,7 +1039,6 @@ namespace ProyBiblioteca
                         // Siempre es la transaccion la fecha actual
 
                         DateTime fechaTransaccion = DateTime.Now;
-
                         Transaccion transaccion = null;
 
                         if (rbOpcion1.Checked) // SI ESTA GUARDANDO EN DEVOLUCION
@@ -1489,7 +1509,7 @@ namespace ProyBiblioteca
                         break;
 
                     case "Usuarios":
-
+ 
                         break;
 
                     case "Transacciones":
