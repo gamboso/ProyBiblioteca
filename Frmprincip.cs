@@ -195,11 +195,33 @@ namespace ProyBiblioteca
             }
         }
 
+
+        private List<Transaccion> QuitarDuplicadosDeTransacciones(List<Transaccion> transacciones)
+        {
+            // Diccionario para almacenar la última transacción para cada libro
+            Dictionary<string, Transaccion> ultimaTransaccionPorLibro = new Dictionary<string, Transaccion>();
+
+            // Iterar a través de las transacciones en orden inverso para priorizar las transacciones más recientes
+            for (int i = transacciones.Count - 1; i >= 0; i--)
+            {
+                Transaccion ts = transacciones[i];
+
+                // Actualizar la última transacción para cada libro
+                if (!ultimaTransaccionPorLibro.ContainsKey(ts.IdLibro))
+                {
+                    ultimaTransaccionPorLibro[ts.IdLibro] = ts;
+                }
+            }
+
+            // Devolver las transacciones más recientes para cada libro
+            List<Transaccion> ultimasTransacciones = ultimaTransaccionPorLibro.Values.Reverse().ToList();
+
+            return ultimasTransacciones;
+        }
+
         private void cargarTransacciones()
         {
-
             DateTime fecha = DateTime.Parse("1/01/1000");
-
             string nombreUsuario = "";
             string idLibroPrestado = "";
             string tipoTransaccion = "";
@@ -210,15 +232,17 @@ namespace ProyBiblioteca
             {
                 Console.WriteLine("====== Transacciones ======");
 
-
-                //Leer el fichero transacciones.txt
+                // Leer el fichero transacciones.txt
                 string[] transacciones = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\transacciones.txt");
+
+                // List to store all transactions
+                List<Transaccion> todasLasTransacciones = new List<Transaccion>();
+
                 foreach (string s in transacciones)
                 {
                     int indicePrimerEspacio = s.IndexOf(' ');
                     int ultimaComa = s.LastIndexOf(',');
                     int ultimoHashtag = s.LastIndexOf('#');
-
 
                     if (s.Contains("fecha")) // Esto es el "fecha" literal del archivo se refiere a la fecha de la transacción 
                     {
@@ -227,51 +251,43 @@ namespace ProyBiblioteca
                     }
                     else if (!s.Contains("devolucion") && (indicePrimerEspacio != -1))
                     {
-                        // Desde la posición inicial hasta el primer espacio.
                         tipoTransaccion = s.Substring(0, indicePrimerEspacio);
-
-                        // Desde el primer espacio hasta la primera coma.
                         nombreUsuario = s.Substring(indicePrimerEspacio + 1, s.IndexOf(',') - indicePrimerEspacio - 1);
-
-                        // Desde la primera coma hasta la ultima.
                         idLibroPrestado = s.Substring(s.IndexOf(',') + 1, ultimaComa - s.IndexOf(',') - 1);
-
-                        // Fecha 
                         fechaMaxDevolucion = DateTime.Parse(s.Substring(s.IndexOf('#') + 1, ultimoHashtag - s.IndexOf('#') - 1));
-                        /*
-                        Console.WriteLine("-------------------------------------");
-                        Console.WriteLine($"Tipo de transacción: {tipoTransaccion}");
-                        Console.WriteLine($"Nombre de usuario: {nombreUsuario}");
-                        Console.WriteLine($"ID de libro prestado: {idLibroPrestado}");
-                        Console.WriteLine($"Fecha de máxima de devolución: {fechaMaxDevolucion.ToString("d/M/yyyy")}");
-                        Console.WriteLine($"Fecha transacción: {fechaTransaccion.ToString("d/M/yyyy")}");
-                        */
-                        Transaccion ts = new Prestamo(nombreUsuario, idLibroPrestado, fechaMaxDevolucion, fechaTransaccion); ;
 
-                        misTransacciones.Add(ts);
+                        // Crear la instancia basada en el tipo
+                        Transaccion ts;
+                        if (s.Contains("prestamo"))
+                        {
+                            ts = new Prestamo(nombreUsuario, idLibroPrestado, fechaMaxDevolucion, fechaTransaccion);
+                        }
+                        else
+                        {
+                            ts = new Devolucion(idLibroPrestado, fechaTransaccion);
+                        }
+
+                        todasLasTransacciones.Add(ts);
                     }
                     else if (s.Contains("devolucion"))
                     {
-
                         string[] split = s.Split(' ');
-
                         tipoTransaccion = split[0];
                         idLibroPrestado = split[1];
-                        /*
-                        Console.WriteLine("-------------------------------------");
-                        Console.WriteLine($"Tipo de transacción: {tipoTransaccion}");
-                        Console.WriteLine($"Id libro devuelto: {idLibroPrestado}");
-                        */
+
+                        // Crear una instancia de devolución
                         Transaccion ts = new Devolucion(idLibroPrestado, fechaTransaccion);
-                        misTransacciones.Add(ts);
+                        todasLasTransacciones.Add(ts);
                     }
                 }
 
-                //Imprimir todas las transacciones en MisTransacciones
+                // Remover los duplicados utilizando el método
+                misTransacciones = QuitarDuplicadosDeTransacciones(todasLasTransacciones);
 
+                // Print the updated misTransacciones
                 foreach (Transaccion ts in misTransacciones)
                 {
-                    if (ts.GetType().Name.Equals("Prestamo"))
+                    if (ts is Prestamo)
                     {
                         Prestamo ps = (Prestamo)ts;
                         Console.WriteLine("-------------------------------------");
@@ -281,7 +297,7 @@ namespace ProyBiblioteca
                         Console.WriteLine($"Fecha de máxima de devolución: {ps.FechaMaxDevolucion.ToString("d/M/yyyy")}");
                         Console.WriteLine($"Fecha transacción: {ps.FechaTransaccion.ToString("d/M/yyyy")}");
                     }
-                    else if (ts.GetType().Name.Equals("Devolucion"))
+                    else if (ts is Devolucion)
                     {
                         Devolucion dv = (Devolucion)ts;
 
@@ -296,7 +312,6 @@ namespace ProyBiblioteca
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
-
         }
 
         private void cargarLibros()
@@ -445,6 +460,12 @@ namespace ProyBiblioteca
                     mtbFechaAniadirPrestamo.Hide();
                     //------------------------------------------------------------------------------
 
+                    /*Poner tpBorrado cuando es Libro*/
+                    if (!tcOpciones.TabPages.Contains(tpBorrado))
+                    {
+                        tcOpciones.TabPages.Insert(originalIndex, tpBorrado);
+                    }
+
                     //Elementos de la interfaz de búsqueda------------------------------------------
                     cambiarListViewBusqueda("Libro");
                     lblFiltroTransacciones.Hide();
@@ -491,6 +512,12 @@ namespace ProyBiblioteca
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
+
+                    /*Poner tpBorrado si es Persona*/
+                    if (!tcOpciones.TabPages.Contains(tpBorrado))
+                    {
+                        tcOpciones.TabPages.Insert(originalIndex, tpBorrado);
+                    }
 
                     //GroupBox de RadioButtons
                     gbAtribs.Text = "Tipo de usuario ";
@@ -560,6 +587,13 @@ namespace ProyBiblioteca
                     tpBorrado.Text = "Borrar";
                     tpModificado.Text = "Modificar";
                     tpBuscar.Text = "Buscar";
+
+
+                    if (tcOpciones.TabPages.Contains(tpBorrado))
+                    {
+                        originalIndex = tcOpciones.TabPages.IndexOf(tpBorrado);
+                        tcOpciones.TabPages.Remove(tpBorrado);
+                    }
 
                     gbAtribs.Text = "Tipo ";
                     rbOpcion1.Text = "Devolución";
@@ -1059,9 +1093,9 @@ namespace ProyBiblioteca
                                 transaccion = new Devolucion(libroId, fechaTransaccion);
 
                                 //Quitar y poner los libros en stock
-                                MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
+                              //  MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
                                 LibrosPrestados.RemoveAt(position);
-                                MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
+                               // MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
                                 LibrosEnStock.Add(libro);
                                 MessageBox.Show("Se añadio correctamente!");
 
