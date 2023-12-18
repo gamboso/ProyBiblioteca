@@ -36,7 +36,7 @@ namespace ProyBiblioteca
         private int indiceSeleccionado = -1;
         private void FrmPrincip_Load(object sender, EventArgs e)
         {
-     
+
             // Cambiar el directorio actual al del fichero
             Directory.SetCurrentDirectory("..\\..\\ficheros");
             // Debe ir antes de todo para que los métodos tengan el directorio correcto
@@ -46,49 +46,40 @@ namespace ProyBiblioteca
             cargarLibros();
             Directory.SetCurrentDirectory("..");
             cargarInterfazLibros();
-            ActualizaListaDeLibrosEnStockYLibrosPrestados();
+            ActualizaListaDeLibrosEnStockYLibrosPrestados(misTransacciones);
+
             //Guardar posición del tbBorrado
             int originalIndex = tcOpciones.TabPages.IndexOf(tpBorrado);
             //
 
         }
-
-        private void ActualizaListaDeLibrosEnStockYLibrosPrestados()
+        private void ActualizaListaDeLibrosEnStockYLibrosPrestados(List<Transaccion> ultimasTransacciones)
         {
-
             LibrosPrestados.Clear();
             LibrosEnStock.Clear();
 
             foreach (Libro l in misLibros)
             {
-                bool estaPrestado = false;
-                foreach (Transaccion t in misTransacciones)
-                {
-                    estaPrestado = t.IdLibro.Equals(l.IdLibro);
-                    if (estaPrestado)
-                        break;
-                }
+                var ultimaTransaccion = ultimasTransacciones.FirstOrDefault(t => t.IdLibro == l.IdLibro);
 
-                if (estaPrestado)
+                if (ultimaTransaccion != null)
                 {
-                    if (l.Titulo.Equals("")) { }
-                    else 
+                    bool estaPrestado = ultimaTransaccion is Prestamo;
+
+                    if (estaPrestado)
                     {
                         LibrosPrestados.Add(l);
                         Console.WriteLine("Libro Prestado: " + l.Titulo);
-
                     }
-                    
+                    else
+                    {
+                        LibrosEnStock.Add(l);
+                        Console.WriteLine("Libro en Stock: " + l.Titulo);
+                    }
                 }
                 else
                 {
-                    if (l.Titulo.Equals("")) { }
-                    else
-                    {
-                        LibrosPrestados.Add(l);
-                        Console.WriteLine("Libro Prestado: " + l.Titulo);
-
-                    }
+                    // If there is no transaction for the book, consider it in stock
                     LibrosEnStock.Add(l);
                     Console.WriteLine("Libro en Stock: " + l.Titulo);
                 }
@@ -207,7 +198,6 @@ namespace ProyBiblioteca
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
-
 
         private List<Transaccion> QuitarDuplicadosDeTransacciones(List<Transaccion> transacciones)
         {
@@ -625,6 +615,7 @@ namespace ProyBiblioteca
                     tbxAtrib2.Hide();
                     tbxAtrib1.Hide();
                     mtbFechaAniadirPrestamo.Show();
+
                     //------------------------------------------------------------------------------
 
                     //Elementos de la interfaz de búsqueda------------------------------------------
@@ -681,9 +672,10 @@ namespace ProyBiblioteca
 
                     if (l.Titulo.Equals(""))
                     {
-                       
+
                     }
-                    else {
+                    else
+                    {
                         lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
                         lvModificar.SmallImageList = ilProfesoresAlumnosPAS;
 
@@ -694,7 +686,7 @@ namespace ProyBiblioteca
                         lvModificar.Items.Add(items);
 
                     }
-                    
+
 
                 }
 
@@ -912,6 +904,12 @@ namespace ProyBiblioteca
                     lblAtrib1.Show();
                     tbxAtrib1.Hide();
                     cbUsuariosAnadirPrestamos.Show();
+
+
+                    mtbFechaAniadirPrestamo.Enabled = false;
+                    mtbFechaAniadirPrestamo.Text = DateTime.Now.ToString("d/M/yyyy");
+
+
                 }
             }
         }
@@ -939,7 +937,7 @@ namespace ProyBiblioteca
             cbUsuariosAnadirPrestamos.Items.Clear();
             foreach (Libro l in LibrosEnStock)
             {
-                
+
                 cbLibroPresDev.Items.Add(l.Titulo);
             }
 
@@ -948,6 +946,7 @@ namespace ProyBiblioteca
                 cbUsuariosAnadirPrestamos.Items.Add(p.Nombre);
             }
         }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             switch (interfSeleccionada)
@@ -986,14 +985,14 @@ namespace ProyBiblioteca
                             cargarLibros();
 
                             // Actualizar libros
-                            ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                            ActualizaListaDeLibrosEnStockYLibrosPrestados(misTransacciones);
 
                             MessageBox.Show("El libro se ha añadido correctamente");
 
                             cambiarLvBorrar("Libro");
                         }
                     }
-                    
+
                     break;
 
                 case "Usuarios":
@@ -1084,23 +1083,23 @@ namespace ProyBiblioteca
                     break;
 
                 case "Transacciones":
-
                     try
                     {
                         String tituloLib = cbLibroPresDev.Text;
-
-                        // Siempre es la transaccion la fecha actual
-
                         DateTime fechaTransaccion = DateTime.Now;
                         Transaccion transaccion = null;
 
                         if (rbOpcion1.Checked) // SI ESTA GUARDANDO EN DEVOLUCION
                         {
-                            if (cbLibroPresDev.Text.Equals("") || mtbFechaAniadirPrestamo.MaskCompleted == false) // Si hay algún campo vacio no deja guardar
+                            if (cbLibroPresDev.Text.Equals("") || mtbFechaAniadirPrestamo.MaskCompleted == false) // Si hay algún campo vacío no deja guardar
                             {
                                 MessageBox.Show("No puedes dejar campos vacíos");
                             }
-                            else  // Si no estan vacios añade el libro  
+                            else if (!comprobarFechaValida(mtbFechaAniadirPrestamo.Text))
+                            {
+                                MessageBox.Show("La fecha debe ser igual o posterior a la actual");
+                            }
+                            else  // Si no están vacíos añade el libro  
                             {
                                 Libro libro = null;
                                 int position = 0;
@@ -1119,20 +1118,17 @@ namespace ProyBiblioteca
 
                                 string libroId = libro.IdLibro;
 
-                                //Añadir nueva devolución
+                                // Añadir nueva devolución
                                 transaccion = new Devolucion(libroId, fechaTransaccion);
 
-                                //Quitar y poner los libros en stock
-                              //  MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
+                                // Quitar y poner los libros en stock
                                 LibrosPrestados.RemoveAt(position);
-                               // MessageBox.Show(position + " titulo " + LibrosPrestados[position].Titulo);
                                 LibrosEnStock.Add(libro);
-                                MessageBox.Show("Se añadio correctamente!");
+                                MessageBox.Show("Se añadió correctamente!");
 
-                                //ACTUALIZAR LISTA Y CARGAR LOS LIBROS
-                                //ActualizaListaDeLibrosEnStockYLibrosPrestados();
+                                // ACTUALIZAR LISTA Y CARGAR LOS LIBROS
+                                // ActualizaListaDeLibrosEnStockYLibrosPrestados();
                                 cargarLibrosPrestadosCB();
-
                             }
                         }
                         else  // SI ESTA GUARDANDO PRESTAMO
@@ -1175,28 +1171,24 @@ namespace ProyBiblioteca
                                         {
                                             case Alumno alumno:
                                                 // Acciones específicas para Alumno
-                                                MessageBox.Show($"Es un Alumno: {alumno.GetType().Name}");
                                                 fechaMaxDevolucion = alumno.calcularFechaDevolucion(libro);
                                                 // Otras acciones específicas para Alumno
                                                 break;
 
                                             case Profesor profesor:
                                                 // Acciones específicas para Profesor
-                                                MessageBox.Show($"Es un Profesor: {profesor.GetType().Name}");
                                                 fechaMaxDevolucion = profesor.calcularFechaDevolucion(libro);
                                                 // Otras acciones específicas para Profesor
                                                 break;
 
                                             case PAS pas:
                                                 // Acciones específicas para PAS
-                                                MessageBox.Show($"Es un PAS: {pas.GetType().Name}");
                                                 fechaMaxDevolucion = pas.calcularFechaDevolucion(libro);
                                                 // Otras acciones específicas para PAS
                                                 break;
 
                                             default:
                                                 // Acciones por defecto o para otros tipos de Persona
-                                                MessageBox.Show($"Es otro tipo de Persona: {p.GetType().Name}");
                                                 // Otras acciones por defecto
                                                 break;
                                         }
@@ -1218,13 +1210,10 @@ namespace ProyBiblioteca
                                 string libroId = libro.IdLibro;
                                 transaccion = new Prestamo(nombreUsuario, libroId, fechaMaxDevolucion, fechaTransaccion);
 
-                                Prestamo pres = (Prestamo)transaccion;
-
-                                //Añadir la transacción
+                                // Añadir la transacción
                                 misTransacciones.Add(transaccion);
 
-                                //Quitar y poner los libros en stock
-
+                                // Quitar y poner los libros en stock
                                 LibrosEnStock.RemoveAt(position);
                                 LibrosPrestados.Add(libro);
 
@@ -1232,13 +1221,12 @@ namespace ProyBiblioteca
 
                                 MessageBox.Show("La transacción se ha añadido correctamente");
 
-                                //ACTUALIZAR LISTA, CARGAR LOS LIBROS EN STOCK Y LOS USUARIOS
+                                // ACTUALIZAR LISTA, CARGAR LOS LIBROS EN STOCK Y LOS USUARIOS
                                 // ActualizaListaDeLibrosEnStockYLibrosPrestados();
                                 cargarLibrosEnStockYUsuariosCB();
-
                             }
                         }
-                        //Escribir de las transacciones de hoy si hace falta
+                        // Escribir de las transacciones de hoy si hace falta
                         escribirFecha();
                         // Escribir la transacción en el fichero
                         escribirTransaccion(transaccion);
@@ -1251,10 +1239,26 @@ namespace ProyBiblioteca
                     }
                     break;
 
+
                 default:
                     break;
             }
-            btnLimpiar_Click(sender,e);
+            btnLimpiar_Click(sender, e);
+        }
+
+
+        private bool comprobarFechaValida(string textoFecha)
+        {
+            // Suponiendo que el formato de la máscara es "d/MM/yyyy"
+            string cadenaFecha = textoFecha.Replace("_", "0");
+
+            if (DateTime.TryParseExact(cadenaFecha, "d/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaIngresada))
+            {
+                // Verificar si la fecha ingresada es mayor o igual a la fecha actual
+                return fechaIngresada.Date >= DateTime.Now.Date;
+            }
+
+            return false;
         }
 
         //Método que comprueba si el id parámetro ya existeID en la colección de libros
@@ -1413,7 +1417,7 @@ namespace ProyBiblioteca
                 string idLibro = p.IdLibro;  // Asegúrate de que la propiedad sea IdLibroPrestado
                 string fechaDev = p.FechaMaxDevolucion.ToString("d/M/yyyy");
 
-                string linea = "prestamo " + usuario + ", " + idLibro + ", " + "#" + fechaDev + "#";
+                string linea = "prestamo " + usuario + "," + idLibro + ", " + "#" + fechaDev + "#";
 
                 // Añadir al fichero de transacciones la fecha actual
                 using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt"))
@@ -1427,7 +1431,7 @@ namespace ProyBiblioteca
 
                 string idLibro = d.IdLibro;  // Asegúrate de que la propiedad sea IdLibro
 
-                string linea = "devolucion " + idLibro;
+                string linea = "devolucion" + idLibro;
 
                 // Añadir al fichero de transacciones la fecha actual
                 using (StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + "\\ficheros\\transacciones.txt"))
@@ -1444,15 +1448,15 @@ namespace ProyBiblioteca
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "ficheros", "libros.txt");
 
             // Lectura de todas las líneas del archivo
-            string[] lines = File.ReadAllLines(filePath);
+            List<string> lines = new List<string>(File.ReadAllLines(filePath));
 
             // Búsqueda del título del libro en cada línea
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 if (lines[i].Contains(tituloLibro))
                 {
                     // Si se encuentra el título, se elimina la línea
-                    lines[i] = string.Empty;
+                    lines.RemoveAt(i);
                     break;
                 }
             }
@@ -1490,9 +1494,24 @@ namespace ProyBiblioteca
 
         private void borrarTransaccion(Transaccion transaccion)
         {
-            string idLibroTransaccion = transaccion.IdLibro;
-        }
+            string idLibro = transaccion.IdLibro;
+            // Ruta del archivo transacciones.txt
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "ficheros", "transacciones.txt");
 
+            // Lectura de todas las líneas del archivo
+            List<string> lines = new List<string>(File.ReadAllLines(filePath));
+
+            // Búsqueda del nombre de la transaccion en cada línea
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i].Contains(idLibro))
+                {
+                    // Si se encuentra, se elimina la línea
+                    lines.RemoveAt(i);
+                }
+            }
+
+        }
 
 
         //Método para borrar 
@@ -1521,9 +1540,47 @@ namespace ProyBiblioteca
 
                             }
                         }
+
+                        //Borrar transacciones con ese IDLibro
+                        for (int i = misTransacciones.Count - 1; i >= 0; i--)
+                        {
+                            Transaccion t = misTransacciones[i];
+
+                            if (t.IdLibro.Equals(libBorrar.IdLibro))
+                            {
+                                misTransacciones.RemoveAt(i);
+                            }
+                        }
+
+
+                        foreach (Transaccion item in misTransacciones)
+                        {
+                            if (item.IdLibro.Equals(libBorrar.IdLibro))
+                            {
+                                borrarTransaccion(item);
+                            }
+                        }
+
+
+
                         misLibros.Remove(libBorrar);
                         borrarLibro(libBorrar); // Llamada al método de borrar libro
-                        ActualizaListaDeLibrosEnStockYLibrosPrestados();
+
+
+                        //Recargar todo
+                        cargarInterfazLibros();
+                        cargarLibros();
+
+                        cargarTransacciones();
+
+                        ActualizaListaDeLibrosEnStockYLibrosPrestados(misTransacciones);
+
+
+                        cargarLibrosEnStockYUsuariosCB();
+                        cargarLibrosPrestadosCB();
+
+
+
                     }
                     else if (interfSeleccionada.Equals("Usuarios"))
                     {
@@ -1539,6 +1596,9 @@ namespace ProyBiblioteca
                         misUsuarios.Remove(persBorrar);
 
                         borrarPersona(persBorrar); // Llamada al método de borrar persona
+
+                        cargarInterfazLibros();
+
 
                     }
                     else
@@ -1715,7 +1775,7 @@ namespace ProyBiblioteca
             }
         }
 
-            private void CargarDatosLibros()
+        private void CargarDatosLibros()
         {
             // Cargar datos de libros en el ListView
             lvModificar.Items.Clear();
@@ -1899,7 +1959,7 @@ namespace ProyBiblioteca
                         {
                             lviAux.SubItems.Add("-");
                         }
-                        else 
+                        else
                         {
                             lviAux.SubItems.Add(per.FechaSancion.ToString("dd/M/yyyy"));
                         }
@@ -2038,7 +2098,7 @@ namespace ProyBiblioteca
             lvPrestamos.Items.Add(lvi);
         }
 
-       
+
     }
 }
 

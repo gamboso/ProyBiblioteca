@@ -80,6 +80,41 @@ Profesor: 30 días si está en sala, y 45 si está en almacen.*/
             return DateTime.MinValue;
         }
 
+        public void calcularFechaSancion(DateTime fechaDevolucion)
+        {
+            if (fechaDevolucion > DateTime.Now)
+            {
+                // No hay retraso, no se aplica sanción
+                return;
+            }
+
+            // Calcular días de retraso
+            int diasRetraso = (int)(DateTime.Now - fechaDevolucion).TotalDays;
+
+            // Aplicar sanción según el tipo de usuario
+            switch (this)
+            {
+                case Alumno alumno:
+                    // Sanción para Alumno: nº días de retraso * 7
+                    alumno.FechaSancion = DateTime.Now.AddDays(diasRetraso * 7);
+                    break;
+
+                case Profesor profesor:
+                    // Sanción para Profesor: nº días de retraso * 2
+                    profesor.FechaSancion = DateTime.Now.AddDays(diasRetraso * 2);
+                    break;
+
+                case PAS pas:
+                    // Sanción para PAS: nº días de retraso * 3
+                    pas.FechaSancion = DateTime.Now.AddDays(diasRetraso * 3);
+                    break;
+
+                default:
+                    // Otro tipo de Persona, no se aplica sanción
+                    break;
+            }
+        }
+
         public void calcularFechaSancion()
         {
 
