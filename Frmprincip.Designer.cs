@@ -54,13 +54,13 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.tpBorrado = new System.Windows.Forms.TabPage();
-            this.lblFechaBorrarPrestamo = new System.Windows.Forms.Label();
-            this.mtbFechaBorrarPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.lvBorrar = new System.Windows.Forms.ListView();
             this.ilProfesoresAlumnosPAS = new System.Windows.Forms.ImageList(this.components);
             this.lblBorrar = new System.Windows.Forms.Label();
             this.pcb2Modo = new System.Windows.Forms.PictureBox();
             this.tpModificado = new System.Windows.Forms.TabPage();
+            this.txtAtr22 = new System.Windows.Forms.TextBox();
+            this.txtAtr13 = new System.Windows.Forms.TextBox();
             this.btnGuardarMod = new System.Windows.Forms.Button();
             this.masked2Atr3 = new System.Windows.Forms.MaskedTextBox();
             this.maskedAtr3 = new System.Windows.Forms.MaskedTextBox();
@@ -71,8 +71,6 @@
             this.lblAtr3 = new System.Windows.Forms.Label();
             this.lbAtr2 = new System.Windows.Forms.Label();
             this.lbAtr1 = new System.Windows.Forms.Label();
-            this.lblFechaModificarPrestamo = new System.Windows.Forms.Label();
-            this.mtbFechaModificarPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.lblModificar = new System.Windows.Forms.Label();
             this.lvModificar = new System.Windows.Forms.ListView();
             this.pcb3Modo = new System.Windows.Forms.PictureBox();
@@ -101,8 +99,10 @@
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ilPrestamos = new System.Windows.Forms.ImageList(this.components);
-            this.txtAtr13 = new System.Windows.Forms.TextBox();
-            this.txtAtr22 = new System.Windows.Forms.TextBox();
+            this.lblFechaBorrarPrestamo = new System.Windows.Forms.Label();
+            this.mtbFechaBorrarPrestamo = new System.Windows.Forms.MaskedTextBox();
+            this.lblFechaModificarPrestamo = new System.Windows.Forms.Label();
+            this.mtbFechaModificarPrestamo = new System.Windows.Forms.MaskedTextBox();
             this.toolStripIconosIniciales.SuspendLayout();
             this.tcOpciones.SuspendLayout();
             this.tpAñadir.SuspendLayout();
@@ -395,24 +395,6 @@
             this.tpBorrado.Text = "Borrar";
             this.tpBorrado.UseVisualStyleBackColor = true;
             // 
-            // lblFechaBorrarPrestamo
-            // 
-            this.lblFechaBorrarPrestamo.AutoSize = true;
-            this.lblFechaBorrarPrestamo.Location = new System.Drawing.Point(261, 71);
-            this.lblFechaBorrarPrestamo.Name = "lblFechaBorrarPrestamo";
-            this.lblFechaBorrarPrestamo.Size = new System.Drawing.Size(46, 15);
-            this.lblFechaBorrarPrestamo.TabIndex = 19;
-            this.lblFechaBorrarPrestamo.Text = "Fecha:";
-            // 
-            // mtbFechaBorrarPrestamo
-            // 
-            this.mtbFechaBorrarPrestamo.Location = new System.Drawing.Point(313, 64);
-            this.mtbFechaBorrarPrestamo.Mask = "00/00/0000";
-            this.mtbFechaBorrarPrestamo.Name = "mtbFechaBorrarPrestamo";
-            this.mtbFechaBorrarPrestamo.Size = new System.Drawing.Size(100, 22);
-            this.mtbFechaBorrarPrestamo.TabIndex = 18;
-            this.mtbFechaBorrarPrestamo.ValidatingType = typeof(System.DateTime);
-            // 
             // lvBorrar
             // 
             this.lvBorrar.HideSelection = false;
@@ -479,6 +461,20 @@
             this.tpModificado.TabIndex = 2;
             this.tpModificado.Text = "Modificar";
             this.tpModificado.UseVisualStyleBackColor = true;
+            // 
+            // txtAtr22
+            // 
+            this.txtAtr22.Location = new System.Drawing.Point(1033, 247);
+            this.txtAtr22.Name = "txtAtr22";
+            this.txtAtr22.Size = new System.Drawing.Size(129, 22);
+            this.txtAtr22.TabIndex = 33;
+            // 
+            // txtAtr13
+            // 
+            this.txtAtr13.Location = new System.Drawing.Point(1033, 187);
+            this.txtAtr13.Name = "txtAtr13";
+            this.txtAtr13.Size = new System.Drawing.Size(129, 22);
+            this.txtAtr13.TabIndex = 32;
             // 
             // btnGuardarMod
             // 
@@ -564,24 +560,6 @@
             this.lbAtr1.Size = new System.Drawing.Size(65, 15);
             this.lbAtr1.TabIndex = 22;
             this.lbAtr1.Text = "Atributo1";
-            // 
-            // lblFechaModificarPrestamo
-            // 
-            this.lblFechaModificarPrestamo.AutoSize = true;
-            this.lblFechaModificarPrestamo.Location = new System.Drawing.Point(262, 70);
-            this.lblFechaModificarPrestamo.Name = "lblFechaModificarPrestamo";
-            this.lblFechaModificarPrestamo.Size = new System.Drawing.Size(46, 15);
-            this.lblFechaModificarPrestamo.TabIndex = 21;
-            this.lblFechaModificarPrestamo.Text = "Fecha:";
-            // 
-            // mtbFechaModificarPrestamo
-            // 
-            this.mtbFechaModificarPrestamo.Location = new System.Drawing.Point(314, 63);
-            this.mtbFechaModificarPrestamo.Mask = "00/00/0000";
-            this.mtbFechaModificarPrestamo.Name = "mtbFechaModificarPrestamo";
-            this.mtbFechaModificarPrestamo.Size = new System.Drawing.Size(100, 22);
-            this.mtbFechaModificarPrestamo.TabIndex = 20;
-            this.mtbFechaModificarPrestamo.ValidatingType = typeof(System.DateTime);
             // 
             // lblModificar
             // 
@@ -840,19 +818,41 @@
             this.ilPrestamos.Images.SetKeyName(0, "libroDevuelto.png");
             this.ilPrestamos.Images.SetKeyName(1, "libroPrestado.png");
             // 
-            // txtAtr13
+            // lblFechaBorrarPrestamo
             // 
-            this.txtAtr13.Location = new System.Drawing.Point(1033, 187);
-            this.txtAtr13.Name = "txtAtr13";
-            this.txtAtr13.Size = new System.Drawing.Size(129, 22);
-            this.txtAtr13.TabIndex = 32;
+            this.lblFechaBorrarPrestamo.AutoSize = true;
+            this.lblFechaBorrarPrestamo.Location = new System.Drawing.Point(261, 71);
+            this.lblFechaBorrarPrestamo.Name = "lblFechaBorrarPrestamo";
+            this.lblFechaBorrarPrestamo.Size = new System.Drawing.Size(46, 15);
+            this.lblFechaBorrarPrestamo.TabIndex = 19;
+            this.lblFechaBorrarPrestamo.Text = "Fecha:";
             // 
-            // txtAtr22
+            // mtbFechaBorrarPrestamo
             // 
-            this.txtAtr22.Location = new System.Drawing.Point(1033, 247);
-            this.txtAtr22.Name = "txtAtr22";
-            this.txtAtr22.Size = new System.Drawing.Size(129, 22);
-            this.txtAtr22.TabIndex = 33;
+            this.mtbFechaBorrarPrestamo.Location = new System.Drawing.Point(313, 64);
+            this.mtbFechaBorrarPrestamo.Mask = "00/00/0000";
+            this.mtbFechaBorrarPrestamo.Name = "mtbFechaBorrarPrestamo";
+            this.mtbFechaBorrarPrestamo.Size = new System.Drawing.Size(100, 22);
+            this.mtbFechaBorrarPrestamo.TabIndex = 18;
+            this.mtbFechaBorrarPrestamo.ValidatingType = typeof(System.DateTime);
+            // 
+            // lblFechaModificarPrestamo
+            // 
+            this.lblFechaModificarPrestamo.AutoSize = true;
+            this.lblFechaModificarPrestamo.Location = new System.Drawing.Point(262, 70);
+            this.lblFechaModificarPrestamo.Name = "lblFechaModificarPrestamo";
+            this.lblFechaModificarPrestamo.Size = new System.Drawing.Size(46, 15);
+            this.lblFechaModificarPrestamo.TabIndex = 21;
+            this.lblFechaModificarPrestamo.Text = "Fecha:";
+            // 
+            // mtbFechaModificarPrestamo
+            // 
+            this.mtbFechaModificarPrestamo.Location = new System.Drawing.Point(314, 63);
+            this.mtbFechaModificarPrestamo.Mask = "00/00/0000";
+            this.mtbFechaModificarPrestamo.Name = "mtbFechaModificarPrestamo";
+            this.mtbFechaModificarPrestamo.Size = new System.Drawing.Size(100, 22);
+            this.mtbFechaModificarPrestamo.TabIndex = 20;
+            this.mtbFechaModificarPrestamo.ValidatingType = typeof(System.DateTime);
             // 
             // FrmBiblio
             // 
@@ -933,10 +933,6 @@
         private System.Windows.Forms.ListView lvModificar;
         private System.Windows.Forms.Label lblBorrar;
         private System.Windows.Forms.ListView lvBorrar;
-        private System.Windows.Forms.Label lblFechaBorrarPrestamo;
-        private System.Windows.Forms.MaskedTextBox mtbFechaBorrarPrestamo;
-        private System.Windows.Forms.Label lblFechaModificarPrestamo;
-        private System.Windows.Forms.MaskedTextBox mtbFechaModificarPrestamo;
         private System.Windows.Forms.ImageList ilProfesoresAlumnosPAS;
         private System.Windows.Forms.ImageList ilPrestamos;
         private System.Windows.Forms.MaskedTextBox mtbFechaAniadirPrestamo;
@@ -965,6 +961,10 @@
         private System.Windows.Forms.Label lbAtr1;
         private System.Windows.Forms.TextBox txtAtr22;
         private System.Windows.Forms.TextBox txtAtr13;
+        private System.Windows.Forms.Label lblFechaBorrarPrestamo;
+        private System.Windows.Forms.MaskedTextBox mtbFechaBorrarPrestamo;
+        private System.Windows.Forms.Label lblFechaModificarPrestamo;
+        private System.Windows.Forms.MaskedTextBox mtbFechaModificarPrestamo;
     }
 }
 

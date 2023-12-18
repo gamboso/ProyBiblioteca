@@ -71,11 +71,24 @@ namespace ProyBiblioteca
 
                 if (estaPrestado)
                 {
-                    LibrosPrestados.Add(l);
-                    Console.WriteLine("Libro Prestado: " + l.Titulo);
+                    if (l.Titulo.Equals("")) { }
+                    else 
+                    {
+                        LibrosPrestados.Add(l);
+                        Console.WriteLine("Libro Prestado: " + l.Titulo);
+
+                    }
+                    
                 }
                 else
                 {
+                    if (l.Titulo.Equals("")) { }
+                    else
+                    {
+                        LibrosPrestados.Add(l);
+                        Console.WriteLine("Libro Prestado: " + l.Titulo);
+
+                    }
                     LibrosEnStock.Add(l);
                     Console.WriteLine("Libro en Stock: " + l.Titulo);
                 }
@@ -665,14 +678,23 @@ namespace ProyBiblioteca
             {
                 foreach (Libro l in misLibros)
                 {
-                    lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
-                    lvModificar.SmallImageList = ilProfesoresAlumnosPAS;
 
-                    ListViewItem item = new ListViewItem(l.Titulo, 3);
-                    ListViewItem items = new ListViewItem(l.Titulo, 3);
+                    if (l.Titulo.Equals(""))
+                    {
+                       
+                    }
+                    else {
+                        lvBorrar.SmallImageList = ilProfesoresAlumnosPAS;
+                        lvModificar.SmallImageList = ilProfesoresAlumnosPAS;
 
-                    lvBorrar.Items.Add(item);
-                    lvModificar.Items.Add(items);
+                        ListViewItem item = new ListViewItem(l.Titulo, 3);
+                        ListViewItem items = new ListViewItem(l.Titulo, 3);
+
+                        lvBorrar.Items.Add(item);
+                        lvModificar.Items.Add(items);
+
+                    }
+                    
 
                 }
 
@@ -725,17 +747,17 @@ namespace ProyBiblioteca
                     Console.WriteLine(resultadoclase);
                     if (resultadoclase.Equals("PAS"))
                     {
-                        ListViewItem item = new ListViewItem(p.Nombre, 1);
+                        ListViewItem item = new ListViewItem(p.Nombre, 2);
                         lvBorrar.Items.Add(item);
-                        ListViewItem items = new ListViewItem(p.Nombre, 1);
+                        ListViewItem items = new ListViewItem(p.Nombre, 2);
                         lvModificar.Items.Add(items);
                     }
                     else if (resultadoclase.Equals("Alumno"))
                     {
 
-                        ListViewItem item = new ListViewItem(p.Nombre, 2);
+                        ListViewItem item = new ListViewItem(p.Nombre, 1);
                         lvBorrar.Items.Add(item);
-                        ListViewItem items = new ListViewItem(p.Nombre, 2);
+                        ListViewItem items = new ListViewItem(p.Nombre, 1);
                         lvModificar.Items.Add(items);
 
                     }
@@ -917,6 +939,7 @@ namespace ProyBiblioteca
             cbUsuariosAnadirPrestamos.Items.Clear();
             foreach (Libro l in LibrosEnStock)
             {
+                
                 cbLibroPresDev.Items.Add(l.Titulo);
             }
 
@@ -950,9 +973,10 @@ namespace ProyBiblioteca
                             MessageBox.Show("¡Vaya! El ID del libro ya existe");
                         }
                         else
+
                         {
                             Libro l = new Libro(ubicacion, titulo, idLibro);
-                            //Añadir el libro a la lista
+                            //Añadir el libro a la lista y 
                             misLibros.Add(l);
 
                             //Escribir libros al fichero
@@ -965,8 +989,11 @@ namespace ProyBiblioteca
                             ActualizaListaDeLibrosEnStockYLibrosPrestados();
 
                             MessageBox.Show("El libro se ha añadido correctamente");
+
+                            cambiarLvBorrar("Libro");
                         }
                     }
+                    
                     break;
 
                 case "Usuarios":
@@ -1016,6 +1043,7 @@ namespace ProyBiblioteca
                                     //Recargar lista de usuarios
                                     cargarUsuarios();
 
+                                    cambiarLvBorrar("Persona");
                                 }
                                 else
                                 {
@@ -1046,6 +1074,8 @@ namespace ProyBiblioteca
 
                                 //Cargar usuarios
                                 cargarUsuarios();
+
+                                cambiarLvBorrar("Persona");
 
                             }
                             MessageBox.Show("El usuario se ha añadido correctamente");
@@ -1212,6 +1242,8 @@ namespace ProyBiblioteca
                         escribirFecha();
                         // Escribir la transacción en el fichero
                         escribirTransaccion(transaccion);
+
+                        cambiarLvBorrar("Transaccion");
                     }
                     catch (Exception)
                     {
@@ -1222,6 +1254,7 @@ namespace ProyBiblioteca
                 default:
                     break;
             }
+            btnLimpiar_Click(sender,e);
         }
 
         //Método que comprueba si el id parámetro ya existeID en la colección de libros
@@ -1231,6 +1264,10 @@ namespace ProyBiblioteca
             Boolean existeID = false;
             foreach (Libro l in misLibros)
             {
+                if (l.IdLibro == "")
+                {
+                    l.IdLibro = "1";
+                }
                 if (int.Parse(l.IdLibro) == int.Parse(id))
                 {
                     existeID = true;
@@ -1486,6 +1523,7 @@ namespace ProyBiblioteca
                         }
                         misLibros.Remove(libBorrar);
                         borrarLibro(libBorrar); // Llamada al método de borrar libro
+                        ActualizaListaDeLibrosEnStockYLibrosPrestados();
                     }
                     else if (interfSeleccionada.Equals("Usuarios"))
                     {
@@ -2000,7 +2038,7 @@ namespace ProyBiblioteca
             lvPrestamos.Items.Add(lvi);
         }
 
-
+       
     }
 }
 

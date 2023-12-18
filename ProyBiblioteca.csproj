@@ -47,12 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alumno.cs" />
-    <Compile Include="Datos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Datos.Designer.cs">
-      <DependentUpon>Datos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Devolucion.cs" />
     <Compile Include="FrmPrincip.cs">
       <SubType>Form</SubType>
@@ -69,9 +63,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Persona.cs" />
-    <EmbeddedResource Include="Datos.resx">
-      <DependentUpon>Datos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Frmprincip.resx">
       <DependentUpon>FrmPrincip.cs</DependentUpon>
     </EmbeddedResource>
